@@ -28,6 +28,7 @@
         .estrategias { background: #e8f5e8; }
         button.enviar { background: #28a745; color: white; padding: 15px 40px; border: none; border-radius: 10px; font-size: 1.2em; cursor: pointer; display: block; margin: 30px auto; }
         button.enviar:hover { background: #218838; }
+        button.enviar:disabled { background: #ccc; cursor: not-allowed; }
         @media (max-width: 768px) { body { padding: 10px; } h1 { font-size: 2em; } }
     </style>
 </head>
@@ -45,7 +46,7 @@
 
     <section id="dados-aula4">
         <h2>☁️ Nuvem de Sonhos da Turma (Aula 4)</h2>
-        <p>Vocês pediram diálogo! Aqui os destaques da roda de 2045 (baseado em +150 respostas [file:3]). Lúdico: veja onde a turma sonha alto!</p>
+        <p>Vocês pediram diálogo! Aqui os destaques da roda de 2045 (baseado em +150 respostas). Lúdico: veja onde a turma sonha alto!</p>
         <div class="ludico">
             <canvas id="graficoSonhos"></canvas>
             <div class="quiz">
@@ -73,43 +74,88 @@
 
     <section class="estrategias">
         <h2>🎯 Estratégias para o Presente (2 por Área)</h2>
-        <p>Escolha as de menor nota. Pratique 1-2/semana. Prioridade Guia Aplicador [file:2]: ativação comportamental, diário, voluntariado. Exemplos adaptados (Manaus, família diversa).</p>
+        <p>Escolha as de menor nota. Pratique 1-2/semana. Prioridade Guia Aplicador: ativação comportamental, diário, voluntariado. Exemplos adaptados (Manaus, família diversa).</p>
         <table>
             <tr><th>Área</th><th>Estratégia 1</th><th>Exemplo Prático</th><th>Estratégia 2</th><th>Exemplo Prático</th></tr>
-            <tr><td>Carreira/Intelectual</td><td>Micro-Learning (ativação)</td><td>Se futuro = pós-doutorado, hoje: 15min/dia lendo artigo app (ex: Duolingo após almoço).</td><td>Programação de Atividades</td><td>Agende 20min estudo (ex: Khan Academy após escola, como Guia [file:2]).</td></tr>
-            <tr><td>Finanças</td><td>Regra dos 10%</td><td>Poupe R$2/dia (ex: app PicPay, hábito antes de lanche rua).</td><td>Lista de Problemas/Soluções</td><td>Liste gastos (ex: ônibus Manaus), corte 1 (Guia [file:2]).</td></tr>
-            <tr><td>Saúde/Corpo</td><td>Ancoragem de Hábitos</td><td>Após escola (hábito antigo), 15min caminhada Tarumã (novo).</td><td>Ativação Comportamental</td><td>Liste 3 atividades paz (ex: alongamento pós-aula, Guia [file:2]).</td></tr>
-            <tr><td>Emocional</td><td>Diário de Bordo/Check-in</td><td>Escreva 3 sentimentos fim-dia (ex: "trânsito irritou, mas família ajudou").</td><td>Tons de Cinza/Flexibilidade</td><td>Desafie "tudo ruim" (ex: "nota baixa? Amanhã melhoro", Guia [file:2]).</td></tr>
-            <tr><td>Relacionamentos</td><td>Escuta Ativa (duplas)</td><td>Converse 10min sem celular (ex: ouça irmão sem interromper).</td><td>Menu de Enfrentamento</td><td>Planeje saída amigo (ex: praça pública Manaus, Guia [file:2]).</td></tr>
-            <tr><td>Espiritualidade/Contribuição</td><td>Voluntariado Próximo</td><td>Ajude família/escola (ex: organize material amigo).</td><td>Valores + Comportamentos</td><td>Alinhe 1 ato/dia valor (ex: agradeça natureza rio, Guia [file:2]).</td></tr>
+            <tr><td>Carreira/Intelectual</td><td>Micro-Learning (ativação)</td><td>Se futuro = pós-doutorado, hoje: 15min/dia lendo artigo app (ex: Duolingo após almoço).</td><td>Programação de Atividades</td><td>Agende 20min estudo (ex: Khan Academy após escola).</td></tr>
+            <tr><td>Finanças</td><td>Regra dos 10%</td><td>Poupe R$2/dia (ex: app PicPay, hábito antes de lanche rua).</td><td>Lista de Problemas/Soluções</td><td>Liste gastos (ex: ônibus Manaus), corte 1.</td></tr>
+            <tr><td>Saúde/Corpo</td><td>Ancoragem de Hábitos</td><td>Após escola (hábito antigo), 15min caminhada Tarumã (novo).</td><td>Ativação Comportamental</td><td>Liste 3 atividades paz (ex: alongamento pós-aula).</td></tr>
+            <tr><td>Emocional</td><td>Diário de Bordo/Check-in</td><td>Escreva 3 sentimentos fim-dia (ex: "trânsito irritou, mas família ajudou").</td><td>Tons de Cinza/Flexibilidade</td><td>Desafie "tudo ruim" (ex: "nota baixa? Amanhã melhoro").</td></tr>
+            <tr><td>Relacionamentos</td><td>Escuta Ativa (duplas)</td><td>Converse 10min sem celular (ex: ouça irmão sem interromper).</td><td>Menu de Enfrentamento</td><td>Planeje saída amigo (ex: praça pública Manaus).</td></tr>
+            <tr><td>Espiritualidade/Contribuição</td><td>Voluntariado Próximo</td><td>Ajude família/escola (ex: organize material amigo).</td><td>Valores + Comportamentos</td><td>Alinhe 1 ato/dia valor (ex: agradeça natureza rio).</td></tr>
         </table>
     </section>
 
-    <button class="enviar" onclick="salvarRespostas()">📤 Enviar Respostas & Salvar no Sheets</button>
+    <button class="enviar" id="btnEnviar" onclick="salvarRespostas()">📤 Enviar Respostas & Salvar no Sheets</button>
 
     <script>
-        // Gráfico lúdico Aula 4 [file:3]
+        // Gráfico lúdico Aula 4
         const ctx = document.getElementById('graficoSonhos').getContext('2d');
-        new Chart(ctx, { type: 'doughnut', data: { labels: ['Saúde/Tech (60%)', 'Viagens (70%)', 'Família (80%)', 'Renda Alta (50%)'], datasets: [{ data: [60,70,80,50], backgroundColor: ['#4a90e2','#28a745','#ffc107','#ff6b6b'] }] }, options: { responsive: true } });
+        new Chart(ctx, { 
+            type: 'doughnut', 
+            data: { 
+                labels: ['Saúde/Tech (60%)', 'Viagens (70%)', 'Família (80%)', 'Renda Alta (50%)'], 
+                datasets: [{ 
+                    data: [60,70,80,50], 
+                    backgroundColor: ['#4a90e2','#28a745','#ffc107','#ff6b6b'] 
+                }] 
+            }, 
+            options: { responsive: true } 
+        });
 
-        function quizMatch(op) { document.getElementById('resultadoQuiz').innerHTML = `Ótimo match com ${op.toUpperCase()}! Turma sonha igual você!`; }
+        function quizMatch(op) { 
+            document.getElementById('resultadoQuiz').innerHTML = `Ótimo match com ${op.toUpperCase()}! Turma sonha igual você!`; 
+        }
 
-        function salvarRespostas() {
-            const dados = {
-                nome: document.getElementById('nome').value,
-                ra: document.getElementById('ra').value,
-                turma: document.getElementById('turma').value,
-                carreiraAtual: document.getElementById('carreiraAtual').value,
-                financasAtual: document.getElementById('financasAtual').value,
-                saudeAtual: document.getElementById('saudeAtual').value,
-                emocionalAtual: document.getElementById('emocionalAtual').value,
-                relacionamentosAtual: document.getElementById('relacionamentosAtual').value,
-                espiritualAtual: document.getElementById('espiritualAtual').value,
-                timestamp: new Date().toLocaleString('pt-BR')
-            };
-            // Integração Sheets: Substitua pela sua URL/script Google Apps Script
-            fetch('https://script.google.com/macros/SEU_SCRIPT_ID/exec', { method: 'POST', body: JSON.stringify(dados) })
-                .then(() => alert('Salvo! Veja resultados em https://sheets.google.com/SEU_SHEET'));
+        // SUA URL CORRIGIDA DO GOOGLE APPS SCRIPT
+        const URL_SHEETS = 'https://script.google.com/macros/s/AKfycbwySsqBwaAOVAMlPKrIWCNN-ABJfDIuovYUK8GMDUbz8wcv6pkdKwMJjIDAw5ED4U99/exec';
+
+        async function salvarRespostas() {
+            const btn = document.getElementById('btnEnviar');
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
+
+            try {
+                // Validação dos campos obrigatórios
+                const nome = document.getElementById('nome').value.trim();
+                const ra = document.getElementById('ra').value.trim();
+                const turma = document.getElementById('turma').value.trim();
+
+                if (!nome || !ra || !turma) {
+                    throw new Error('Por favor, preencha Nome, RA e Turma!');
+                }
+
+                const dados = {
+                    nome: nome,
+                    ra: ra,
+                    turma: turma,
+                    carreiraAtual: document.getElementById('carreiraAtual').value || 0,
+                    financasAtual: document.getElementById('financasAtual').value || 0,
+                    saudeAtual: document.getElementById('saudeAtual').value || 0,
+                    emocionalAtual: document.getElementById('emocionalAtual').value || 0,
+                    relacionamentosAtual: document.getElementById('relacionamentosAtual').value || 0,
+                    espiritualAtual: document.getElementById('espiritualAtual').value || 0,
+                    timestamp: new Date().toLocaleString('pt-BR')
+                };
+
+                const response = await fetch(URL_SHEETS, {
+                    method: 'POST',
+                    mode: 'no-cors', // Necessário para Google Apps Script
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(dados)
+                });
+
+                alert('✅ Respostas salvas com sucesso no Google Sheets!\n\nVeja os resultados com o professor.');
+                
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('❌ Erro ao enviar. Verifique sua conexão e tente novamente.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '📤 Enviar Respostas & Salvar no Sheets';
+            }
         }
     </script>
 </body>
