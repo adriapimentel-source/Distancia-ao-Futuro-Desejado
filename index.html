@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 5 - 2º Ano Projeto de Vida: Distância ao Futuro Desejado</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); color: #333; }
+        header { text-align: center; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        h1 { color: #4a90e2; font-size: 2.5em; margin: 0; }
+        .config { background: #e8f4fd; padding: 20px; border-radius: 15px; margin: 20px 0; }
+        .config input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; }
+        section { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin: 30px 0; }
+        h2 { color: #4a90e2; border-bottom: 3px solid #4a90e2; padding-bottom: 10px; }
+        .ludico { text-align: center; }
+        canvas { max-height: 400px; margin: 20px 0; }
+        .quiz { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .quiz button { background: #4a90e2; color: white; padding: 15px 30px; border: none; border-radius: 10px; cursor: pointer; font-size: 1.1em; }
+        .quiz button:hover { background: #357abd; }
+        .roda { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin: 20px 0; }
+        .dimensao { background: #f0f8ff; padding: 20px; border-radius: 15px; text-align: center; }
+        .dimensao input { width: 60px; font-size: 2em; border: none; background: none; text-align: center; }
+        .dimensao input:focus { outline: none; background: #e3f2fd; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #4a90e2; color: white; }
+        .estrategias { background: #e8f5e8; }
+        button.enviar { background: #28a745; color: white; padding: 15px 40px; border: none; border-radius: 10px; font-size: 1.2em; cursor: pointer; display: block; margin: 30px auto; }
+        button.enviar:hover { background: #218838; }
+        @media (max-width: 768px) { body { padding: 10px; } h1 { font-size: 2em; } }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🛤️ Aula 5 - Distância ao Futuro Desejado (2º Ano)</h1>
+        <p>Identifique a distância entre HOJE e 2045. Gere valor no presente com estratégias práticas!</p>
+        <div class="config">
+            <label>Nome: <input type="text" id="nome" placeholder="Seu nome" required></label><br>
+            <label>RA: <input type="text" id="ra" placeholder="Seu RA" required></label><br>
+            <label>Turma: <input type="text" id="turma" placeholder="Ex: 2AB" required></label><br>
+            <p><strong>Público:</strong> 2º Ano EM Técnico, Manaus/AM - Diverso: etnias, gêneros, realidades socioeconômicas. Linguagem inclusiva, exemplos reais (ex: trânsito Manaus, família grande).</p>
+        </div>
+    </header>
+
+    <section id="dados-aula4">
+        <h2>☁️ Nuvem de Sonhos da Turma (Aula 4)</h2>
+        <p>Vocês pediram diálogo! Aqui os destaques da roda de 2045 (baseado em +150 respostas [file:3]). Lúdico: veja onde a turma sonha alto!</p>
+        <div class="ludico">
+            <canvas id="graficoSonhos"></canvas>
+            <div class="quiz">
+                <button onclick="quizMatch('saude')">Eu sonho com saúde/tech como 60% da turma?</button>
+                <button onclick="quizMatch('viagens')">Viagens/investimentos (70%) é meu foco?</button>
+                <button onclick="quizMatch('familia')">Família próxima (80%) me representa?</button>
+            </div>
+            <p id="resultadoQuiz"></p>
+        </div>
+    </section>
+
+    <section id="avaliacao">
+        <h2>📏 Avalie sua Roda Hoje (0-10)</h2>
+        <p>Preencha como está AGORA vs sua nota da Aula 4 (2045). Distância = Futuro - Presente. Ex: Carreira 8 (futuro) - 4 (hoje) = 4 pontos a ganhar!</p>
+        <div class="roda" id="roda">
+            <div class="dimensao"><strong>Carreira/Intelectual</strong><br><input type="number" id="carreiraAtual" min="0" max="10" value="5"><br>Hoje</div>
+            <div class="dimensao"><strong>Finanças</strong><br><input type="number" id="financasAtual" min="0" max="10" value="5"><br>Hoje</div>
+            <div class="dimensao"><strong>Saúde/Corpo</strong><br><input type="number" id="saudeAtual" min="0" max="10" value="5"><br>Hoje</div>
+            <div class="dimensao"><strong>Emocional</strong><br><input type="number" id="emocionalAtual" min="0" max="10" value="5"><br>Hoje</div>
+            <div class="dimensao"><strong>Relacionamentos</strong><br><input type="number" id="relacionamentosAtual" min="0" max="10" value="5"><br>Hoje</div>
+            <div class="dimensao"><strong>Espiritualidade/Contribuição</strong><br><input type="number" id="espiritualAtual" min="0" max="10" value="5"><br>Hoje</div>
+        </div>
+        <p><strong>Áreas com maior distância (menor coeficiente):</strong> Foco nelas agora para gerar valor!</p>
+    </section>
+
+    <section class="estrategias">
+        <h2>🎯 Estratégias para o Presente (2 por Área)</h2>
+        <p>Escolha as de menor nota. Pratique 1-2/semana. Prioridade Guia Aplicador [file:2]: ativação comportamental, diário, voluntariado. Exemplos adaptados (Manaus, família diversa).</p>
+        <table>
+            <tr><th>Área</th><th>Estratégia 1</th><th>Exemplo Prático</th><th>Estratégia 2</th><th>Exemplo Prático</th></tr>
+            <tr><td>Carreira/Intelectual</td><td>Micro-Learning (ativação)</td><td>Se futuro = pós-doutorado, hoje: 15min/dia lendo artigo app (ex: Duolingo após almoço).</td><td>Programação de Atividades</td><td>Agende 20min estudo (ex: Khan Academy após escola, como Guia [file:2]).</td></tr>
+            <tr><td>Finanças</td><td>Regra dos 10%</td><td>Poupe R$2/dia (ex: app PicPay, hábito antes de lanche rua).</td><td>Lista de Problemas/Soluções</td><td>Liste gastos (ex: ônibus Manaus), corte 1 (Guia [file:2]).</td></tr>
+            <tr><td>Saúde/Corpo</td><td>Ancoragem de Hábitos</td><td>Após escola (hábito antigo), 15min caminhada Tarumã (novo).</td><td>Ativação Comportamental</td><td>Liste 3 atividades paz (ex: alongamento pós-aula, Guia [file:2]).</td></tr>
+            <tr><td>Emocional</td><td>Diário de Bordo/Check-in</td><td>Escreva 3 sentimentos fim-dia (ex: "trânsito irritou, mas família ajudou").</td><td>Tons de Cinza/Flexibilidade</td><td>Desafie "tudo ruim" (ex: "nota baixa? Amanhã melhoro", Guia [file:2]).</td></tr>
+            <tr><td>Relacionamentos</td><td>Escuta Ativa (duplas)</td><td>Converse 10min sem celular (ex: ouça irmão sem interromper).</td><td>Menu de Enfrentamento</td><td>Planeje saída amigo (ex: praça pública Manaus, Guia [file:2]).</td></tr>
+            <tr><td>Espiritualidade/Contribuição</td><td>Voluntariado Próximo</td><td>Ajude família/escola (ex: organize material amigo).</td><td>Valores + Comportamentos</td><td>Alinhe 1 ato/dia valor (ex: agradeça natureza rio, Guia [file:2]).</td></tr>
+        </table>
+    </section>
+
+    <button class="enviar" onclick="salvarRespostas()">📤 Enviar Respostas & Salvar no Sheets</button>
+
+    <script>
+        // Gráfico lúdico Aula 4 [file:3]
+        const ctx = document.getElementById('graficoSonhos').getContext('2d');
+        new Chart(ctx, { type: 'doughnut', data: { labels: ['Saúde/Tech (60%)', 'Viagens (70%)', 'Família (80%)', 'Renda Alta (50%)'], datasets: [{ data: [60,70,80,50], backgroundColor: ['#4a90e2','#28a745','#ffc107','#ff6b6b'] }] }, options: { responsive: true } });
+
+        function quizMatch(op) { document.getElementById('resultadoQuiz').innerHTML = `Ótimo match com ${op.toUpperCase()}! Turma sonha igual você!`; }
+
+        function salvarRespostas() {
+            const dados = {
+                nome: document.getElementById('nome').value,
+                ra: document.getElementById('ra').value,
+                turma: document.getElementById('turma').value,
+                carreiraAtual: document.getElementById('carreiraAtual').value,
+                financasAtual: document.getElementById('financasAtual').value,
+                saudeAtual: document.getElementById('saudeAtual').value,
+                emocionalAtual: document.getElementById('emocionalAtual').value,
+                relacionamentosAtual: document.getElementById('relacionamentosAtual').value,
+                espiritualAtual: document.getElementById('espiritualAtual').value,
+                timestamp: new Date().toLocaleString('pt-BR')
+            };
+            // Integração Sheets: Substitua pela sua URL/script Google Apps Script
+            fetch('https://script.google.com/macros/SEU_SCRIPT_ID/exec', { method: 'POST', body: JSON.stringify(dados) })
+                .then(() => alert('Salvo! Veja resultados em https://sheets.google.com/SEU_SHEET'));
+        }
+    </script>
+</body>
+</html>
