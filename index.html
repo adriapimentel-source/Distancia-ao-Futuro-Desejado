@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto de Vida - Estratégias para o Presente</title>
+    <title>Design do Jogo - Aula Interativa</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -136,7 +136,6 @@
 
         input[type="text"],
         input[type="number"],
-        select,
         textarea {
             width: calc(100% - 24px);
             padding: 12px;
@@ -151,7 +150,6 @@
 
         input[type="text"]:focus,
         input[type="number"]:focus,
-        select:focus,
         textarea:focus {
             outline: none;
             border-color: var(--primary-color);
@@ -293,48 +291,6 @@
             background-color: var(--secondary-color);
             color: #ffffff;
             border-color: var(--secondary-color);
-        }
-
-        .chip-container.strategy-cards {
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .chip-container.strategy-cards .card.chip {
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            background-color: var(--card-background);
-            box-shadow: 0 2px 8px var(--shadow-color);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .chip-container.strategy-cards .card.chip:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px var(--shadow-color);
-        }
-
-        .chip-container.strategy-cards .card.chip.selected {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 3px var(--secondary-color);
-            background-color: #e6f2d9;
-        }
-
-        .chip-container.strategy-cards .card.chip h3 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-
-        .chip-container.strategy-cards .card.chip ul {
-            list-style: disc;
-            padding-left: 20px;
-            margin-top: 10px;
-            color: var(--text-light-color);
-        }
-
-        .chip-container.strategy-cards .card.chip ul li {
-            margin-bottom: 5px;
         }
 
         .accessibility-panel {
@@ -612,7 +568,6 @@
 
         body.dark-theme input[type="text"],
         body.dark-theme input[type="number"],
-        body.dark-theme select,
         body.dark-theme textarea {
             background-color: var(--dark-card-bg);
             border-color: var(--dark-border);
@@ -621,7 +576,6 @@
 
         body.dark-theme input[type="text"]:focus,
         body.dark-theme input[type="number"]:focus,
-        body.dark-theme select:focus,
         body.dark-theme textarea:focus {
             border-color: var(--secondary-color);
             box-shadow: 0 0 0 2px rgba(165, 202, 101, 0.3);
@@ -698,11 +652,6 @@
             color: var(--accent-color);
         }
 
-        body.dark-theme .chip-container.strategy-cards .card.chip.selected {
-            background-color: #6d8b3e;
-            box-shadow: 0 0 0 3px var(--secondary-color);
-        }
-
         body.high-contrast {
             background-color: var(--high-contrast-bg);
             color: var(--high-contrast-text);
@@ -734,7 +683,6 @@
 
         body.high-contrast input[type="text"],
         body.high-contrast input[type="number"],
-        body.high-contrast select,
         body.high-contrast textarea {
             background-color: var(--high-contrast-card-bg);
             border-color: var(--high-contrast-border);
@@ -743,7 +691,6 @@
 
         body.high-contrast input[type="text"]:focus,
         body.high-contrast input[type="number"]:focus,
-        body.high-contrast select:focus,
         body.high-contrast textarea:focus {
             border-color: var(--high-contrast-primary);
             box-shadow: 0 0 0 2px var(--high-contrast-primary);
@@ -834,20 +781,6 @@
             color: var(--high-contrast-accent);
         }
 
-        body.high-contrast .chip-container.strategy-cards .card.chip.selected {
-            background-color: var(--high-contrast-secondary);
-            box-shadow: 0 0 0 3px var(--high-contrast-secondary);
-            color: var(--high-contrast-bg);
-        }
-
-        body.high-contrast .chip-container.strategy-cards .card.chip h3 {
-            color: var(--high-contrast-primary);
-        }
-
-        body.high-contrast .chip-container.strategy-cards .card.chip ul {
-            color: var(--high-contrast-text-light);
-        }
-
         @media (max-width: 768px) {
             .container {
                 margin: 10px;
@@ -935,10 +868,10 @@
                 <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v4h-2zm0 5h2v2h-2z"/>
                 </svg>
-                <h1>Bem-vindo ao Projeto de Vida!</h1>
-                <p>Explore estratégias para construir seu futuro a partir de hoje.</p>
+                <h1>Bem-vindo ao Design do Jogo!</h1>
+                <p>Explore os conceitos fundamentais para criar experiências de jogo envolventes.</p>
             </div>
-            <p>Este é um ambiente interativo para você aprender e aplicar estratégias de desenvolvimento pessoal. Vamos começar configurando seu perfil.</p>
+            <p>Este é um ambiente interativo para você aprender e aplicar princípios de design de jogos. Vamos começar configurando seu perfil.</p>
             <div class="button-group">
                 <button class="button button-primary" data-action="go-to-page" data-target="page-config">Começar</button>
             </div>
@@ -961,21 +894,7 @@
             </div>
             <div class="form-group">
                 <label for="student-turma">Turma:</label>
-                <select id="student-turma">
-                    <option value="">Selecione sua turma</option>
-                    <option value="2AA">2AA</option>
-                    <option value="2AB">2AB</option>
-                    <option value="2AC">2AC</option>
-                    <option value="2AD">2AD</option>
-                    <option value="2BA">2BA</option>
-                    <option value="2BB">2BB</option>
-                    <option value="2BC">2BC</option>
-                    <option value="2BD">2BD</option>
-                    <option value="2CA">2CA</option>
-                    <option value="2CB">2CB</option>
-                    <option value="2CC">2CC</option>
-                    <option value="2CD">2CD</option>
-                </select>
+                <input type="text" id="student-turma" placeholder="Ex: ADS-M-2026">
                 <p class="error-message" id="error-turma">Turma é obrigatória.</p>
             </div>
             <div class="button-group">
@@ -986,100 +905,148 @@
         <div id="page-game-intro" class="page">
             <div class="header">
                 <h2>Olá, <span data-student-info="name"></span>!</h2>
-                <p>Bem-vindo(a) à sua jornada de desenvolvimento pessoal.</p>
+                <p>Bem-vindo(a) à sua jornada no design de jogos.</p>
             </div>
-            <p>Nesta seção, vamos explorar estratégias práticas que você pode começar a implementar hoje mesmo. Prepare-se para escolher as práticas que melhor se adequam ao seu estilo de vida.</p>
+            <p>Nesta seção, vamos explorar os pilares de um bom design de jogo. Prepare-se para tomar algumas decisões que moldarão sua experiência.</p>
             <div class="card">
-                <h3>Por que estratégias para o presente?</h3>
-                <p>O futuro é construído pelas ações que tomamos hoje. Cada pequena prática consistente nos aproxima dos nossos objetivos de longo prazo. Vamos começar agora!</p>
+                <h3>O que é um bom design de jogo?</h3>
+                <p>Um bom design de jogo equilibra desafio, diversão e imersão. Ele guia o jogador através de uma experiência significativa, com regras claras e objetivos engajantes.</p>
             </div>
             <div class="button-group">
-                <button class="button button-primary" data-action="go-to-page" data-target="page-game-4">Iniciar Desafio</button>
+                <button class="button button-primary" data-action="go-to-page" data-target="page-game-1">Iniciar Desafio</button>
+            </div>
+        </div>
+
+        <div id="page-game-1" class="page">
+            <div class="header">
+                <h2>Desafio 1: Mecânicas de Jogo</h2>
+                <p>Como você priorizaria as mecânicas em seu jogo?</p>
+            </div>
+            <div class="card">
+                <h3>Defina a Importância da Ação</h3>
+                <p>Use o slider para indicar o quão importante a "Ação" é para o seu jogo, de 0 (pouco importante) a 100 (muito importante).</p>
+                <div class="slider-container">
+                    <div class="slider-label">
+                        <span>Importância da Ação</span>
+                        <span id="slider1-value">50</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" class="slider-input" id="slider-action" data-game-state-key="actionImportance">
+                </div>
+            </div>
+            <div class="card">
+                <h3>Escolha o Gênero Principal</h3>
+                <p>Qual gênero melhor representa a base do seu jogo?</p>
+                <div class="chip-container" data-selection-type="single" data-game-state-key="mainGenre">
+                    <div class="chip" data-value="acao">Ação</div>
+                    <div class="chip" data-value="aventura">Aventura</div>
+                    <div class="chip" data-value="rpg">RPG</div>
+                    <div class="chip" data-value="estrategia">Estratégia</div>
+                    <div class="chip" data-value="puzzle">Puzzle</div>
+                </div>
+                <p class="error-message" id="error-mainGenre">Selecione um gênero principal.</p>
+            </div>
+        </div>
+
+        <div id="page-game-2" class="page">
+            <div class="header">
+                <h2>Desafio 2: Narrativa e Mundo</h2>
+                <p>Como você construiria o universo do seu jogo?</p>
+            </div>
+            <div class="card">
+                <h3>Profundidade da Narrativa</h3>
+                <p>Quão profunda e complexa você deseja que a história do seu jogo seja?</p>
+                <div class="slider-container">
+                    <div class="slider-label">
+                        <span>Complexidade da História</span>
+                        <span id="slider2-value">50</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" class="slider-input" id="slider-story" data-game-state-key="storyComplexity">
+                </div>
+            </div>
+            <div class="card">
+                <h3>Elementos de Ambientação</h3>
+                <p>Quais elementos são cruciais para a ambientação do seu jogo? (Pode escolher múltiplos)</p>
+                <div class="chip-container" data-selection-type="multiple" data-game-state-key="worldElements">
+                    <div class="chip" data-value="personagens">Personagens Carismáticos</div>
+                    <div class="chip" data-value="lore">Lore Detalhada</div>
+                    <div class="chip" data-value="trilha_sonora">Trilha Sonora Imersiva</div>
+                    <div class="chip" data-value="graficos">Gráficos Realistas</div>
+                    <div class="chip" data-value="dialogos">Diálogos Impactantes</div>
+                </div>
+                <p class="error-message" id="error-worldElements">Selecione pelo menos um elemento.</p>
+            </div>
+        </div>
+
+        <div id="page-game-3" class="page">
+            <div class="header">
+                <h2>Desafio 3: Dificuldade e Rejogabilidade</h2>
+                <p>Como você manteria os jogadores engajados?</p>
+            </div>
+            <div class="card">
+                <h3>Curva de Dificuldade</h3>
+                <p>Qual a sua abordagem para a curva de dificuldade do jogo?</p>
+                <div class="chip-container" data-selection-type="single" data-game-state-key="difficultyCurve">
+                    <div class="chip" data-value="facil_progressivo">Fácil e Progressivo</div>
+                    <div class="chip" data-value="desafiador_constante">Desafiador Constante</div>
+                    <div class="chip" data-value="punicao_alta">Punição Alta, Recompensa Alta</div>
+                </div>
+                <p class="error-message" id="error-difficultyCurve">Selecione uma curva de dificuldade.</p>
+            </div>
+            <div class="card">
+                <h3>Fatores de Rejogabilidade</h3>
+                <p>Quais fatores você incluiria para incentivar os jogadores a jogar novamente? (Pode escolher múltiplos)</p>
+                <div class="chip-container" data-selection-type="multiple" data-game-state-key="replayabilityFactors">
+                    <div class="chip" data-value="finais_multiplos">Finais Múltiplos</div>
+                    <div class="chip" data-value="modos_extras">Modos de Jogo Extras</div>
+                    <div class="chip" data-value="personalizacao">Personalização Extensa</div>
+                    <div class="chip" data-value="multiplayer">Multiplayer Competitivo</div>
+                    <div class="chip" data-value="segredos">Segredos e Colecionáveis</div>
+                </div>
+                <p class="error-message" id="error-replayabilityFactors">Selecione pelo menos um fator.</p>
             </div>
         </div>
 
         <div id="page-game-4" class="page">
             <div class="header">
-                <h2>Desafio: Estratégias para o Presente</h2>
-                <p>Escolha pelo menos UMA prática para começar hoje mesmo!</p>
+                <h2>Desafio 4: Monetização e Comunidade</h2>
+                <p>Como seu jogo se sustentaria e construiria uma comunidade?</p>
             </div>
-            <div class="chip-container strategy-cards" data-selection-type="multiple" data-game-state-key="selectedStrategies">
-                <div class="card chip" data-value="micro-learning">
-                    <h3>CARREIRA / INTELECTUAL - Micro-Learning</h3>
-                    <p><strong>Se o futuro exige pós-doutorado, o presente exige 15 minutos de aprendizado por dia.</strong></p>
-                    <ul>
-                        <li>Ler um artigo sobre sua área de interesse</li>
-                        <li>Aprender 5 palavras de um novo idioma</li>
-                        <li>Assistir a um vídeo educativo no YouTube</li>
-                        <li>Resolver um problema de lógica ou matemática</li>
-                    </ul>
+            <div class="card">
+                <h3>Modelo de Monetização</h3>
+                <p>Qual modelo de monetização você adotaria para o seu jogo?</p>
+                <div class="chip-container" data-selection-type="single" data-game-state-key="monetizationModel">
+                    <div class="chip" data-value="compra_unica">Compra Única (Premium)</div>
+                    <div class="chip" data-value="free_to_play">Free-to-Play com Microtransações</div>
+                    <div class="chip" data-value="assinatura">Assinatura Mensal</div>
+                    <div class="chip" data-value="dlcs">DLCs e Expansões Pagas</div>
                 </div>
-                <div class="card chip" data-value="regra-10-porcento">
-                    <h3>FINANÇAS - Regra dos 10%</h3>
-                    <p><strong>Se querem ser investidores, devem começar poupando qualquer valor hoje para criar o hábito.</strong></p>
-                    <ul>
-                        <li>Guardar R$ 2,00 por dia em um cofrinho</li>
-                        <li>Poupar 10% da mesada ou dinheiro recebido</li>
-                        <li>Criar uma meta de economia semanal (ex: R$ 10)</li>
-                        <li>Registrar cada economia em um app ou caderno</li>
-                    </ul>
-                </div>
-                <div class="card chip" data-value="ancoragem-habitos">
-                    <h3>SAÚDE / CORPO - Ancoragem de Hábitos</h3>
-                    <p><strong>Unir um hábito novo a um existente. Ex: Logo após a escola, farei 15 min de caminhada.</strong></p>
-                    <ul>
-                        <li>Após acordar: 10 minutos de alongamento</li>
-                        <li>Após o almoço: 20 minutos de caminhada</li>
-                        <li>Antes de dormir: 5 minutos de meditação</li>
-                        <li>Durante o intervalo: exercício rápido (flexão, agachamento)</li>
-                    </ul>
-                </div>
-                <div class="card chip" data-value="diario-bordo">
-                    <h3>EMOCIONAL - Diário de Bordo / Check-in</h3>
-                    <p><strong>Se buscam equilíbrio, precisam identificar hoje o que tira a paz. Escrever 3 sentimentos ao fim do dia.</strong></p>
-                    <ul>
-                        <li>Escrever 3 sentimentos do dia em um caderno</li>
-                        <li>Registrar o que causou alegria e o que causou preocupação</li>
-                        <li>Fazer uma reflexão rápida: "Como me senti hoje?"</li>
-                        <li>Desenhar ou descrever o seu estado emocional</li>
-                    </ul>
-                </div>
-                <div class="card chip" data-value="escuta-ativa">
-                    <h3>RELACIONAMENTO - Escuta Ativa</h3>
-                    <p><strong>Para ter amigos leais no futuro, praticar a presença total em uma conversa hoje, sem o celular.</strong></p>
-                    <ul>
-                        <li>Conversar com um amigo sem olhar para o celular</li>
-                        <li>Fazer perguntas genuínas e ouvir a resposta com atenção</li>
-                        <li>Desligar notificações durante conversas importantes</li>
-                        <li>Dedicar 15 minutos de atenção plena a alguém</li>
-                    </ul>
-                </div>
-                <div class="card chip" data-value="voluntariado-proximidade">
-                    <h3>ESPIRITUALIDADE / CONTRIBUIÇÃO - Voluntariado de Proximidade</h3>
-                    <p><strong>Ajudar alguém no círculo imediato (família/escola) para desenvolver a empatia necessária.</strong></p>
-                    <ul>
-                        <li>Ajudar um colega com a lição de casa</li>
-                        <li>Fazer uma tarefa doméstica sem ser pedido</li>
-                        <li>Ouvir um amigo que está triste</li>
-                        <li>Ensinar algo que você sabe para alguém</li>
-                    </ul>
-                </div>
+                <p class="error-message" id="error-monetizationModel">Selecione um modelo de monetização.</p>
             </div>
-            <p class="error-message" id="error-selectedStrategies">Selecione pelo menos uma estratégia para continuar.</p>
+            <div class="card">
+                <h3>Engajamento da Comunidade</h3>
+                <p>Quais estratégias você usaria para engajar a comunidade?</p>
+                <div class="chip-container" data-selection-type="multiple" data-game-state-key="communityEngagement">
+                    <div class="chip" data-value="eventos_online">Eventos Online Regulares</div>
+                    <div class="chip" data-value="modding">Suporte a Modding</div>
+                    <div class="chip" data-value="competicoes">Competições e E-sports</div>
+                    <div class="chip" data-value="feedback">Canais de Feedback Ativos</div>
+                </div>
+                <p class="error-message" id="error-communityEngagement">Selecione pelo menos uma estratégia.</p>
+            </div>
         </div>
 
         <div id="page-game-end" class="page">
             <div class="header">
                 <h2>Parabéns, <span data-student-info="name"></span>!</h2>
-                <p>Você escolheu suas estratégias para o presente!</p>
+                <p>Você concluiu sua jornada de design de jogo.</p>
             </div>
-            <p>Suas escolhas são o primeiro passo para construir o futuro que você deseja. Lembre-se: pequenas ações consistentes geram grandes transformações!</p>
+            <p>Suas escolhas moldaram um conceito único de jogo. Lembre-se que o design de jogos é um processo iterativo e criativo.</p>
             <div class="card">
-                <h3>Seu Perfil:</h3>
+                <h3>Seu Perfil de Design:</h3>
                 <p><strong>Nome:</strong> <span data-student-info="name"></span></p>
                 <p><strong>RA:</strong> <span data-student-info="ra"></span></p>
                 <p><strong>Turma:</strong> <span data-student-info="turma"></span></p>
-                <p>Suas decisões foram registradas. Comece hoje mesmo a implementar suas estratégias!</p>
+                <p>Suas decisões foram registradas e podem ser revisadas a qualquer momento.</p>
             </div>
             <div class="button-group">
                 <button class="button button-primary" data-action="open-modal" data-target="modal-feedback">Enviar Feedback</button>
@@ -1095,6 +1062,9 @@
             <div class="nav-dot" data-page-id="page-intro"></div>
             <div class="nav-dot" data-page-id="page-config"></div>
             <div class="nav-dot" data-page-id="page-game-intro"></div>
+            <div class="nav-dot" data-page-id="page-game-1"></div>
+            <div class="nav-dot" data-page-id="page-game-2"></div>
+            <div class="nav-dot" data-page-id="page-game-3"></div>
             <div class="nav-dot" data-page-id="page-game-4"></div>
             <div class="nav-dot" data-page-id="page-game-end"></div>
         </div>
@@ -1128,7 +1098,14 @@
         };
 
         let gameState = {
-            selectedStrategies: []
+            actionImportance: 50,
+            mainGenre: [],
+            storyComplexity: 50,
+            worldElements: [],
+            difficultyCurve: [],
+            replayabilityFactors: [],
+            monetizationModel: [],
+            communityEngagement: []
         };
 
         let accessibilitySettings = {
@@ -1139,7 +1116,8 @@
         };
 
         const pages = [
-            'page-intro', 'page-config', 'page-game-intro', 'page-game-4', 'page-game-end'
+            'page-intro', 'page-config', 'page-game-intro', 'page-game-1',
+            'page-game-2', 'page-game-3', 'page-game-4', 'page-game-end'
         ];
 
         function saveState() {
@@ -1267,7 +1245,7 @@
             if (pageId === 'page-config') {
                 const nameInput = document.getElementById('student-name');
                 const raInput = document.getElementById('student-ra');
-                const turmaSelect = document.getElementById('student-turma');
+                const turmaInput = document.getElementById('student-turma');
 
                 if (!nameInput.value.trim()) {
                     document.getElementById('error-name').style.display = 'block';
@@ -1277,20 +1255,42 @@
                     document.getElementById('error-ra').style.display = 'block';
                     isValid = false;
                 }
-                if (!turmaSelect.value) {
+                if (!turmaInput.value.trim()) {
                     document.getElementById('error-turma').style.display = 'block';
                     isValid = false;
                 }
                 if (isValid) {
                     state.studentName = nameInput.value.trim();
                     state.studentRA = raInput.value.trim();
-                    state.studentTurma = turmaSelect.value;
+                    state.studentTurma = turmaInput.value.trim();
                     saveState();
                 }
+            } else if (pageId === 'page-game-1') {
+                if (gameState.mainGenre.length === 0) {
+                    document.getElementById('error-mainGenre').style.display = 'block';
+                    isValid = false;
+                }
+            } else if (pageId === 'page-game-2') {
+                if (gameState.worldElements.length === 0) {
+                    document.getElementById('error-worldElements').style.display = 'block';
+                    isValid = false;
+                }
+            } else if (pageId === 'page-game-3') {
+                if (gameState.difficultyCurve.length === 0) {
+                    document.getElementById('error-difficultyCurve').style.display = 'block';
+                    isValid = false;
+                }
+                if (gameState.replayabilityFactors.length === 0) {
+                    document.getElementById('error-replayabilityFactors').style.display = 'block';
+                    isValid = false;
+                }
             } else if (pageId === 'page-game-4') {
-                if (gameState.selectedStrategies.length === 0) {
-                    document.getElementById('error-selectedStrategies').style.display = 'block';
-                    errorMessage = "Selecione pelo menos uma estratégia para continuar.";
+                if (gameState.monetizationModel.length === 0) {
+                    document.getElementById('error-monetizationModel').style.display = 'block';
+                    isValid = false;
+                }
+                if (gameState.communityEngagement.length === 0) {
+                    document.getElementById('error-communityEngagement').style.display = 'block';
                     isValid = false;
                 }
             }
@@ -1311,6 +1311,37 @@
                 document.getElementById('student-ra').value = state.studentRA;
                 document.getElementById('student-turma').value = state.studentTurma;
             }
+        }
+
+        function initializeSliders() {
+            document.querySelectorAll('.slider-input').forEach(slider => {
+                const key = slider.dataset.gameStateKey;
+                if (gameState[key] !== undefined) {
+                    slider.value = gameState[key];
+                }
+                updateSliderFill(slider);
+                const valueDisplay = document.getElementById(`${slider.id}-value`);
+                if (valueDisplay) {
+                    valueDisplay.textContent = slider.value;
+                }
+
+                slider.addEventListener('input', (e) => {
+                    const targetSlider = e.target;
+                    const sliderKey = targetSlider.dataset.gameStateKey;
+                    gameState[sliderKey] = parseInt(targetSlider.value);
+                    saveState();
+                    updateSliderFill(targetSlider);
+                    const display = document.getElementById(`${targetSlider.id}-value`);
+                    if (display) {
+                        display.textContent = targetSlider.value;
+                    }
+                });
+            });
+        }
+
+        function updateSliderFill(slider) {
+            const value = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+            slider.style.setProperty('--value', `${value}%`);
         }
 
         function initializeChips() {
@@ -1373,39 +1404,6 @@
             loadState();
             applyAccessibilitySettings();
             updateStudentInfoDisplay();
+            initializeSliders();
             initializeChips();
-
-            showPage(state.currentPage);
-
-            document.getElementById('next-page').addEventListener('click', goNext);
-            document.getElementById('prev-page').addEventListener('click', goBack);
-
-            document.querySelectorAll('[data-action]').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const action = e.target.dataset.action;
-                    const target = e.target.dataset.target;
-
-                    if (action === 'go-to-page') {
-                        if (validatePage(state.currentPage)) {
-                            showPage(target);
-                        } else {
-                            openModal('modal-error');
-                        }
-                    } else if (action === 'open-modal') {
-                        openModal(target);
-                    } else if (action === 'close-modal') {
-                        closeModal(target);
-                    }
-                });
-            });
-
-            document.getElementById('save-config').addEventListener('click', () => {
-                if (validatePage('page-config')) {
-                    goNext();
-                } else {
-                    openModal('modal-error');
-                }
-            });
-
-            const accessibilityToggle = document.getElementById('accessibility-toggle');
-            const accessibilityPanel = doc
+            
