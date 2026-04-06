@@ -1,1026 +1,2249 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aula 5 — Distância ao Futuro Desejado | 2º Ano Projeto de Vida</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --azul: #2563eb;
-      --azul-claro: #dbeafe;
-      --azul-escuro: #1e40af;
-      --verde: #16a34a;
-      --verde-claro: #dcfce7;
-      --amarelo: #ca8a04;
-      --amarelo-claro: #fef9c3;
-      --roxo: #7c3aed;
-      --roxo-claro: #ede9fe;
-      --laranja: #ea580c;
-      --laranja-claro: #ffedd5;
-      --rosa: #db2777;
-      --rosa-claro: #fce7f3;
-      --cinza: #6b7280;
-      --cinza-claro: #f3f4f6;
-      --branco: #ffffff;
-      --fundo: #f0f4ff;
-      --texto: #111827;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--fundo);
-      color: var(--texto);
-      min-height: 100vh;
-    }
+html
 
-    /* ─── HEADER ─── */
-    header {
-      background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #3b82f6 100%);
-      color: white;
-      padding: 48px 24px 60px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    header::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
-    header .badge {
-      display: inline-block;
-      background: rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,0.4);
-      padding: 4px 14px;
-      border-radius: 50px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-    header h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1.8rem, 5vw, 3rem);
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 12px;
-    }
-    header p {
-      font-size: 1rem;
-      opacity: 0.85;
-      max-width: 560px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
 
-    /* ─── LAYOUT ─── */
-    .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
 
-    /* ─── CARD GERAL ─── */
-    .card {
-      background: var(--branco);
-      border-radius: 20px;
-      padding: 32px;
-      margin: -28px auto 32px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-      position: relative;
-    }
-    .card + .card { margin-top: 0; margin-bottom: 32px; }
-    .card-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--azul-escuro);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 20px;
-      padding-bottom: 14px;
-      border-bottom: 2px solid var(--azul-claro);
-    }
-    .card-title .icon { font-size: 1.4rem; }
+    
+    
+    Projeto de Vida - Aula 5: Distância ao Futuro Desejado
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        /* Variáveis de Cores da Paleta da Escola */
+        :root {
+            --color-primary-dark: #04344c; /* Azul Escuro */<br/>
+            --color-secondary-green: #a5ca65; /* Verde Claro */<br/>
+            --color-primary-blue: #046494; /* Azul */<br/>
+            --color-tertiary-green: #74a93a; /* Verde Escuro */<br/>
+            --color-accent-graygreen: #5c825a; /* Cinza-Verde */<br/>
+            --color-text-light: #f0f0f0;<br/>
+            --color-text-dark: #333333;<br/>
+            --color-background-light: #ffffff;<br/>
+            --color-background-dark: #1a1a1a;<br/>
+            --color-card-light: #f9f9f9;<br/>
+            --color-card-dark: #2a2a2a;<br/>
+            --color-border-light: #e0e0e0;<br/>
+            --color-border-dark: #444444;<br/>
+            --color-shadow-light: rgba(0, 0, 0, 0.1);<br/>
+            --color-shadow-dark: rgba(255, 255, 255, 0.05);
 
-    /* ─── FORMULÁRIO IDENTIFICAÇÃO ─── */
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-    .form-group label {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--cinza);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 6px;
-    }
-    .form-group input, .form-group select {
-      width: 100%;
-      padding: 10px 14px;
-      border: 2px solid #e5e7eb;
-      border-radius: 10px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      color: var(--texto);
-      transition: border-color 0.2s;
-      background: white;
-    }
-    .form-group input:focus, .form-group select:focus {
-      outline: none;
-      border-color: var(--azul);
-    }
-    .info-box {
-      background: var(--azul-claro);
-      border-left: 4px solid var(--azul);
-      border-radius: 10px;
-      padding: 12px 16px;
-      font-size: 0.85rem;
-      color: var(--azul-escuro);
-      line-height: 1.5;
-    }
+            /* Acessibilidade - Font Sizes */
+            --font-size-base: 16px;<br/>
+            --font-size-large: 1.25em; /* 125% */<br/>
+            --font-size-x-large: 1.5em; /* 150% */
 
-    /* ─── NUVEM AULA 4 ─── */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-    .stat-bubble {
-      text-align: center;
-      padding: 16px 10px;
-      border-radius: 14px;
-      border: 2px solid transparent;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .stat-bubble:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.1); }
-    .stat-bubble .pct { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; }
-    .stat-bubble .label { font-size: 0.75rem; font-weight: 500; margin-top: 4px; }
-    .stat-bubble.azul { background: var(--azul-claro); border-color: #93c5fd; color: var(--azul-escuro); }
-    .stat-bubble.verde { background: var(--verde-claro); border-color: #86efac; color: #14532d; }
-    .stat-bubble.amarelo { background: var(--amarelo-claro); border-color: #fde047; color: #713f12; }
-    .stat-bubble.roxo { background: var(--roxo-claro); border-color: #c4b5fd; color: #4c1d95; }
-    .stat-bubble.rosa { background: var(--rosa-claro); border-color: #f9a8d4; color: #831843; }
-    .stat-bubble.laranja { background: var(--laranja-claro); border-color: #fdba74; color: #7c2d12; }
-    .chart-wrap { max-width: 360px; margin: 0 auto 8px; }
+            /* Acessibilidade - Spacing */
+            --spacing-base: 1rem;<br/>
+            --spacing-increased: 1.5rem;
+        }
 
-    /* ─── RODA DA VIDA ─── */
-    .intro-box {
-      background: linear-gradient(135deg, #eff6ff, #dbeafe);
-      border-radius: 14px;
-      padding: 18px 20px;
-      margin-bottom: 24px;
-      font-size: 0.9rem;
-      line-height: 1.7;
-      color: var(--azul-escuro);
-    }
-    .intro-box strong { color: var(--azul-escuro); }
-    .dimensoes-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-    }
-    .dimensao-card {
-      border: 2px solid #e5e7eb;
-      border-radius: 16px;
-      padding: 18px;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .dimensao-card:hover { border-color: var(--azul); }
-    .dimensao-card .dim-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-    .dim-icon { font-size: 1.5rem; }
-    .dim-name { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--texto); }
-    .dim-media { font-size: 0.72rem; color: var(--cinza); }
-    .slider-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      color: var(--cinza);
-      margin-bottom: 6px;
-    }
-    .slider-wrap { position: relative; }
-    input[type="range"] {
-      width: 100%;
-      height: 6px;
-      border-radius: 3px;
-      outline: none;
-      cursor: pointer;
-      appearance: none;
-      -webkit-appearance: none;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      appearance: none;
-      width: 20px; height: 20px;
-      border-radius: 50%;
-      background: var(--azul);
-      border: 3px solid white;
-      box-shadow: 0 2px 6px rgba(37,99,235,0.4);
-      cursor: pointer;
-    }
-    .dim-valor {
-      text-align: center;
-      margin-top: 10px;
-    }
-    .dim-valor .num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; }
-    .dim-valor .sub { font-size: 0.72rem; color: var(--cinza); }
-    .distancia-badge {
-      margin-top: 8px;
-      text-align: center;
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 20px;
-      display: inline-block;
-    }
-    .radar-wrap { max-width: 420px; margin: 24px auto 0; }
+        /* Reset e Base */
+        * {
+            box-sizing: border-box;<br/>
+            margin: 0;<br/>
+            padding: 0;
+        }
 
-    /* ─── ESTRATÉGIAS ─── */
-    .area-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-    .area-tab {
-      padding: 8px 16px;
-      border-radius: 50px;
-      border: 2px solid #e5e7eb;
-      background: white;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .area-tab:hover { border-color: var(--azul); color: var(--azul); }
-    .area-tab.active { background: var(--azul); border-color: var(--azul); color: white; }
-    .area-tab .tab-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: currentColor;
-      opacity: 0.6;
-    }
-    .estrategia-painel { display: none; }
-    .estrategia-painel.active { display: block; }
-    .estrat-intro {
-      background: var(--cinza-claro);
-      border-radius: 12px;
-      padding: 14px 18px;
-      margin-bottom: 20px;
-      font-size: 0.875rem;
-      line-height: 1.6;
-    }
-    .estrategias-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    @media (max-width: 600px) { .estrategias-cards { grid-template-columns: 1fr; } }
-    .estrat-card {
-      border: 2px solid #e5e7eb;
-      border-radius: 16px;
-      overflow: hidden;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .estrat-card.selected { border-color: var(--verde); box-shadow: 0 0 0 3px rgba(22,163,74,0.15); }
-    .estrat-head {
-      padding: 14px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-    }
-    .estrat-head .nome { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; }
-    .estrat-head .prioridade {
-      font-size: 0.65rem;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 20px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-    .pri-guia { background: #fef3c7; color: #92400e; }
-    .pri-extra { background: #e0e7ff; color: #3730a3; }
-    .estrat-body {
-      padding: 0 18px 16px;
-      font-size: 0.85rem;
-      line-height: 1.6;
-      color: #374151;
-    }
-    .estrat-body .exemplo {
-      background: #f9fafb;
-      border-left: 3px solid var(--azul);
-      padding: 8px 12px;
-      margin-top: 10px;
-      border-radius: 0 8px 8px 0;
-      font-size: 0.82rem;
-      color: var(--azul-escuro);
-    }
-    .estrat-body .passo {
-      margin-top: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .passo-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 0.82rem;
-    }
-    .passo-num {
-      min-width: 20px; height: 20px;
-      border-radius: 50%;
-      background: var(--azul);
-      color: white;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.7rem; font-weight: 700;
-      margin-top: 1px;
-    }
-    .escolha-btn {
-      display: block;
-      width: 100%;
-      margin-top: 12px;
-      padding: 10px;
-      border: 2px solid #e5e7eb;
-      background: white;
-      border-radius: 10px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      color: var(--cinza);
-    }
-    .escolha-btn:hover { border-color: var(--verde); color: var(--verde); }
-    .escolha-btn.checked { background: var(--verde); border-color: var(--verde); color: white; }
-    .obrig-aviso {
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
-      border-radius: 10px;
-      padding: 12px 16px;
-      font-size: 0.82rem;
-      color: #9a3412;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-    .obrig-aviso .icon { font-size: 1.1rem; flex-shrink: 0; }
+        body {
+            font-family: 'Inter', sans-serif;<br/>
+            line-height: 1.6;<br/>
+            color: var(--color-text-dark);<br/>
+            background-color: var(--color-background-light);<br/>
+            transition: background-color 0.3s, color 0.3s, font-size 0.3s, line-height 0.3s;<br/>
+            font-size: var(--font-size-base);<br/>
+            overflow-x: hidden; /* Previne rolagem horizontal */
+        }
 
-    /* ─── RESUMO ─── */
-    .resumo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-    .resumo-item {
-      background: var(--cinza-claro);
-      border-radius: 12px;
-      padding: 14px;
-    }
-    .resumo-item .ri-label { font-size: 0.72rem; font-weight: 600; color: var(--cinza); text-transform: uppercase; letter-spacing: 0.06em; }
-    .resumo-item .ri-val { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; margin-top: 4px; }
-    .estrategias-list {
-      margin-top: 16px;
-    }
-    .estrat-resumo-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px;
-      border-radius: 10px;
-      background: var(--verde-claro);
-      margin-bottom: 8px;
-      font-size: 0.875rem;
-    }
-    .estrat-resumo-item .check { font-size: 1.1rem; }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Syne', sans-serif;<br/>
+            color: var(--color-primary-dark);<br/>
+            margin-bottom: 0.8em;
+        }
 
-    /* ─── BOTÕES ─── */
-    .btns-finais {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      margin-top: 28px;
-    }
-    .btn {
-      padding: 14px 28px;
-      border-radius: 12px;
-      font-family: 'Syne', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      border: none;
-      transition: transform 0.15s, box-shadow 0.15s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
-    .btn:active { transform: translateY(0); }
-    .btn-salvar { background: var(--azul); color: white; }
-    .btn-pdf { background: var(--verde); color: white; }
-    .btn-img { background: var(--roxo); color: white; }
-    .btn-salvar:disabled { background: #9ca3af; cursor: not-allowed; }
+        a {
+            color: var(--color-primary-blue);<br/>
+            text-decoration: none;
+        }
 
-    /* ─── MODAL ─── */
-    .modal-overlay {
-      display: none;
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 999;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    .modal-overlay.open { display: flex; }
-    .modal {
-      background: white;
-      border-radius: 20px;
-      padding: 32px;
-      max-width: 440px;
-      width: 100%;
-      text-align: center;
-    }
-    .modal h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
-    .modal p { font-size: 0.9rem; color: var(--cinza); line-height: 1.5; }
-    .modal .btn-ok {
-      margin-top: 20px;
-      background: var(--azul); color: white;
-      padding: 12px 28px;
-      border-radius: 10px;
-      border: none;
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 0.95rem;
-      cursor: pointer;
-    }
+        a:hover {<br/>
+            text-decoration: underline;
+        }
 
-    /* ─── RESPONSIVO ─── */
-    @media (max-width: 600px) {
-      .card { padding: 20px; }
-      .stats-grid { grid-template-columns: repeat(3, 1fr); }
-      header { padding: 36px 16px 48px; }
-    }
-    @media print {
-      .area-tabs, .btns-finais, .escolha-btn, .btn { display: none !important; }
-      .estrategia-painel { display: block !important; }
-    }
-  </style>
-</head>
-<body>
+        button {
+            cursor: pointer;<br/>
+            border: none;<br/>
+            padding: 10px 20px;<br/>
+            border-radius: 5px;<br/>
+            font-weight: 600;<br/>
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
 
-<!-- HEADER -->
-<header>
-  <div class="container">
-    <div class="badge">2º Ano · Projeto de Vida · Aula 5</div>
-    <h1>🛤️ Distância ao Futuro Desejado</h1>
-    <p>Identifique a distância entre quem você é <strong>hoje</strong> e quem você quer ser em <strong>2045</strong>. Gere valor no presente com estratégias práticas!</p>
-  </div>
-</header>
+        button.primary {
+            background-color: var(--color-primary-blue);<br/>
+            color: var(--color-text-light);
+        }
 
-<div class="container">
+        button.primary:hover {<br/>
+            background-color: #034f77; /* Um pouco mais escuro */
+        }
 
-  <!-- IDENTIFICAÇÃO -->
-  <div class="card">
-    <div class="card-title"><span class="icon">📋</span> Identificação</div>
-    <div class="form-grid">
-      <div class="form-group">
-        <label>Nome completo</label>
-        <input type="text" id="nome" placeholder="Seu nome">
-      </div>
-      <div class="form-group">
-        <label>RA</label>
-        <input type="text" id="ra" placeholder="Número do RA">
-      </div>
-      <div class="form-group">
-        <label>Turma</label>
-        <select id="turma">
-          <option value="">Selecione...</option>
-          <option>2AA</option><option>2AB</option><option>2AC</option><option>2AD</option>
-          <option>2BA</option><option>2BB</option><option>2BC</option><option>2BD</option>
-          <option>2CA</option><option>2CB</option><option>2CC</option><option>2CD</option>
-        </select>
-      </div>
-    </div>
-    <div class="info-box">
-      🌎 <strong>Atividade para todos:</strong> independente de gênero, etnia, religião, renda ou situação familiar — cada trajetória é válida. Exemplos aqui são adaptados à nossa realidade em Manaus (trânsito, rio, família grande, trabalho informal e muito mais). Responda com honestidade, sem julgamentos.
-    </div>
-  </div>
+        button.secondary {
+            background-color: var(--color-secondary-green);<br/>
+            color: var(--color-primary-dark);
+        }
 
-  <!-- NUVEM AULA 4 -->
-  <div class="card">
-    <div class="card-title"><span class="icon">☁️</span> Nuvem de Sonhos da Turma — Aula 4</div>
-    <p style="font-size:0.875rem;color:#6b7280;margin-bottom:18px;">Com base nas <strong>415 respostas</strong> da Aula 4, veja o que a turma sonhou para 2045. Clique nos balões para ver o que mais combina com você!</p>
-    <div class="stats-grid">
-      <div class="stat-bubble azul" onclick="quizMatch(this,'Tecnologia e dados')">
-        <div class="pct">49</div>
-        <div class="label">escolheram Tecnologia & Dados</div>
-      </div>
-      <div class="stat-bubble verde" onclick="quizMatch(this,'Saúde e Medicina')">
-        <div class="pct">44</div>
-        <div class="label">escolheram Saúde & Medicina</div>
-      </div>
-      <div class="stat-bubble amarelo" onclick="quizMatch(this,'Finanças acima de R$10k/mês')">
-        <div class="pct">~70%</div>
-        <div class="label">querem renda acima de R$10k/mês</div>
-      </div>
-      <div class="stat-bubble roxo" onclick="quizMatch(this,'Família próxima')">
-        <div class="pct">~80%</div>
-        <div class="label">desejam família próxima em 2045</div>
-      </div>
-      <div class="stat-bubble rosa" onclick="quizMatch(this,'Espiritualidade/Contribuição')">
-        <div class="pct">7,7</div>
-        <div class="label">média em Espiritualidade (mais baixa!)</div>
-      </div>
-      <div class="stat-bubble laranja" onclick="quizMatch(this,'Saúde nota 9,0')">
-        <div class="pct">9,0</div>
-        <div class="label">maior média: Saúde em 2045</div>
-      </div>
-    </div>
-    <p id="quizResult" style="text-align:center;font-weight:600;color:var(--azul-escuro);font-size:0.9rem;min-height:20px;"></p>
-    <div class="chart-wrap">
-      <canvas id="graficoSonhos"></canvas>
-    </div>
-  </div>
+        button.secondary:hover {<br/>
+            background-color: #8fb355; /* Um pouco mais escuro */
+        }
 
-  <!-- RODA DA VIDA HOJE -->
-  <div class="card">
-    <div class="card-title"><span class="icon">📏</span> Sua Roda da Vida — Como está HOJE?</div>
-    <div class="intro-box">
-      Na Aula 4 você avaliou seu futuro desejado em 2045 (0-10). Agora avalie como está <strong>hoje</strong> em cada dimensão. A <strong>distância</strong> (futuro − presente) mostra o quanto de crescimento você ainda pode gerar! <br>
-      💡 <em>Exemplo: se você quer Carreira = 9 em 2045 e hoje está em 4, a distância é 5 pontos — esse é o seu espaço para crescer!</em>
-    </div>
-    <div class="dimensoes-grid" id="dimensoesGrid"></div>
-    <div class="radar-wrap">
-      <canvas id="graficoRadar"></canvas>
-    </div>
-  </div>
+        input[type="text"], input[type="number"], textarea, select {
+            width: 100%;<br/>
+            padding: 10px;<br/>
+            margin-bottom: 15px;<br/>
+            border: 1px solid var(--color-border-light);<br/>
+            border-radius: 5px;<br/>
+            font-family: 'Inter', sans-serif;<br/>
+            font-size: var(--font-size-base);<br/>
+            background-color: var(--color-card-light);<br/>
+            color: var(--color-text-dark);<br/>
+            transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+        }
 
-  <!-- ESTRATÉGIAS -->
-  <div class="card">
-    <div class="card-title"><span class="icon">🎯</span> Estratégias para o Presente</div>
-    <div class="obrig-aviso">
-      <span class="icon">⚠️</span>
-      <span><strong>Obrigatório:</strong> você deve escolher ao menos <strong>uma estratégia</strong> de qualquer área antes de salvar. Explore todas as áreas — especialmente aquelas com maior distância!</span>
-    </div>
-    <div class="area-tabs" id="areaTabs"></div>
-    <div id="paineis"></div>
-  </div>
+        input[type="range"] {
+            -webkit-appearance: none;<br/>
+            width: 100%;<br/>
+            height: 8px;<br/>
+            background: var(--color-border-light);<br/>
+            outline: none;<br/>
+            opacity: 0.7;<br/>
+            -webkit-transition: .2s;<br/>
+            transition: opacity .2s;<br/>
+            border-radius: 5px;
+        }
 
-  <!-- RESUMO & ENVIO -->
-  <div class="card" id="cardResumo">
-    <div class="card-title"><span class="icon">📤</span> Resumo & Salvar Resultado</div>
-    <div id="resumoContent"></div>
-    <div class="btns-finais">
-      <button class="btn btn-salvar" id="btnSalvar" onclick="salvarRespostas()">📤 Enviar para Google Sheets</button>
-      <button class="btn btn-pdf" onclick="gerarPDF()">📄 Baixar PDF</button>
-      <button class="btn btn-img" onclick="gerarImagem()">🖼️ Salvar como Imagem</button>
-    </div>
-  </div>
+        input[type="range"]::-webkit-slider-thumb {<br/>
+            -webkit-appearance: none;<br/>
+            appearance: none;<br/>
+            width: 20px;<br/>
+            height: 20px;<br/>
+            border-radius: 50%;<br/>
+            background: var(--color-primary-blue);<br/>
+            cursor: pointer;
+        }
 
-</div>
+        input[type="range"]::-moz-range-thumb {<br/>
+            width: 20px;<br/>
+            height: 20px;<br/>
+            border-radius: 50%;<br/>
+            background: var(--color-primary-blue);<br/>
+            cursor: pointer;
+        }
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <div style="font-size:2.5rem;margin-bottom:12px;" id="modalEmoji">✅</div>
-    <h3 id="modalTitulo">Salvo com sucesso!</h3>
-    <p id="modalMsg">Suas respostas foram enviadas.</p>
-    <button class="btn-ok" onclick="fecharModal()">Fechar</button>
-  </div>
-</div>
+        /* Layout Principal */
+        .container {
+            max-width: 1200px;<br/>
+            margin: 0 auto;<br/>
+            padding: 20px;
+        }
 
-<script>
-// ─── DADOS DAS DIMENSÕES ───
-const dimensoes = [
-  {
-    id: 'carreira', nome: 'Carreira / Intelectual', icon: '💼',
-    media2045: 8.6, cor: '#2563eb', corClaro: '#dbeafe',
-    estrategias: [
-      {
-        nome: 'Micro-Learning Diário',
-        prioridade: 'guia',
-        desc: 'Aprender em pequenas doses todos os dias cria hábito e acumula conhecimento ao longo do tempo. Não é sobre quanto tempo você tem, mas sobre fazer todo dia.',
-        exemplo: 'Ex: se seu futuro é Medicina ou TI, reserve 15min após o almoço (antes de pegar o ônibus!) para um vídeo do Khan Academy, Duolingo, ou leitura de artigo no app. Um hábito de 15min/dia = 91h por ano.',
-        passos: ['Escolha 1 área de interesse (idioma, lógica, sua futura profissão)', 'Defina um gatilho: "após chegar da escola, abro o app"', 'Use 15min — menos do que um episódio de série!']
-      },
-      {
-        nome: 'Programação de Atividades',
-        prioridade: 'extra',
-        desc: 'Agendar atividades intelectuais na semana, como compromissos reais, cria estrutura e reduz procrastinação.',
-        exemplo: 'Ex: "Terça e quinta, às 19h, estudo inglês por 20min enquanto minha família assiste TV." Registre no calendário do celular com alarme.',
-        passos: ['Liste 2-3 temas que quer desenvolver', 'Escolha dias e horários fixos realistas (respeitando trabalho, família, transporte)', 'Coloque alarme no celular com nome motivador: "Meu futuro começa agora"']
-      }
-    ]
-  },
-  {
-    id: 'financas', nome: 'Finanças', icon: '💰',
-    media2045: 8.7, cor: '#ca8a04', corClaro: '#fef9c3',
-    estrategias: [
-      {
-        nome: 'Regra dos 10% (Adaptada)',
-        prioridade: 'guia',
-        desc: 'Poupar qualquer valor hoje cria o hábito — o hábito importa mais que o montante. Quem guarda R$2/dia desenvolve mentalidade de investidor.',
-        exemplo: 'Ex: no app PicPay, Nubank ou caixinha de sapato, separe uma quantia simbólica antes de comprar lanche na rua (comum no trânsito de Manaus). Não é o valor que conta agora — é o hábito!',
-        passos: ['Anote toda saída de dinheiro por 1 semana (pode ser no bloco de notas do celular)', 'Identifique 1 gasto que pode reduzir (aplicativo, lanche extra, recarga)', 'Separe esse valor em conta separada ou envelope nomeado "Meu Futuro"']
-      },
-      {
-        nome: 'Lista de Problemas e Soluções',
-        prioridade: 'extra',
-        desc: 'Identificar o que "sangra" suas finanças é o primeiro passo para mudar. Cada problema financeiro tem pelo menos uma solução prática possível hoje.',
-        exemplo: 'Ex: "Meu problema: gasto R$8/dia de transporte. Solução: ver se consigo carona com vizinho 2x por semana ou alinhar horário com colega." Pequenas economias somadas mudam o quadro.',
-        passos: ['Liste 3 gastos fixos da semana', 'Para cada um, pense: "como poderia reduzir ou eliminar?"', 'Escolha 1 solução para testar esta semana']
-      }
-    ]
-  },
-  {
-    id: 'saude', nome: 'Saúde / Corpo', icon: '🏃',
-    media2045: 9.0, cor: '#16a34a', corClaro: '#dcfce7',
-    estrategias: [
-      {
-        nome: 'Ancoragem de Hábitos',
-        prioridade: 'guia',
-        desc: 'Unir um hábito NOVO a um hábito que você já tem funciona porque o cérebro aproveita o caminho já traçado. Você não precisa de força de vontade extra — só de um gatilho.',
-        exemplo: 'Ex: "Logo após chegar da escola (hábito existente), faço 10min de alongamento ou caminhada pela rua ou área verde perto de casa." No calor de Manaus: horário mais fresco, final de tarde!',
-        passos: ['Escolha 1 hábito que já faz todo dia (escovar dente, chegar da escola, almoçar)', 'Decida 1 hábito de saúde pequeno para ancorar nele', 'Faça durante 7 dias e veja como se sente']
-      },
-      {
-        nome: 'Ativação Comportamental',
-        prioridade: 'extra',
-        desc: 'Listar pequenas atividades que trazem sensação de bem-estar e agendá-las na semana ajuda a sair do sedentarismo — mesmo em dias difíceis.',
-        exemplo: 'Ex: liste 3 atividades que te movem e te dão paz (dança, futebol no campinho, andar de bicicleta, nadar no igarapé perto de casa). Programe ao menos 1 por semana como compromisso.',
-        passos: ['Liste 5 atividades físicas que você gosta (mesmo se faz raramente)', 'Escolha a mais fácil de fazer esta semana', 'Agende com dia, hora e com quem vai fazer']
-      }
-    ]
-  },
-  {
-    id: 'emocional', nome: 'Equilíbrio Emocional', icon: '🧠',
-    media2045: 8.8, cor: '#7c3aed', corClaro: '#ede9fe',
-    estrategias: [
-      {
-        nome: 'Diário de Bordo / Check-in',
-        prioridade: 'guia',
-        desc: 'Registrar sentimentos ao final do dia aumenta o autoconhecimento e ajuda a identificar padrões emocionais. Não precisa escrever muito — 3 palavras já fazem diferença.',
-        exemplo: 'Ex: ao fim do dia, escreva no celular ou caderno: "3 sentimentos de hoje". Pode ser: "trânsito irritou, aula foi boa, família me animou." Reconhecer o que você sente é o primeiro passo para gerenciar.',
-        passos: ['Antes de dormir, pare 5 minutos', 'Escreva: O que senti hoje? O que causou isso? O que posso fazer diferente amanhã?', 'Não há resposta certa — o objetivo é se conhecer melhor']
-      },
-      {
-        nome: 'Flexibilidade Cognitiva (Tons de Cinza)',
-        prioridade: 'extra',
-        desc: 'Desafiar pensamentos extremos ("tudo ruim" / "sempre erro") ajuda a ver situações com mais equilíbrio e reduz ansiedade.',
-        exemplo: 'Ex: tirou uma nota baixa? Em vez de "sou um fracasso", tente: "essa prova não foi bem, mas tenho outra chance e posso pedir ajuda ao professor." A realidade quase sempre está entre o pior e o melhor cenário.',
-        passos: ['Identifique um pensamento extremo que aparece quando algo dá errado', 'Pergunte: "Isso é 100% verdade? Existe outra forma de ver isso?"', 'Escreva a versão equilibrada e leia em voz alta']
-      }
-    ]
-  },
-  {
-    id: 'relacionamentos', nome: 'Relacionamentos', icon: '❤️',
-    media2045: 8.0, cor: '#db2777', corClaro: '#fce7f3',
-    estrategias: [
-      {
-        nome: 'Escuta Ativa',
-        prioridade: 'guia',
-        desc: 'Estar presente de verdade em uma conversa — sem celular, sem pensar na resposta enquanto o outro fala — é uma habilidade rara que fortalece qualquer relacionamento.',
-        exemplo: 'Ex: escolha 1 conversa por dia (com irmão, mãe, amigo, colega) para praticar: celular virado para baixo, olho no olho, sem interromper. Pergunte algo sobre o dia da pessoa. Isso vale para famílias grandes, amigos no transporte, em família multirracial — qualquer contexto!',
-        passos: ['Avise mentalmente: "essa conversa vai ter minha atenção total"', 'Desligue a tela (ou coloque no silencioso)', 'Faça 1 pergunta aberta: "como foi seu dia?" e deixe a pessoa responder sem pressa']
-      },
-      {
-        nome: 'Menu de Enfrentamento Social',
-        prioridade: 'extra',
-        desc: 'Criar uma lista de atividades sociais acessíveis ajuda a sair do isolamento e fortalecer vínculos — mesmo quando dinheiro ou tempo são limitados.',
-        exemplo: 'Ex: "meu menu: jogar bola na praça, tomar açaí com amigo, fazer videochamada com familiar distante, visitar vizinho." Você não precisa de dinheiro para se conectar com pessoas!',
-        passos: ['Liste 5 atividades sociais que custam pouco ou nada', 'Planeje 1 por semana com alguém específico', 'Registre como você se sentiu depois — isso vira combustível para continuar']
-      }
-    ]
-  },
-  {
-    id: 'espiritual', nome: 'Espiritualidade / Contribuição', icon: '🌿',
-    media2045: 7.7, cor: '#0891b2', corClaro: '#cffafe',
-    estrategias: [
-      {
-        nome: 'Voluntariado de Proximidade',
-        prioridade: 'guia',
-        desc: 'Contribuir começa do círculo imediato — família, escola, vizinhança. Não precisa de ONG ou projeto grandioso para começar a gerar impacto.',
-        exemplo: 'Ex: ajude um colega a organizar material de estudo, ofereça ajuda a um familiar mais velho com tecnologia, organize um espaço da escola. Em Manaus, também pode ser ajudar na limpeza de igarapé do bairro ou em ação da comunidade.',
-        passos: ['Pergunte: quem ao meu redor precisa de ajuda esta semana?', 'Faça uma ação pequena e concreta (não precisa anunciar)', 'Observe como isso afeta seu próprio bem-estar']
-      },
-      {
-        nome: 'Alinhamento de Valores e Comportamentos',
-        prioridade: 'extra',
-        desc: 'Identificar seus valores mais profundos e agir de acordo com eles pelo menos 1x por dia cria senso de propósito e coerência interna.',
-        exemplo: 'Ex: se você valoriza família, ligue para um familiar que não fala há tempo. Se valoriza natureza, evite jogar lixo no rio ou igarapé. Se valoriza justiça, defenda alguém que está sendo mal tratado.',
-        passos: ['Escolha 3 valores mais importantes para você (ex: família, justiça, crescimento)', 'Para cada valor, escreva 1 ação concreta que pode fazer hoje', 'Pratique 1 dessas ações e anote como se sentiu']
-      }
-    ]
-  }
-];
+        /* Header */
+        header {
+            text-align: center;<br/>
+            padding: 40px 20px 20px;<br/>
+            background-color: var(--color-background-light);<br/>
+            border-bottom: 1px solid var(--color-border-light);<br/>
+            position: relative;
+        }
 
-// ─── ESTADO GLOBAL ───
-const estado = {
-  notas: {},
-  escolhas: {}
-};
+        header .logo {
+            max-width: 150px;<br/>
+            height: auto;<br/>
+            margin-bottom: 15px;
+        }
 
-// ─── INICIALIZAÇÃO ───
-document.addEventListener('DOMContentLoaded', () => {
-  renderDimensoes();
-  renderRadar();
-  renderAbas();
-  renderResumo();
-  renderGraficoSonhos();
-});
+        header h1 {
+            font-size: 2.5em;<br/>
+            margin-bottom: 10px;<br/>
+            color: var(--color-primary-dark);
+        }
 
-// ─── GRÁFICO SONHOS AULA 4 ───
-function renderGraficoSonhos() {
-  const ctx = document.getElementById('graficoSonhos').getContext('2d');
-  new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Tecnologia/Dados', 'Saúde/Medicina', 'Direito/Engenharia', 'Artes/Educação', 'Outros'],
-      datasets: [{
-        data: [49, 44, 29, 12, 281],
-        backgroundColor: ['#2563eb','#16a34a','#ca8a04','#db2777','#9ca3af'],
-        borderWidth: 3,
-        borderColor: '#fff'
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { position: 'bottom', labels: { font: { family: 'Inter', size: 11 }, padding: 14 } }
-      }
-    }
-  });
-}
+        header p {
+            font-size: 1.1em;<br/>
+            color: var(--color-accent-graygreen);
+        }
 
-function quizMatch(el, area) {
-  document.getElementById('quizResult').textContent = `Você também se identifica com: ${area}! Veja as estratégias abaixo para desenvolver essa área. 🚀`;
-}
+        /* Acessibilidade Widget */
+        .accessibility-toggle {
+            position: absolute;<br/>
+            top: 20px;<br/>
+            right: 20px;<br/>
+            background: none;<br/>
+            border: none;<br/>
+            font-size: 2em;<br/>
+            color: var(--color-primary-dark);<br/>
+            cursor: pointer;<br/>
+            z-index: 1001;
+        }
 
-// ─── RODA DA VIDA ───
-function renderDimensoes() {
-  const grid = document.getElementById('dimensoesGrid');
-  grid.innerHTML = '';
-  dimensoes.forEach(d => {
-    estado.notas[d.id] = 5;
-    const card = document.createElement('div');
-    card.className = 'dimensao-card';
-    card.innerHTML = `
-      <div class="dim-header">
-        <span class="dim-icon">${d.icon}</span>
-        <div>
-          <div class="dim-name">${d.nome}</div>
-          <div class="dim-media">Média turma 2045: <strong>${d.media2045}</strong></div>
-        </div>
-      </div>
-      <div class="slider-label"><span>0</span><span>Hoje: <strong id="val-${d.id}">5</strong></span><span>10</span></div>
-      <input type="range" min="0" max="10" value="5" step="1"
-        style="background: linear-gradient(to right, ${d.cor} 50%, #e5e7eb 50%);"
-        oninput="atualizarNota('${d.id}', this.value, '${d.cor}')"
-        id="range-${d.id}">
-      <div class="dim-valor">
-        <div class="num" id="num-${d.id}" style="color:${d.cor}">5</div>
-        <div class="sub">hoje</div>
-      </div>
-      <div style="text-align:center">
-        <span class="distancia-badge" id="badge-${d.id}" style="background:${d.corClaro};color:${d.cor}">
-          Distância: ${d.media2045 - 5} pts para 2045
-        </span>
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-}
+        .accessibility-panel {
+            position: fixed;<br/>
+            top: 0;<br/>
+            right: -300px; /* Escondido por padrão */<br/>
+            width: 280px;<br/>
+            height: 100%;<br/>
+            background-color: var(--color-card-light);<br/>
+            border-left: 1px solid var(--color-border-light);<br/>
+            box-shadow: -2px 0 10px var(--color-shadow-light);<br/>
+            padding: 20px;<br/>
+            transition: right 0.3s ease-in-out;<br/>
+            z-index: 1000;<br/>
+            display: flex;<br/>
+            flex-direction: column;
+        }
 
-function atualizarNota(id, val, cor) {
-  val = parseInt(val);
-  estado.notas[id] = val;
-  document.getElementById('val-' + id).textContent = val;
-  document.getElementById('num-' + id).textContent = val;
-  const dim = dimensoes.find(d => d.id === id);
-  const dist = Math.max(0, dim.media2045 - val);
-  document.getElementById('badge-' + id).textContent = `Distância: ${dist.toFixed(1)} pts para 2045`;
-  const range = document.getElementById('range-' + id);
-  const pct = val / 10 * 100;
-  range.style.background = `linear-gradient(to right, ${cor} ${pct}%, #e5e7eb ${pct}%)`;
-  renderRadar();
-  renderResumo();
-}
+        .accessibility-panel.open {
+            right: 0;
+        }
 
-// ─── RADAR ───
-let radarChart;
-function renderRadar() {
-  const ctx = document.getElementById('graficoRadar').getContext('2d');
-  const labels = dimensoes.map(d => d.nome);
-  const hoje = dimensoes.map(d => estado.notas[d.id] ?? 5);
-  const futuro = dimensoes.map(d => d.media2045);
-  if (radarChart) radarChart.destroy();
-  radarChart = new Chart(ctx, {
-    type: 'radar',
-    data: {
-      labels,
-      datasets: [
-        { label: 'Hoje', data: hoje, fill: true, backgroundColor: 'rgba(37,99,235,0.15)', borderColor: '#2563eb', pointBackgroundColor: '#2563eb', borderWidth: 2 },
-        { label: 'Média Turma 2045', data: futuro, fill: true, backgroundColor: 'rgba(22,163,74,0.1)', borderColor: '#16a34a', pointBackgroundColor: '#16a34a', borderWidth: 2, borderDash: [5,5] }
-      ]
-    },
-    options: {
-      responsive: true,
-      scales: { r: { min: 0, max: 10, ticks: { stepSize: 2, font: { size: 10 } } } },
-      plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter', size: 11 } } } }
-    }
-  });
-}
+        .accessibility-panel h3 {
+            color: var(--color-primary-dark);<br/>
+            margin-bottom: 20px;<br/>
+            font-size: 1.4em;
+        }
 
-// ─── ESTRATÉGIAS ───
-function renderAbas() {
-  const tabs = document.getElementById('areaTabs');
-  const paineis = document.getElementById('paineis');
-  tabs.innerHTML = '';
-  paineis.innerHTML = '';
+        .accessibility-panel .option-group {
+            margin-bottom: 20px;<br/>
+            padding-bottom: 15px;<br/>
+            border-bottom: 1px solid var(--color-border-light);
+        }
 
-  dimensoes.forEach((d, i) => {
-    // Tab
-    const tab = document.createElement('button');
-    tab.className = 'area-tab' + (i === 0 ? ' active' : '');
-    tab.id = 'tab-' + d.id;
-    tab.innerHTML = `<span>${d.icon}</span>${d.nome}`;
-    tab.onclick = () => ativarAba(d.id);
-    tabs.appendChild(tab);
+        .accessibility-panel .option-group:last-of-type {<br/>
+            border-bottom: none;
+        }
 
-    // Painel
-    const painel = document.createElement('div');
-    painel.className = 'estrategia-painel' + (i === 0 ? ' active' : '');
-    painel.id = 'painel-' + d.id;
+        .accessibility-panel label {
+            display: block;<br/>
+            margin-bottom: 10px;<br/>
+            font-weight: 600;<br/>
+            color: var(--color-text-dark);
+        }
 
-    const distancia = Math.max(0, d.media2045 - (estado.notas[d.id] ?? 5));
-    painel.innerHTML = `
-      <div class="estrat-intro">
-        ${d.icon} <strong>${d.nome}</strong> — sua distância estimada para 2045: <strong style="color:${d.cor}">${distancia.toFixed(1)} pontos</strong>.
-        Explore as duas estratégias abaixo e marque ao menos 1 que você vai praticar!
-      </div>
-      <div class="estrategias-cards">
-        ${d.estrategias.map((e, ei) => renderEstratCard(d, e, ei)).join('')}
-      </div>
-    `;
-    paineis.appendChild(painel);
-  });
-}
+        .accessibility-panel button {
+            display: block;<br/>
+            width: 100%;<br/>
+            margin-bottom: 10px;<br/>
+            background-color: var(--color-primary-blue);<br/>
+            color: var(--color-text-light);<br/>
+            padding: 10px;<br/>
+            border-radius: 5px;<br/>
+            font-size: 0.9em;
+        }
 
-function renderEstratCard(d, e, ei) {
-  const key = `${d.id}-${ei}`;
-  return `
-    <div class="estrat-card" id="ecard-${key}">
-      <div class="estrat-head">
-        <span class="nome">${e.nome}</span>
-        <span class="prioridade ${e.prioridade === 'guia' ? 'pri-guia' : 'pri-extra'}">
-          ${e.prioridade === 'guia' ? '⭐ Guia do Aplicador' : '➕ Complementar'}
-        </span>
-      </div>
-      <div class="estrat-body">
-        <p>${e.desc}</p>
-        <div class="exemplo">💡 ${e.exemplo}</div>
-        <div class="passo">
-          ${e.passos.map((p, pi) => `<div class="passo-item"><span class="passo-num">${pi+1}</span><span>${p}</span></div>`).join('')}
-        </div>
-        <button class="escolha-btn" id="btn-${key}" onclick="toggleEscolha('${d.id}', ${ei}, '${key}')">
-          ☐ Vou praticar essa estratégia!
-        </button>
-      </div>
-    </div>
-  `;
-}
+        .accessibility-panel button.active {
+            background-color: var(--color-secondary-green);<br/>
+            color: var(--color-primary-dark);
+        }
 
-function ativarAba(id) {
-  document.querySelectorAll('.area-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.estrategia-painel').forEach(p => p.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  document.getElementById('painel-' + id).classList.add('active');
-}
+        .accessibility-panel .close-btn {
+            background: none;<br/>
+            border: none;<br/>
+            font-size: 1.5em;<br/>
+            color: var(--color-primary-dark);<br/>
+            position: absolute;<br/>
+            top: 10px;<br/>
+            right: 10px;<br/>
+            width: auto;<br/>
+            padding: 5px;
+        }
 
-function toggleEscolha(dimId, ei, key) {
-  const btn = document.getElementById('btn-' + key);
-  const card = document.getElementById('ecard-' + key);
-  const k = `${dimId}-${ei}`;
-  if (estado.escolhas[k]) {
-    delete estado.escolhas[k];
-    btn.classList.remove('checked');
-    btn.textContent = '☐ Vou praticar essa estratégia!';
-    card.classList.remove('selected');
-  } else {
-    estado.escolhas[k] = true;
-    btn.classList.add('checked');
-    btn.textContent = '✅ Selecionada!';
-    card.classList.add('selected');
-  }
-  renderResumo();
-}
+        /* Progress Bar */
+        .progress-bar-container {
+            width: 100%;<br/>
+            background-color: #e0e0e0;<br/>
+            height: 8px;<br/>
+            border-radius: 4px;<br/>
+            margin-bottom: 20px;<br/>
+            overflow: hidden;
+        }
 
-// ─── RESUMO ───
-function renderResumo() {
-  const total = Object.keys(estado.escolhas).length;
-  const mediaAtual = Object.values(estado.notas).length
-    ? (Object.values(estado.notas).reduce((a,b) => a+b, 0) / Object.values(estado.notas).length).toFixed(1) : '—';
-  const mediaDist = dimensoes.reduce((acc, d) => acc + Math.max(0, d.media2045 - (estado.notas[d.id] ?? 5)), 0) / dimensoes.length;
+        .progress-bar {
+            height: 100%;<br/>
+            width: 0%;<br/>
+            background-color: var(--color-secondary-green);<br/>
+            border-radius: 4px;<br/>
+            transition: width 0.5s ease-in-out;
+        }
 
-  const escolhasList = Object.keys(estado.escolhas).map(k => {
-    const [dimId, ei] = k.split('-');
-    const d = dimensoes.find(x => x.id === dimId);
-    return d ? `<div class="estrat-resumo-item"><span class="check">✅</span><span>${d.icon} ${d.nome} — ${d.estrategias[ei].nome}</span></div>` : '';
-  }).join('');
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;<br/>
+            flex-wrap: wrap;<br/>
+            justify-content: center;<br/>
+            margin-bottom: 30px;<br/>
+            border-bottom: 2px solid var(--color-border-light);
+        }
 
-  document.getElementById('resumoContent').innerHTML = `
-    <div class="resumo-grid">
-      <div class="resumo-item"><div class="ri-label">Média atual (hoje)</div><div class="ri-val" style="color:var(--azul)">${mediaAtual}</div></div>
-      <div class="resumo-item"><div class="ri-label">Distância média</div><div class="ri-val" style="color:var(--laranja)">${mediaDist.toFixed(1)} pts</div></div>
-      <div class="resumo-item"><div class="ri-label">Estratégias escolhidas</div><div class="ri-val" style="color:${total > 0 ? 'var(--verde)' : 'var(--cinza)'}">${total}</div></div>
-    </div>
-    ${total > 0
-      ? `<p style="font-weight:600;margin-bottom:10px;font-size:0.875rem;">Suas estratégias escolhidas:</p>${escolhasList}`
-      : `<p style="color:var(--cinza);font-size:0.875rem;">Nenhuma estratégia selecionada ainda. Vá na seção acima e escolha ao menos uma!</p>`
-    }
-  `;
+        .nav-tab {
+            padding: 15px 20px;<br/>
+            cursor: pointer;<br/>
+            font-weight: 600;<br/>
+            color: var(--color-accent-graygreen);<br/>
+            border-bottom: 2px solid transparent;<br/>
+            transition: color 0.3s, border-color 0.3s;<br/>
+            white-space: nowrap;<br/>
+            overflow: hidden;<br/>
+            text-overflow: ellipsis;<br/>
+            flex-grow: 1;<br/>
+            text-align: center;
+        }
 
-  document.getElementById('btnSalvar').disabled = total === 0;
-}
+        .nav-tab:hover {<br/>
+            color: var(--color-primary-blue);
+        }
 
-// ─── SALVAR / EXPORTAR ───
-function salvarRespostas() {
-  const nome = document.getElementById('nome').value.trim();
-  const ra = document.getElementById('ra').value.trim();
-  const turma = document.getElementById('turma').value;
-  const total = Object.keys(estado.escolhas).length;
+        .nav-tab.active {
+            color: var(--color-primary-dark);<br/>
+            border-color: var(--color-primary-blue);
+        }
 
-  if (!nome || !ra || !turma) {
-    abrirModal('⚠️', 'Preencha a identificação!', 'Por favor, informe seu Nome, RA e Turma antes de enviar.');
-    return;
-  }
-  if (total === 0) {
-    abrirModal('⚠️', 'Escolha ao menos 1 estratégia!', 'Vá até a seção "Estratégias para o Presente" e selecione ao menos uma estratégia antes de salvar.');
-    return;
-  }
+        /* Seções de Conteúdo */
+        .content-section {
+            display: none;<br/>
+            padding: 20px 0;
+        }
 
-  const dados = {
-    timestamp: new Date().toLocaleString('pt-BR'),
-    nome, ra, turma,
-    ...Object.fromEntries(dimensoes.map(d => [`nota_${d.id}`, estado.notas[d.id] ?? 5])),
-    estrategias_escolhidas: Object.keys(estado.escolhas).map(k => {
-      const [dId, ei] = k.split('-');
-      const d = dimensoes.find(x => x.id === dId);
-      return d ? `${d.nome}: ${d.estrategias[ei].nome}` : '';
-    }).join(' | ')
-  };
+        .content-section.active {
+            display: block;
+        }
 
-  // Envio para Google Apps Script — substitua pela sua URL
-  const SCRIPT_URL = 'https://script.google.com/macros/s/SEU_SCRIPT_ID/exec';
-  fetch(SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(dados)
-  }).then(() => {
-    abrirModal('✅', 'Enviado com sucesso!', 'Suas respostas foram salvas. Agora baixe seu resultado em PDF ou imagem!');
-  }).catch(() => {
-    abrirModal('⚠️', 'Atenção', 'Não foi possível conectar ao servidor. Seus dados estão prontos para download em PDF/Imagem.');
-  });
-}
+        .section-title {
+            font-size: 2em;<br/>
+            color: var(--color-primary-dark);<br/>
+            margin-bottom: 20px;<br/>
+            text-align: center;
+        }
 
-function gerarPDF() {
-  window.print();
-}
+        /* Seção 1: Identificação + Nuvem de Sonhos */
+        .identification-form {
+            background-color: var(--color-card-light);<br/>
+            padding: 25px;<br/>
+            border-radius: 8px;<br/>
+            box-shadow: 0 2px 5px var(--color-shadow-light);<br/>
+            margin-bottom: 40px;
+        }
 
-function gerarImagem() {
-  // html2canvas se disponível, senso print
-  abrirModal('🖼️', 'Salvar como imagem', 'Use Ctrl+P (ou Cmd+P no Mac) e selecione "Salvar como PDF" para salvar uma cópia completa. Alternativamente, use a tecla Print Screen do seu dispositivo.');
-}
+        .identification-form label {
+            font-weight: 600;<br/>
+            display: block;<br/>
+            margin-bottom: 5px;<br/>
+            color: var(--color-primary-dark);
+        }
 
-function abrirModal(emoji, titulo, msg) {
-  document.getElementById('modalEmoji').textContent = emoji;
-  document.getElementById('modalTitulo').textContent = titulo;
-  document.getElementById('modalMsg').textContent = msg;
-  document.getElementById('modalOverlay').classList.add('open');
-}
-function fecharModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-}
-</script>
+        .identification-form input {
+            margin-bottom: 20px;
+        }
 
-</body>
-</html>
+        .nuvem-sonhos-chart-container {
+            position: relative;<br/>
+            height: 400px; /* Altura fixa para o gráfico */<br/>
+            margin-top: 30px;<br/>
+            background-color: var(--color-card-light);<br/>
+            padding: 20px;<br/>
+            border-radius: 8px;<br/>
+            box-shadow: 0 2px 5px var(--color-shadow-light);
+        }
+
+        /* Seção 2: Sua Roda da Vida */
+        .roda-vida-grid {
+            display: grid;<br/>
+            grid-template-columns: 1fr;<br/>
+            gap: 30px;<br/>
+            margin-top: 20px;
+        }
+
+        .roda-vida-item {
+            background-color: var(--color-card-light);<br/>
+            padding: 20px;<br/>
+            border-radius: 8px;<br/>
+            box-shadow: 0 2px 5px var(--color-shadow-light);
+        }
+
+        .roda-vida-item h4 {
+            font-size: 1.3em;<br/>
+            color: var(--color-primary-blue);<br/>
+            margin-bottom: 15px;<br/>
+            display: flex;<br/>
+            align-items: center;
+        }
+
+        .roda-vida-item h4 span {
+            margin-right: 10px;<br/>
+            font-size: 1.5em;
+        }
+
+        .roda-vida-item .slider-value {
+            font-weight: 700;<br/>
+            color: var(--color-tertiary-green);<br/>
+            margin-left: 10px;
+        }
+
+        .roda-vida-chart-container {
+            background-color: var(--color-card-light);<br/>
+            padding: 20px;<br/>
+            border-radius: 8px;<br/>
+            box-shadow: 0 2px 5px var(--color-shadow-light);<br/>
+            margin-top: 30px;<br/>
+            position: relative;<br/>
+            height: 400px;
+        }
+
+        /* Seção 3: Estratégias */
+        .strategies-tabs {
+            display: flex;<br/>
+            flex-wrap: wrap;<br/>
+            justify-content: center;<br/>
+            margin-bottom: 20px;<br/>
+            border-bottom: 1px solid var(--color-border-light);
+        }
+
+        .strategy-tab {
+            padding: 12px 18px;<br/>
+            cursor: pointer;<br/>
+            font-weight: 600;<br/>
+            color: var(--color-accent-graygreen);<br/>
+            border-bottom: 2px solid transparent;<br/>
+            transition: color 0.3s, border-color 0.3s;<br/>
+            white-space: nowrap;<br/>
+            overflow: hidden;<br/>
+            text-overflow: ellipsis;<br/>
+            flex-grow: 1;<br/>
+            text-align: center;<br/>
+            font-size: 0.9em;
+        }
+
+        .strategy-tab.active {
+            color: var(--color-primary-dark);<br/>
+            border-color: var(--color-tertiary-green);
+        }
+
+        .strategy-content {
+            display: none;<br/>
+            padding: 20px 0;
+        }
+
+        .strategy-content.active {
+            display: block;
+        }
+
+        .strategy-cards-grid {
+            display: grid;<br/>
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));<br/>
+            gap: 25px;<br/>
+            margin-top: 20px;
+        }
+
+        .strategy-card {
+            background-color: var(--color-card-light);<br/>
+            padding: 20px;<br/>
+            border-radius: 8px;<br/>
+            box-shadow: 0 2px 5px var(--color-shadow-light);<br/>
+            display: flex;<br/>
+            flex-direction: column;<br/>
+            justify-content: space-between;<br/>
+            border-left: 5px solid var(--color-primary-blue);<br/>
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .strategy-card.completed {
+            border-left-color: var(--color-secondary-green);<br/>
+            opacity: 0.8;
+        }
+
+        .strategy-card h5 {
+            font-size: 1.2em;<br/>
+            color: var(--color-primary-dark);<br/>
+            margin-bottom: 10px;
+        }
+
+        .strategy-card p {
+            font-size: 0.95em;<br/>
+            margin-bottom: 15px;<br/>
+            color: var(--color-text-dark);
+        }
+
+        .strategy-card button {
+            margin-top: auto; /* Empurra o botão para baixo */<br/>
+            background-color: var(--color-tertiary-green);<br/>
+            color: var(--color-text-light);<br/>
+            padding: 10px 15px;<br/>
+            font-size: 0.9em;
+        }
+
+        .strategy-card button:hover {<br/>
+            background-color: #618f30;
+        }
+
+        /* Seção 4: Resumo e Conclusão */
+        .summary-section {
+            background-color: var(--color-card-light);<br/>
+            padding: 30px;<br/>
+            border-radius: 8px;<br/>
+            box-shadow: 0 2px 5px var(--color-shadow-light);<br/>
+            margin-bottom: 30px;
+        }
+
+        .summary-section h3 {
+            color: var(--color-primary-dark);<br/>
+            margin-bottom: 20px;<br/>
+            text-align: center;
+        }
+
+        .summary-item {
+            margin-bottom: 15px;<br/>
+            padding: 10px;<br/>
+            border-left: 4px solid var(--color-primary-blue);<br/>
+            background-color: #f0f8ff; /* Light blue background */<br/>
+            border-radius: 4px;
+        }
+
+        .summary-item strong {
+            color: var(--color-primary-dark);
+        }
+
+        .summary-item p {
+            margin-top: 5px;<br/>
+            font-size: 0.95em;
+        }
+
+        .conclusion-actions {
+            text-align: center;<br/>
+            margin-top: 40px;
+        }
+
+        .conclusion-actions button {
+            margin: 0 10px;<br/>
+            padding: 12px 25px;<br/>
+            font-size: 1.1em;
+        }
+
+        /* Modals */
+        .modal-overlay {
+            display: none;<br/>
+            position: fixed;<br/>
+            top: 0;<br/>
+            left: 0;<br/>
+            width: 100%;<br/>
+            height: 100%;<br/>
+            background-color: rgba(0, 0, 0, 0.6);<br/>
+            justify-content: center;<br/>
+            align-items: center;<br/>
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: var(--color-background-light);<br/>
+            padding: 30px;<br/>
+            border-radius: 10px;<br/>
+            box-shadow: 0 5px 15px var(--color-shadow-light);<br/>
+            max-width: 500px;<br/>
+            width: 90%;<br/>
+            position: relative;<br/>
+            color: var(--color-text-dark);
+        }
+
+        .modal-content h3 {
+            color: var(--color-primary-dark);<br/>
+            margin-bottom: 20px;<br/>
+            text-align: center;
+        }
+
+        .modal-content .close-modal {
+            position: absolute;<br/>
+            top: 15px;<br/>
+            right: 15px;<br/>
+            background: none;<br/>
+            border: none;<br/>
+            font-size: 1.5em;<br/>
+            color: var(--color-accent-graygreen);<br/>
+            cursor: pointer;
+        }
+
+        .modal-content textarea {
+            min-height: 120px;<br/>
+            resize: vertical;
+        }
+
+        .modal-content .modal-actions {
+            display: flex;<br/>
+            justify-content: flex-end;<br/>
+            gap: 10px;<br/>
+            margin-top: 20px;
+        }
+
+        .modal-content .modal-actions button {
+            padding: 10px 20px;
+        }
+
+        .modal-success-icon {
+            font-size: 4em;<br/>
+            color: var(--color-secondary-green);<br/>
+            text-align: center;<br/>
+            display: block;<br/>
+            margin-bottom: 20px;
+        }
+
+        .modal-error-icon {
+            font-size: 4em;<br/>
+            color: #dc3545; /* Red */<br/>
+            text-align: center;<br/>
+            display: block;<br/>
+            margin-bottom: 20px;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: var(--color-background-dark);<br/>
+            color: var(--color-text-light);
+        }
+
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode h5, body.dark-mode h6 {
+            color: var(--color-text-light);
+        }
+
+        body.dark-mode header {
+            background-color: var(--color-background-dark);<br/>
+            border-bottom-color: var(--color-border-dark);
+        }
+
+        body.dark-mode .accessibility-toggle {
+            color: var(--color-text-light);
+        }
+
+        body.dark-mode .accessibility-panel {
+            background-color: var(--color-card-dark);<br/>
+            border-left-color: var(--color-border-dark);<br/>
+            box-shadow: -2px 0 10px var(--color-shadow-dark);
+        }
+
+        body.dark-mode .accessibility-panel h3, body.dark-mode .accessibility-panel label {
+            color: var(--color-text-light);
+        }
+
+        body.dark-mode .accessibility-panel button {
+            background-color: var(--color-primary-blue);<br/>
+            color: var(--color-text-light);
+        }
+
+        body.dark-mode .accessibility-panel button.active {
+            background-color: var(--color-secondary-green);<br/>
+            color: var(--color-primary-dark);
+        }
+
+        body.dark-mode .accessibility-panel .close-btn {
+            color: var(--color-text-light);
+        }
+
+        body.dark-mode .nav-tab {
+            color: var(--color-accent-graygreen);
+        }
+
+        body.dark-mode .nav-tab.active {
+            color: var(--color-text-light);<br/>
+            border-color: var(--color-primary-blue);
+        }
+
+        body.dark-mode .content-section, body.dark-mode .identification-form,
+        body.dark-mode .nuvem-sonhos-chart-container, body.dark-mode .roda-vida-item,
+        body.dark-mode .roda-vida-chart-container, body.dark-mode .strategy-card,
+        body.dark-mode .summary-section, body.dark-mode .modal-content {
+            background-color: var(--color-card-dark);<br/>
+            box-shadow: 0 2px 5px var(--color-shadow-dark);<br/>
+            color: var(--color-text-light);
+        }
+
+        body.dark-mode .identification-form label, body.dark-mode .strategy-card h5 {
+            color: var(--color-text-light);
+        }
+
+        body.dark-mode input[type="text"], body.dark-mode input[type="number"], body.dark-mode textarea, body.dark-mode select {
+            border-color: var(--color-border-dark);<br/>
+            background-color: #3a3a3a;<br/>
+            color: var(--color-text-light);
+        }
+
+        body.dark-mode input[type="range"] {
+            background: var(--color-border-dark);
+        }
+
+        body.dark-mode .strategy-tab.active {
+            color: var(--color-text-light);
+        }
+
+        body.dark-mode .summary-item {
+            background-color: #2a3a4a; /* Darker blue background */
+        }
+
+        body.dark-mode .summary-item strong {
+            color: var(--color-text-light);
+        }
+
+        /* Acessibilidade - Font Family */
+        body.font-dyslexic {
+            font-family: 'Open Dyslexic', sans-serif !important;
+        }
+
+        /* Acessibilidade - Font Size */
+        body.font-large {
+            font-size: var(--font-size-large);
+        }
+
+        body.font-x-large {
+            font-size: var(--font-size-x-large);
+        }
+
+        /* Acessibilidade - Increased Spacing */
+        body.increased-spacing p, body.increased-spacing li, body.increased-spacing label {
+            line-height: 1.8;<br/>
+            margin-bottom: var(--spacing-increased);
+        }
+
+        body.increased-spacing h1, body.increased-spacing h2, body.increased-spacing h3, body.increased-spacing h4 {
+            margin-bottom: var(--spacing-increased);
+        }
+
+        body.increased-spacing .nav-tab, body.increased-spacing .strategy-tab {
+            padding: 20px 25px;
+        }
+
+        /* Acessibilidade - High Contrast */
+        body.high-contrast {
+            background-color: black !important;<br/>
+            color: white !important;
+        }
+
+        body.high-contrast h1, body.high-contrast h2, body.high-contrast h3, body.high-contrast h4, body.high-contrast h5, body.high-contrast h6,
+        body.high-contrast .accessibility-toggle, body.high-contrast .accessibility-panel h3,
+        body.high-contrast .accessibility-panel label, body.high-contrast .accessibility-panel .close-btn,
+        body.high-contrast .nav-tab.active, body.high-contrast .strategy-tab.active,
+        body.high-contrast .modal-content h3, body.high-contrast .summary-item strong {
+            color: yellow !important;
+        }
+
+        body.high-contrast header, body.high-contrast .accessibility-panel,
+        body.high-contrast .identification-form, body.high-contrast .nuvem-sonhos-chart-container,
+        body.high-contrast .roda-vida-item, body.high-contrast .roda-vida-chart-container,
+        body.high-contrast .strategy-card, body.high-contrast .summary-section,
+        body.high-contrast .modal-content {
+            background-color: black !important;<br/>
+            border-color: white !important;<br/>
+            box-shadow: none !important;
+        }
+
+        body.high-contrast .nav-tabs, body.high-contrast .strategy-tabs {
+            border-color: white !important;
+        }
+
+        body.high-contrast .nav-tab, body.high-contrast .strategy-tab {
+            color: white !important;
+        }
+
+        body.high-contrast button, body.high-contrast input[type="text"],
+        body.high-contrast input[type="number"], body.high-contrast textarea,
+        body.high-contrast select {
+            background-color: black !important;<br/>
+            color: white !important;<br/>
+            border: 2px solid white !important;
+        }
+
+        body.high-contrast button.active {
+            background-color: yellow !important;<br/>
+            color: black !important;
+        }
+
+        body.high-contrast input[type="range"]::-webkit-slider-thumb,<br/>
+        body.high-contrast input[type="range"]::-moz-range-thumb {<br/>
+            background: yellow !important;
+        }
+
+        body.high-contrast .progress-bar {
+            background-color: yellow !important;
+        }
+
+        body.high-contrast .summary-item {
+            background-color: #333 !important;<br/>
+            border-left-color: yellow !important;
+        }
+
+        /* Responsividade */
+        @media (min-width: 768px) {
+            .nav-tab, .strategy-tab {
+                flex-basis: auto;<br/>
+                flex-grow: 0;
+            }
+            .nav-tabs {
+                flex-wrap: nowrap;
+            }
+            .strategy-tabs {
+                justify-content: flex-start;<br/>
+                overflow-x: auto;<br/>
+                -webkit-overflow-scrolling: touch;<br/>
+                scrollbar-width: none; /* Firefox */
+            }
+            .strategy-tabs::-webkit-scrollbar {<br/>
+                display: none; /* Chrome, Safari, Opera */
+            }
+            .roda-vida-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .roda-vida-chart-container {
+                height: 500px;
+            }
+            .nuvem-sonhos-chart-container {
+                height: 500px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            header h1 {
+                font-size: 3em;
+            }
+            header p {
+                font-size: 1.2em;
+            }
+            .roda-vida-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .strategy-cards-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+    
+
+
+    🔧
+
+    
+        ✖
+        Configurações de Acessibilidade
+
+        
+            Tamanho da Fonte:
+            Padrão
+            Aumentar (125%)
+            Aumentar Mais (150%)
+        
+
+        
+            Estilo da Fonte:
+            Padrão
+            Fonte para Dislexia
+        
+
+        
+            Tema:
+            Claro
+            Escuro
+        
+
+        
+            Espaçamento:
+            Padrão
+            Aumentar Espaçamento
+        
+
+        
+            Contraste:
+            Padrão
+            Alto Contraste
+        
+    
+
+    
+        
+        Distância ao Futuro Desejado - Aula 5
+        Explorando seus sonhos e traçando caminhos para o futuro
+    
+
+    
+        
+            
+        
+
+        
+            Início
+            Sua Roda da Vida
+            Estratégias
+            Conclusão
+        
+
+        
+        
+            Bem-vindo(a)!
+            
+                Dados do Estudante
+                Nome Completo:
+                
+
+                RA (Registro Acadêmico):
+                
+
+                Turma:
+                
+            
+
+            Nuvem de Sonhos da Turma
+            
+                Média do 2º ano (Estado Desejado) - Total de 329 estudantes.
+                As barras mais longas e verdes representam as áreas com maior pontuação.
+            
+            
+                
+            
+        
+
+        
+        
+            Sua Roda da Vida - Como está hoje?
+            
+                Avalie de 0 a 10 como você se sente em cada área da sua vida atualmente.
+                Opcional: Insira sua nota pessoal da Aula 4 para comparar com o futuro desejado.
+            
+
+            
+                Nota Pessoal da Aula 4 (Opcional)
+                Sua média geral da Roda da Vida (Aula 4):
+                
+                
+                    *Se preenchido, o gráfico abaixo mostrará uma comparação entre seu estado atual e o futuro desejado.
+                
+            
+
+            
+                
+            
+
+            
+                
+            
+        
+
+        
+        
+            Estratégias para o Presente
+            
+                Escolha as estratégias que você quer praticar para cada área da sua vida.
+                Clique em "Vou praticar esta estratégia" para registrar seu plano de ação.
+            
+
+            
+                
+            
+
+            
+                
+            
+        
+
+        
+        
+            Resumo e Conclusão
+            
+                Revise suas respostas e estratégias antes de concluir a atividade.
+            
+
+            
+                Suas Estratégias Praticadas
+                
+                    Nenhuma estratégia registrada ainda.
+                
+            
+
+            
+                Concluir a Atividade
+                Imprimir/Baixar Resultados
+            
+        
+    
+
+    
+    
+        
+            ✖
+            
+            
+            Passos: 
+            Exemplo: 
+            
+            Como você vai praticar esta estratégia?
+            
+            
+                Cancelar
+                Salvar Plano
+            
+        
+    
+
+    
+    
+        
+            ✖
+            
+            
+            
+            
+                Ok
+            
+        
+    
+
+    
+        // 
+        // CONFIGURAÇÕES GLOBAIS E DADOS
+        // 
+
+        const GOOGLE_SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwySsqBwaAOVAMlPKrIWCNN-ABJfDIuovYUK8GMDUbz8wcv6pkdKwMJjIDAw5ED4U99/exec"; // SUBSTITUA PELA SUA URL REAL
+
+        const PALETA_CORES = {
+            primaryDark: '#04344c',<br/>
+            secondaryGreen: '#a5ca65',<br/>
+            primaryBlue: '#046494',<br/>
+            tertiaryGreen: '#74a93a',<br/>
+            accentGrayGreen: '#5c825a',<br/>
+            highlightMax: '#a5ca65', // Verde claro para maior<br/>
+            highlightMin: '#04344c', // Azul escuro para menor<br/>
+            chartBackground: 'rgba(4, 100, 148, 0.2)', // primaryBlue com transparência<br/>
+            chartBorder: '#046494', // primaryBlue<br/>
+            chartGrid: '#e0e0e0',<br/>
+            chartGridDark: '#444444',<br/>
+            chartText: '#333333',<br/>
+            chartTextDark: '#f0f0f0'
+        };
+
+        const DADOS_NUVEM_SONHOS = [
+            { area: 'Saúde / Corpo', media: 9.02 },<br/>
+            { area: 'Lazer', media: 8.77 },<br/>
+            { area: 'Equilíbrio Emocional', media: 8.75 },<br/>
+            { area: 'Finanças', media: 8.65 },<br/>
+            { area: 'Família', media: 8.64 },<br/>
+            { area: 'Desenvolvimento Intelectual', media: 8.62 },<br/>
+            { area: 'Propósito', media: 8.40 },<br/>
+            { area: 'Plenitude (Geral)', media: 8.38 },<br/>
+            { area: 'Social (Amizades)', media: 7.96 },<br/>
+            { area: 'Amor / Relacionamento', media: 7.89 },<br/>
+            { area: 'Contribuição com o Mundo', media: 7.66 },<br/>
+            { area: 'Espiritualidade', media: 7.63 }
+        ];
+
+        const DIMENSOES_RODA_VIDA = [
+            {
+                id: 'saude',<br/>
+                nome: 'Saúde / Corpo',<br/>
+                icon: '💪',<br/>
+                media2045: 9.02,<br/>
+                cor: PALETA_CORES.secondaryGreen,<br/>
+                estrategias: [
+                    {
+                        id: 'saude1',<br/>
+                        nome: 'Caminhada Diária',<br/>
+                        desc: 'Comprometer-se com uma caminhada de 30 minutos todos os dias.',<br/>
+                        passos: '1. Escolha um horário fixo. 2. Use roupas confortáveis. 3. Convide um amigo ou ouça um podcast.',<br/>
+                        exemplo: 'Começarei a caminhar às 7h da manhã, antes da escola, ouvindo meu podcast favorito.'
+                    },
+                    {
+                        id: 'saude2',<br/>
+                        nome: 'Alimentação Consciente',<br/>
+                        desc: 'Substituir um lanche não saudável por uma fruta ou vegetal.',<br/>
+                        passos: '1. Identifique um lanche que você come regularmente. 2. Escolha uma fruta ou vegetal que goste. 3. Faça a troca por uma semana.',<br/>
+                        exemplo: 'Em vez de biscoitos no lanche da tarde, vou comer uma maçã ou cenouras baby.'
+                    }
+                ]
+            },
+            {
+                id: 'lazer',<br/>
+                nome: 'Lazer',<br/>
+                icon: '🏖️',<br/>
+                media2045: 8.77,<br/>
+                cor: PALETA_CORES.primaryBlue,<br/>
+                estrategias: [
+                    {
+                        id: 'lazer1',<br/>
+                        nome: 'Tempo para Hobby',<br/>
+                        desc: 'Dedicar pelo menos 1 hora por semana a um hobby ou atividade que você ama.',<br/>
+                        passos: '1. Escolha um hobby. 2. Bloqueie um horário na agenda. 3. Desconecte-se de distrações.',<br/>
+                        exemplo: 'Vou dedicar as noites de quarta-feira para tocar violão, sem mexer no celular.'
+                    },
+                    {
+                        id: 'lazer2',<br/>
+                        nome: 'Passeio ao Ar Livre',<br/>
+                        desc: 'Fazer um passeio em um parque ou área verde pelo menos uma vez por mês.',<br/>
+                        passos: '1. Pesquise parques próximos. 2. Convide amigos ou família. 3. Aproveite a natureza.',<br/>
+                        exemplo: 'No próximo sábado, vou ao Parque Ibirapuera com minha família para um piquenique.'
+                    }
+                ]
+            },
+            {
+                id: 'emocional',<br/>
+                nome: 'Equilíbrio Emocional',<br/>
+                icon: '🧘',<br/>
+                media2045: 8.75,<br/>
+                cor: PALETA_CORES.tertiaryGreen,<br/>
+                estrategias: [
+                    {
+                        id: 'emocional1',<br/>
+                        nome: 'Diário de Gratidão',<br/>
+                        desc: 'Escrever 3 coisas pelas quais você é grato(a) todos os dias.',<br/>
+                        passos: '1. Compre um caderno. 2. Reserve 5 minutos antes de dormir. 3. Escreva sem julgamento.',<br/>
+                        exemplo: 'Antes de dormir, vou anotar que sou grato(a) pela minha família, meus amigos e a oportunidade de estudar.'
+                    },
+                    {
+                        id: 'emocional2',<br/>
+                        nome: 'Pausa para Respirar',<br/>
+                        desc: 'Praticar 5 minutos de respiração profunda quando se sentir estressado(a).',<br/>
+                        passos: '1. Encontre um local tranquilo. 2. Inspire profundamente pelo nariz. 3. Expire lentamente pela boca.',<br/>
+                        exemplo: 'Quando sentir a pressão da prova, farei 5 respirações profundas antes de começar.'
+                    }
+                ]
+            },
+            {
+                id: 'financas',<br/>
+                nome: 'Finanças',<br/>
+                icon: '💰',<br/>
+                media2045: 8.65,<br/>
+                cor: PALETA_CORES.accentGrayGreen,<br/>
+                estrategias: [
+                    {
+                        id: 'financas1',<br/>
+                        nome: 'Controle de Gastos',<br/>
+                        desc: 'Registrar todos os seus gastos por uma semana para identificar onde seu dinheiro vai.',<br/>
+                        passos: '1. Use um aplicativo ou caderno. 2. Anote cada despesa. 3. Analise no final da semana.',<br/>
+                        exemplo: 'Vou usar o aplicativo "Minhas Finanças" para registrar tudo que gasto esta semana.'
+                    },
+                    {
+                        id: 'financas2',<br/>
+                        nome: 'Pequena Poupança',<br/>
+                        desc: 'Guardar uma pequena quantia (ex: R$5) por semana para um objetivo específico.',<br/>
+                        passos: '1. Defina um objetivo (ex: comprar um livro). 2. Separe o dinheiro semanalmente. 3. Acompanhe seu progresso.',<br/>
+                        exemplo: 'Vou guardar R$10 por semana para comprar o novo jogo que quero.'
+                    }
+                ]
+            },
+            {
+                id: 'familia',<br/>
+                nome: 'Família',<br/>
+                icon: '👨‍👩‍👧‍👦',<br/>
+                media2045: 8.64,<br/>
+                cor: PALETA_CORES.primaryDark,<br/>
+                estrategias: [
+                    {
+                        id: 'familia1',<br/>
+                        nome: 'Refeição em Família',<br/>
+                        desc: 'Participar de pelo menos uma refeição em família por dia, sem distrações digitais.',<br/>
+                        passos: '1. Escolha uma refeição. 2. Deixe os celulares de lado. 3. Converse sobre o dia.',<br/>
+                        exemplo: 'No jantar, vou guardar meu celular e conversar com meus pais e irmãos sobre como foi o dia.'
+                    },
+                    {
+                        id: 'familia2',<br/>
+                        nome: 'Ajuda Doméstica',<br/>
+                        desc: 'Assumir uma tarefa doméstica regularmente para ajudar sua família.',<br/>
+                        passos: '1. Escolha uma tarefa (ex: lavar louça, arrumar a mesa). 2. Cumpra-a sem que peçam. 3. Mantenha a consistência.',<br/>
+                        exemplo: 'Vou me responsabilizar por lavar a louça do jantar todos os dias.'
+                    }
+                ]
+            },
+            {
+                id: 'intelectual',<br/>
+                nome: 'Desenvolvimento Intelectual',<br/>
+                icon: '🧠',<br/>
+                media2045: 8.62,<br/>
+                cor: PALETA_CORES.secondaryGreen,<br/>
+                estrategias: [
+                    {
+                        id: 'intelectual1',<br/>
+                        nome: 'Leitura Diária',<br/>
+                        desc: 'Ler por 15 minutos um livro, artigo ou notícia sobre um tema de seu interesse.',<br/>
+                        passos: '1. Escolha um tema. 2. Separe o material de leitura. 3. Reserve um horário tranquilo.',<br/>
+                        exemplo: 'Antes de dormir, vou ler 15 minutos sobre história ou tecnologia.'
+                    },
+                    {
+                        id: 'intelectual2',<br/>
+                        nome: 'Aprender Algo Novo',<br/>
+                        desc: 'Dedicar 30 minutos por semana para aprender uma nova habilidade ou idioma.',<br/>
+                        passos: '1. Escolha uma habilidade (ex: programação, desenho). 2. Encontre um tutorial online. 3. Pratique regularmente.',<br/>
+                        exemplo: 'Vou assistir a tutoriais de desenho no YouTube por 30 minutos todo sábado.'
+                    }
+                ]
+            },
+            {
+                id: 'proposito',<br/>
+                nome: 'Propósito',<br/>
+                icon: '🧭',<br/>
+                media2045: 8.40,<br/>
+                cor: PALETA_CORES.primaryBlue,<br/>
+                estrategias: [
+                    {
+                        id: 'proposito1',<br/>
+                        nome: 'Reflexão de Valores',<br/>
+                        desc: 'Pensar sobre quais são seus 3 principais valores e como eles guiam suas decisões.',<br/>
+                        passos: '1. Liste valores importantes para você. 2. Escolha os 3 mais relevantes. 3. Anote como eles se manifestam no seu dia.',<br/>
+                        exemplo: 'Meus valores são honestidade, respeito e criatividade. Vou observar como os aplico hoje.'
+                    },
+                    {
+                        id: 'proposito2',<br/>
+                        nome: 'Definir Pequenas Metas',<br/>
+                        desc: 'Estabelecer uma pequena meta semanal que te aproxime de um objetivo maior.',<br/>
+                        passos: '1. Escolha um objetivo de longo prazo. 2. Defina uma ação concreta para esta semana. 3. Monitore o progresso.',<br/>
+                        exemplo: 'Meu objetivo é passar no vestibular. Esta semana, vou estudar 1 hora a mais de matemática.'
+                    }
+                ]
+            },
+            {
+                id: 'plenitude',<br/>
+                nome: 'Plenitude (Geral)',<br/>
+                icon: '✨',<br/>
+                media2045: 8.38,<br/>
+                cor: PALETA_CORES.tertiaryGreen,<br/>
+                estrategias: [
+                    {
+                        id: 'plenitude1',<br/>
+                        nome: 'Momento de Silêncio',<br/>
+                        desc: 'Praticar 10 minutos de silêncio e observação do ambiente ao seu redor.',<br/>
+                        passos: '1. Encontre um lugar calmo. 2. Feche os olhos ou olhe para um ponto fixo. 3. Apenas observe seus pensamentos e sons.',<br/>
+                        exemplo: 'Ao acordar, vou sentar na janela por 10 minutos e apenas observar o amanhecer.'
+                    },
+                    {
+                        id: 'plenitude2',<br/>
+                        nome: 'Ato de Bondade',<br/>
+                        desc: 'Realizar um pequeno ato de bondade para alguém, sem esperar nada em troca.',<br/>
+                        passos: '1. Pense em alguém que possa precisar. 2. Escolha um gesto simples (elogio, ajuda). 3. Faça-o com sinceridade.',<br/>
+                        exemplo: 'Vou elogiar o trabalho de um colega ou ajudar um professor com algo simples.'
+                    }
+                ]
+            },
+            {
+                id: 'social',<br/>
+                nome: 'Social (Amizades)',<br/>
+                icon: '🤝',<br/>
+                media2045: 7.96,<br/>
+                cor: PALETA_CORES.accentGrayGreen,<br/>
+                estrategias: [
+                    {
+                        id: 'social1',<br/>
+                        nome: 'Conectar com Amigos',<br/>
+                        desc: 'Enviar uma mensagem ou ligar para um amigo(a) que você não fala há um tempo.',<br/>
+                        passos: '1. Escolha um amigo. 2. Pense em algo para conversar. 3. Faça o contato.',<br/>
+                        exemplo: 'Vou mandar uma mensagem para o João para saber como ele está e marcar de jogar algo.'
+                    },
+                    {
+                        id: 'social2',<br/>
+                        nome: 'Participar de Grupo',<br/>
+                        desc: 'Engajar-se em uma atividade em grupo na escola ou comunidade.',<br/>
+                        passos: '1. Identifique um grupo de interesse (clube, esporte). 2. Participe de um encontro. 3. Interaja com novas pessoas.',<br/>
+                        exemplo: 'Vou me inscrever no clube de leitura da escola e participar da próxima reunião.'
+                    }
+                ]
+            },
+            {
+                id: 'amor',<br/>
+                nome: 'Amor / Relacionamento',<br/>
+                icon: '❤️',<br/>
+                media2045: 7.89,<br/>
+                cor: PALETA_CORES.primaryDark,<br/>
+                estrategias: [
+                    {
+                        id: 'amor1',<br/>
+                        nome: 'Expressar Afeto',<br/>
+                        desc: 'Dizer "eu te amo" ou expressar carinho a alguém importante em sua vida.',<br/>
+                        passos: '1. Escolha a pessoa. 2. Encontre o momento certo. 3. Seja sincero(a).',<br/>
+                        exemplo: 'Vou dizer para minha mãe o quanto a amo e sou grato(a) por ela.'
+                    },
+                    {
+                        id: 'amor2',<br/>
+                        nome: 'Tempo de Qualidade',<br/>
+                        desc: 'Dedicar tempo de qualidade (sem distrações) a uma pessoa querida.',<br/>
+                        passos: '1. Escolha a pessoa. 2. Planeje uma atividade juntos. 3. Desligue o celular.',<br/>
+                        exemplo: 'Vou passar a tarde de domingo com meu(minha) namorado(a) assistindo a um filme sem interrupções.'
+                    }
+                ]
+            },
+            {
+                id: 'contribuicao',<br/>
+                nome: 'Contribuição com o Mundo',<br/>
+                icon: '🌍',<br/>
+                media2045: 7.66,<br/>
+                cor: PALETA_CORES.secondaryGreen,<br/>
+                estrategias: [
+                    {
+                        id: 'contribuicao1',<br/>
+                        nome: 'Ação Sustentável',<br/>
+                        desc: 'Adotar uma pequena prática sustentável no seu dia a dia (ex: economizar água, reciclar).',<br/>
+                        passos: '1. Escolha uma prática. 2. Pesquise como implementá-la. 3. Comece hoje.',<br/>
+                        exemplo: 'Vou começar a separar o lixo reciclável em casa e levar para o ponto de coleta.'
+                    },
+                    {
+                        id: 'contribuicao2',<br/>
+                        nome: 'Voluntariado Online',<br/>
+                        desc: 'Pesquisar e se engajar em uma pequena ação de voluntariado online ou na comunidade.',<br/>
+                        passos: '1. Pesquise organizações. 2. Veja como pode ajudar. 3. Dedique um tempo.',<br/>
+                        exemplo: 'Vou procurar uma ONG que ajude animais e ver se posso ajudar divulgando nas redes sociais.'
+                    }
+                ]
+            },
+            {
+                id: 'espiritualidade',<br/>
+                nome: 'Espiritualidade',<br/>
+                icon: '🙏',<br/>
+                media2045: 7.63,<br/>
+                cor: PALETA_CORES.primaryBlue,<br/>
+                estrategias: [
+                    {
+                        id: 'espiritualidade1',<br/>
+                        nome: 'Momento de Reflexão',<br/>
+                        desc: 'Dedicar 10 minutos diários para meditação, oração ou reflexão pessoal.',<br/>
+                        passos: '1. Encontre um local tranquilo. 2. Escolha sua prática. 3. Mantenha a consistência.',<br/>
+                        exemplo: 'Todas as manhãs, vou meditar por 10 minutos antes de começar o dia.'
+                    },
+                    {
+                        id: 'espiritualidade2',<br/>
+                        nome: 'Conexão com a Natureza',<br/>
+                        desc: 'Passar um tempo em contato com a natureza, observando e apreciando.',<br/>
+                        passos: '1. Vá a um parque ou jardim. 2. Observe as plantas, o céu, os sons. 3. Sinta a conexão.',<br/>
+                        exemplo: 'Vou sentar no jardim de casa por 15 minutos e apenas observar as plantas e os pássaros.'
+                    }
+                ]
+            }
+        ];
+
+        // 
+        // ELEMENTOS DO DOM
+        // 
+
+        const body = document.body;
+
+        // Acessibilidade
+        const accessibilityToggle = document.getElementById('accessibilityToggle');
+        const accessibilityPanel = document.getElementById('accessibilityPanel');
+        const closeAccessibilityBtn = accessibilityPanel.querySelector('.close-btn');
+        const fontSmallBtn = document.getElementById('fontSmallBtn');
+        const fontMediumBtn = document.getElementById('fontMediumBtn');
+        const fontLargeBtn = document.getElementById('fontLargeBtn');
+        const fontDefaultBtn = document.getElementById('fontDefaultBtn');
+        const fontDyslexicBtn = document.getElementById('fontDyslexicBtn');
+        const themeLightBtn = document.getElementById('themeLightBtn');
+        const themeDarkBtn = document.getElementById('themeDarkBtn');
+        const spacingDefaultBtn = document.getElementById('spacingDefaultBtn');
+        const spacingIncreasedBtn = document.getElementById('spacingIncreasedBtn');
+        const contrastDefaultBtn = document.getElementById('contrastDefaultBtn');
+        const contrastHighBtn = document.getElementById('contrastHighBtn');
+
+        // Navegação
+        const navTabs = document.querySelectorAll('.nav-tab');
+        const contentSections = document.querySelectorAll('.content-section');
+        const progressBar = document.getElementById('progressBar');
+
+        // Identificação
+        const studentNameInput = document.getElementById('studentName');
+        const studentRAInput = document.getElementById('studentRA');
+        const studentClassInput = document.getElementById('studentClass');
+
+        // Nuvem de Sonhos
+        let nuvemSonhosChartInstance;
+
+        // Roda da Vida
+        const personalScoreAula4Input = document.getElementById('personalScoreAula4');
+        const rodaVidaSlidersContainer = document.getElementById('rodaVidaSliders');
+        let rodaVidaChartInstance;
+        const rodaVidaChartCanvas = document.getElementById('rodaVidaChart');
+
+        // Estratégias
+        const strategiesTabsContainer = document.getElementById('strategiesTabs');
+        const strategiesContentContainer = document.getElementById('strategiesContent');
+        const strategyModal = document.getElementById('strategyModal');
+        const strategyModalTitle = document.getElementById('strategyModalTitle');
+        const strategyModalDesc = document.getElementById('strategyModalDesc');
+        const strategyModalSteps = document.getElementById('strategyModalSteps');
+        const strategyModalExample = document.getElementById('strategyModalExample');
+        const strategyResponseTextarea = document.getElementById('strategyResponse');
+        const saveStrategyBtn = document.getElementById('saveStrategyBtn');
+        const cancelStrategyBtn = document.getElementById('cancelStrategyBtn');
+        const closeStrategyModalBtn = strategyModal.querySelector('.close-modal');
+
+        let currentStrategyToSave = null; // Para guardar qual estratégia está sendo respondida
+
+        // Conclusão
+        const summaryStrategiesDiv = document.getElementById('summaryStrategies');
+        const completeActivityBtn = document.getElementById('completeActivityBtn');
+        const printResultsBtn = document.getElementById('printResultsBtn');
+
+        // Status Modal
+        const statusModal = document.getElementById('statusModal');
+        const statusModalIcon = document.getElementById('statusModalIcon');
+        const statusModalTitle = document.getElementById('statusModalTitle');
+        const statusModalMessage = document.getElementById('statusModalMessage');
+        const closeStatusModalBtn = document.getElementById('closeStatusModalBtn');
+        const closeStatusModalXBtn = statusModal.querySelector('.close-modal');
+
+        // 
+        // FUNÇÕES DE ACESSIBILIDADE
+        // 
+
+        function applyAccessibilitySettings() {
+            const settings = JSON.parse(localStorage.getItem('accessibilitySettings')) || {};
+
+            // Reset classes
+            body.className = '';
+            fontSmallBtn.classList.remove('active');
+            fontMediumBtn.classList.remove('active');
+            fontLargeBtn.classList.remove('active');
+            fontDefaultBtn.classList.remove('active');
+            fontDyslexicBtn.classList.remove('active');
+            themeLightBtn.classList.remove('active');
+            themeDarkBtn.classList.remove('active');
+            spacingDefaultBtn.classList.remove('active');
+            spacingIncreasedBtn.classList.remove('active');
+            contrastDefaultBtn.classList.remove('active');
+            contrastHighBtn.classList.remove('active');
+
+            // Apply font size
+            if (settings.fontSize === 'large') {
+                body.classList.add('font-large');
+                fontMediumBtn.classList.add('active');
+            } else if (settings.fontSize === 'x-large') {
+                body.classList.add('font-x-large');
+                fontLargeBtn.classList.add('active');
+            } else {
+                fontSmallBtn.classList.add('active');
+            }
+
+            // Apply font family
+            if (settings.fontFamily === 'dyslexic') {
+                body.classList.add('font-dyslexic');
+                fontDyslexicBtn.classList.add('active');
+            } else {
+                fontDefaultBtn.classList.add('active');
+            }
+
+            // Apply theme
+            if (settings.theme === 'dark') {
+                body.classList.add('dark-mode');
+                themeDarkBtn.classList.add('active');
+            } else {
+                themeLightBtn.classList.add('active');
+            }
+
+            // Apply spacing
+            if (settings.spacing === 'increased') {
+                body.classList.add('increased-spacing');
+                spacingIncreasedBtn.classList.add('active');
+            } else {
+                spacingDefaultBtn.classList.add('active');
+            }
+
+            // Apply contrast
+            if (settings.contrast === 'high') {
+                body.classList.add('high-contrast');
+                contrastHighBtn.classList.add('active');
+            } else {
+                contrastDefaultBtn.classList.add('active');
+            }
+
+            // Update chart colors if dark mode is active
+            updateChartColors();
+        }
+
+        function saveAccessibilitySetting(key, value) {
+            const settings = JSON.parse(localStorage.getItem('accessibilitySettings')) || {};
+            settings[key] = value;
+            localStorage.setItem('accessibilitySettings', JSON.stringify(settings));
+            applyAccessibilitySettings();
+        }
+
+        function toggleAccessibilityPanel() {
+            accessibilityPanel.classList.toggle('open');
+        }
+
+        accessibilityToggle.addEventListener('click', toggleAccessibilityPanel);
+        closeAccessibilityBtn.addEventListener('click', toggleAccessibilityPanel);
+
+        fontSmallBtn.addEventListener('click', () => saveAccessibilitySetting('fontSize', 'default'));
+        fontMediumBtn.addEventListener('click', () => saveAccessibilitySetting('fontSize', 'large'));
+        fontLargeBtn.addEventListener('click', () => saveAccessibilitySetting('fontSize', 'x-large'));
+
+        fontDefaultBtn.addEventListener('click', () => saveAccessibilitySetting('fontFamily', 'default'));
+        fontDyslexicBtn.addEventListener('click', () => saveAccessibilitySetting('fontFamily', 'dyslexic'));
+
+        themeLightBtn.addEventListener('click', () => saveAccessibilitySetting('theme', 'light'));
+        themeDarkBtn.addEventListener('click', () => saveAccessibilitySetting('theme', 'dark'));
+
+        spacingDefaultBtn.addEventListener('click', () => saveAccessibilitySetting('spacing', 'default'));
+        spacingIncreasedBtn.addEventListener('click', () => saveAccessibilitySetting('spacing', 'increased'));
+
+        contrastDefaultBtn.addEventListener('click', () => saveAccessibilitySetting('contrast', 'default'));
+        contrastHighBtn.addEventListener('click', () => saveAccessibilitySetting('contrast', 'high'));
+
+        // 
+        // FUNÇÕES DE NAVEGAÇÃO
+        // 
+
+        let currentSectionIndex = 0;
+        const sections = ['section1', 'section2', 'section3', 'section4'];
+
+        function showSection(sectionId) {
+            contentSections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+
+            navTabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.section === sectionId) {
+                    tab.classList.add('active');
+                }
+            });
+
+            currentSectionIndex = sections.indexOf(sectionId);
+            updateProgressBar();
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // Rola para o topo da página
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentSectionIndex + 1) / sections.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        navTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                showSection(tab.dataset.section);
+            });
+        });
+
+        // 
+        // FUNÇÕES DE ARMAZENAMENTO LOCAL (LocalStorage)
+        // 
+
+        function saveData(key, value) {
+            localStorage.setItem(key, JSON.stringify(value));
+        }
+
+        function loadData(key) {
+            const data = localStorage.getItem(key);
+            return data ? JSON.parse(data) : null;
+        }
+
+        function clearAllData() {
+            localStorage.removeItem('studentData');
+            localStorage.removeItem('rodaVidaScores');
+            localStorage.removeItem('personalScoreAula4');
+            localStorage.removeItem('strategyResponses');
+            // Keep accessibility settings
+        }
+
+        // 
+        // SEÇÃO 1: IDENTIFICAÇÃO + NUVEM DE SONHOS
+        // 
+
+        function loadIdentificationData() {
+            const studentData = loadData('studentData');
+            if (studentData) {
+                studentNameInput.value = studentData.name || '';
+                studentRAInput.value = studentData.ra || '';
+                studentClassInput.value = studentData.class || '';
+            }
+        }
+
+        function saveIdentificationData() {
+            const studentData = {
+                name: studentNameInput.value,<br/>
+                ra: studentRAInput.value,<br/>
+                class: studentClassInput.value
+            };
+            saveData('studentData', studentData);
+        }
+
+        studentNameInput.addEventListener('input', saveIdentificationData);
+        studentRAInput.addEventListener('input', saveIdentificationData);
+        studentClassInput.addEventListener('input', saveIdentificationData);
+
+        function renderNuvemSonhosChart() {
+            if (nuvemSonhosChartInstance) {
+                nuvemSonhosChartInstance.destroy();
+            }
+
+            const ctx = document.getElementById('nuvemSonhosChart').getContext('2d');
+
+            // Ordenar para visualização (maior para menor)
+            const sortedData = [...DADOS_NUVEM_SONHOS].sort((a, b) => a.media - b.media); // Menor para maior para o gráfico de barras horizontais
+
+            const labels = sortedData.map(d => d.area);
+            const data = sortedData.map(d => d.media);
+
+            const maxMedia = Math.max(...data);
+            const minMedia = Math.min(...data);
+
+            const backgroundColors = data.map(val => {
+                if (val === maxMedia) return PALETA_CORES.highlightMax;
+                if (val === minMedia) return PALETA_CORES.highlightMin;
+                // Gradiente de cores entre primaryBlue e secondaryGreen
+                const ratio = (val - minMedia) / (maxMedia - minMedia);
+                // Interpolar entre um azul mais escuro e o verde claro
+                const r = Math.round(4 + (165 - 4) * ratio);
+                const g = Math.round(52 + (202 - 52) * ratio);
+                const b = Math.round(76 + (101 - 76) * ratio);
+                return `rgb(${r}, ${g}, ${b})`;
+            });
+
+            nuvemSonhosChartInstance = new Chart(ctx, {
+                type: 'bar',<br/>
+                data: {<br/>
+                    labels: labels,<br/>
+                    datasets: [{<br/>
+                        label: 'Média da Turma (Estado Desejado)',<br/>
+                        data: data,<br/>
+                        backgroundColor: backgroundColors,<br/>
+                        borderColor: backgroundColors.map(color => color.replace('rgb', 'rgba').replace(')', ', 1)')),<br/>
+                        borderWidth: 1
+                    }]
+                },
+                options: {<br/>
+                    indexAxis: 'y', // Barras horizontais<br/>
+                    responsive: true,<br/>
+                    maintainAspectRatio: false,<br/>
+                    scales: {<br/>
+                        x: {<br/>
+                            beginAtZero: true,<br/>
+                            max: 10,<br/>
+                            title: {<br/>
+                                display: true,<br/>
+                                text: 'Pontuação Média',<br/>
+                                color: body.classList.contains('dark-mode') ? PALETA_CORES.chartTextDark : PALETA_CORES.chartText
+                            },
+                            ticks: {<br/>
+                                color: body.classList.contains('dark-mode') ? PALETA_CORES.chartTextDark : PALETA_CORES.chartText
+                            },
+                            grid: {<br/>
+                                color: body.classList.contains('dark-mode') ? PALETA_CORES.chartGridDark : PALETA_CORES.chartGrid
+                            }
+                        },
+                        y: {<br/>
+                            ticks: {<br/>
+                                color: body.classList.contains('dark-mode') ? PALETA_CORES.chartTextDark : PALETA_CORES.chartText
+                            },
+                            grid: {<br/>
+                                color: body.classList.contains('dark-mode') ? PALETA_CORES.chartGridDark : PALETA_CORES.chartGrid
+                            }
+                        }
+                    },
+                    plugins: {<br/>
+                        legend: {<br/>
+                            display: true,<br/>
+                            labels: {<br/>
+                                color: body.classList.contains('dark-mode') ? PALETA_CORES.chartTextDark : PALETA_CORES.chartText
+                            }
+                        },
+                        tooltip: {<br/>
+                            callbacks: {<br/>
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += context.raw.toFixed(2);
+                                    return label;
+                                }
+                            }
+                        },
+                        datalabels: {<br/>
+                            anchor: 'end',<br/>
+                            align: 'end',<br/>
+                            color: body.classList.contains('dark-mode') ? PALETA_CORES.chartTextDark : PALETA_CORES.chartText,<br/>
+                            formatter: function(value) {
+                                return value.toFixed(2);
+                            }
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels]
+            });
+        }
+
+        // 
+        // SEÇÃO 2: SUA RODA DA VIDA
+        // 
+
+        function renderRodaVidaSliders() {
+            rodaVidaSlidersContainer.innerHTML = '';
+            DIMENSOES_RODA_VIDA.forEach(dimensao => {
+                const div = document.createElement('div');
+                div.classList.add('roda-vida-item');
+                div.innerHTML = `
+                    <h4><span>${dimensao.icon}</span> ${dimensao.nome}: <span class="slider-value" id="score-${dimensao.id}">0</span></h4>
+                    <input type="range" id="slider-${dimensao.id}" min="0" max="10" step="0.1" value="0">
+                `;
+                rodaVidaSlidersContainer.appendChild(div);
+
+                const slider = document.getElementById(`slider-${dimensao.id}`);
+                const scoreDisplay = document.getElementById(`score-${dimensao.id}`);
+
+                // Load saved score
+                const savedScores = loadData('rodaVidaScores') || {};
+                if (savedScores[dimensao.id] !== undefined) {
+                    slider.value = savedScores[dimensao.id];
+                    scoreDisplay.textContent = savedScores[dimensao.id];
+                }
+
+                slider.addEventListener('input', () => {
+                    scoreDisplay.textContent = slider.value;
+                    saveRodaVidaScores();
+                    updateRodaVidaChart();
+                });
+            });
+        }
+
+        function saveRodaVidaScores() {
+            const scores = {};
+            DIMENSOES_RODA_VIDA.forEach(dimensao => {
+                scores[dimensao.id] = parseFloat(document.getElementById(`slider-${dimensao.id}`).value);
+            });
+            saveData('rodaVidaScores', scores);
+        }
+
+        function loadPersonalScoreAula4() {
+            const savedScore = loadData('personalScoreAula4');
+            if (savedScore !== null) {
+                personalScoreAula4Input.value = savedScore;
+            }
+        }
+
+        personalScoreAula4Input.addEventListener('input', () => {
+            saveData('personalScoreAula4', personalScoreAula4Input.value);
+            updateRodaVidaChart();
+        });
+
+        function updateRodaVidaChart() {
+            if (rodaVidaChartInstance) {
+                rodaVidaChartInstance.destroy();
+            }
+
+            const ctx = rodaVidaChartCanvas.getContext('2d');
+            const currentScores = {};
+            DIMENSOES_RODA_VIDA.forEach(dimensao => {
+                currentScores[dimensao.id] = parseFloat(document.getElementById(`slider-${dimensao.id}`).value);
+            });
+
+            const labels = DIMENSOES_RODA_VIDA.map(d => d.nome);
+            const dataCurrent = DIMENSOES_RODA_VIDA.map(d => currentScores[d.id]);
+            const dataDesired = DIMENSOES_RODA_VIDA.map(d => d.media2045);
+
+            const personalScoreAula4 = parseFloat(personalScoreAula4Input.value);
+            const hasPersonalScore = !isNaN(personalScoreAula4) && personalScoreAula4 >= 0 && personalScoreAula4 <= 10;
+
+            const datasets = [
+                {
+                    label: 'Como está hoje',<br/>
+                    data: dataCurrent,<br/>
+                    backgroundColor: 'rgba(4, 100, 148, 0.4)', // primaryBlue com transparência<br/>
+                    borderColor: PALETA_CORES.primaryBlue,<br/>
+                    borderWidth: 2,<br/>
+                    pointBackgroundColor: PALETA_CORES.primaryBlue,<br/>
+                    pointBorderColor: '#fff',<br/>
+                    pointHoverBackgroundColor: '#fff',<br/>
+                    pointHoverBorderColor: PALETA_CORES.primaryBlue
+                }
+            ];
+
+            if (hasPersonalScore) {
+                datasets.push({
+                    label: 'Futuro Desejado (Média Turma)',<br/>
+                    data: dataDesired,<br/>
+                    backgroundColor: 'rgba(116, 169, 58, 0.4)', // tertiaryGreen com transparência<br/>
+                    borderColor: PALETA_CORES.tertiaryGreen,<br/>
+                    borderWidth: 2,<br/>
+                    pointBackgroundColor: PALETA_CORES.tertiaryGreen,<br/>
+                    pointBorderColor: '#fff',<br/>
+                    pointHoverBackgroundColor: '#fff',<br/>
+                    pointHoverBorderColor: PALETA_CORES.tertiaryGreen
+                });
+            }
+
+            rodaVidaChartInstance = new Chart(ctx, {
+                type: 'radar',<br/>
+                data: {<br/>
+                    labels: labels,<br/>
+                    datasets: datasets
+                },
+                options: {<br/>
+                    responsive: true,<br/>
+                    maintainAspectRatio: false,<br/>
+                    scales: {<br/>
+                        r: {<br/>
+                            angleLines: {<br/>
+                                color: body.classList.contains('dark-mode') ? PALETA_CORES.chartGridDark : PALETA_CORES.chartGrid
+                            },
+                            grid: {<br/>
+                                color: body.classList.contains('dark-mode') ? PALETA_CORES.chartGridDark : PALETA_CORES.chartGrid
+                            },
+                            pointLabels: {<br/>
+                                color: body.classList.contains('dark-mode') ? PALETA_CORES.chartTextDark : PALETA_CORES.chartText,<br/>
+                                font: {<br/>
+                                    size: 12
+                                }
+                            },
+                            ticks: {<br/>
+                                beginAtZero: true,<br/>
+                                max: 10,<br/>
+                                stepSize: 2,<br/>
+                                color: body.classList.contains('dark-mode') ? PALETA_CORES.chartTextDark : PALETA_CORES.chartText,<br/>
+                                backdropColor: body.classList.contains('dark-mode') ? PALETA_CORES.backgroundDark : PALETA_CORES.backgroundLight
+                            }
+                        }
+                    },
+                    plugins: {<br/>
+                        legend: {<br/>
+                            display: true,<br/>
+                            position: 'top',<br/>
+                            labels: {<br/>
+                                color: body.classList.contains('dark-mode') ? PALETA_CORES.chartTextDark : PALETA_CORES.chartText
+                            }
+                        },
+                        tooltip: {<br/>
+                            callbacks: {<br/>
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += context.raw.toFixed(1);
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 
+        // SEÇÃO 3: ESTRATÉGIAS PARA O PRESENTE
+        // 
+
+        function renderStrategyTabsAndContent() {
+            strategiesTabsContainer.innerHTML = '';
+            strategiesContentContainer.innerHTML = '';
+
+            DIMENSOES_RODA_VIDA.forEach((dimensao, index) => {
+                // Renderizar aba
+                const tab = document.createElement('div');
+                tab.classList.add('strategy-tab');
+                tab.dataset.dimensionId = dimensao.id;
+                tab.textContent = dimensao.nome;
+                if (index === 0) tab.classList.add('active');
+                strategiesTabsContainer.appendChild(tab);
+
+                // Renderizar conteúdo da aba
+                const contentDiv = document.createElement('div');
+                contentDiv.classList.add('strategy-content');
+                contentDiv.id = `strategy-content-${dimensao.id}`;
+                if (index === 0) contentDiv.classList.add('active');
+
+                const cardsGrid = document.createElement('div');
+                cardsGrid.classList.add('strategy-cards-grid');
+
+                dimensao.estrategias.forEach(estrategia => {
+                    const card = document.createElement('div');
+                    card.classList.add('strategy-card');
+                    card.dataset.strategyId = estrategia.id;
+                    card.style.borderLeftColor = dimensao.cor; // Cor da dimensão no card
+
+                    const savedResponses = loadData('strategyResponses') || {};
+                    if (savedResponses[estrategia.id]) {
+                        card.classList.add('completed');
+                    }
+
+                    card.innerHTML = `
+                        <h5>${estrategia.nome}</h5>
+                        <p>${estrategia.desc}</p>
+                        <button class="primary practice-strategy-btn" data-dimension-id="${dimensao.id}" data-strategy-id="${estrategia.id}">Vou praticar esta estratégia</button>
+                    `;
+                    cardsGrid.appendChild(card);
+                });
+
+                contentDiv.appendChild(cardsGrid);
+                strategiesContentContainer.appendChild(contentDiv);
+            });
+
+            // Adicionar listeners para as abas de estratégia
+            document.querySelectorAll('.strategy-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.strategy-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.querySelectorAll('.strategy-content').forEach(c => c.classList.remove('active'));
+                    document.getElementById(`strategy-content-${tab.dataset.dimensionId}`).classList.add('active');
+                });
+            });
+
+            // Adicionar listeners para os botões "Vou praticar"
+            document.querySelectorAll('.practice-strategy-btn').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const dimensionId = event.target.dataset.dimensionId;
+                    const strategyId = event.target.dataset.strategyId;
+                    openStrategyModal(dimensionId, strategyId);
+                });
+            });
+        }
+
+        function openStrategyModal(dimensionId, strategyId) {
+            const dimensao = DIMENSOES_RODA_VIDA.find(d => d.id === dimensionId);
+            const estrategia = dimensao.estrategias.find(e => e.id === strategyId);
+
+            if (!estrategia) return;
+
+            currentStrategyToSave = { dimensionId, strategyId };
+
+            strategyModalTitle.textContent = `${dimensao.icon} ${dimensao.nome}: ${estrategia.nome}`;
+            strategyModalDesc.textContent = estrategia.desc;
+            strategyModalSteps.textContent = estrategia.passos;
+            strategyModalExample.textContent = estrategia.exemplo;
+
+            const savedResponses = loadData('strategyResponses') || {};
+            strategyResponseTextarea.value = savedResponses[strategyId] || '';
+
+            strategyModal.style.display = 'flex';
+        }
+
+        function closeStrategyModal() {
+            strategyModal.style.display = 'none';
+            currentStrategyToSave = null;
+            strategyResponseTextarea.value = '';
+        }
+
+        saveStrategyBtn.addEventListener('click', () => {
+            if (currentStrategyToSave) {
+                const { strategyId } = currentStrategyToSave;
+                const response = strategyResponseTextarea.value.trim();
+
+                const savedResponses = loadData('strategyResponses') || {};
+                savedResponses[strategyId] = response;
+                saveData('strategyResponses', savedResponses);
+
+                // Marcar card como completo
+                const card = document.querySelector(`.strategy-card[data-strategy-id="${strategyId}"]`);
+                if (card) {
+                    card.classList.add('completed');
+                }
+                closeStrategyModal();
+                updateSummaryStrategies(); // Atualiza o resumo
+            }
+        });
+
+        cancelStrategyBtn.addEventListener('click', closeStrategyModal);
+        closeStrategyModalBtn.addEventListener('click', closeStrategyModal);
+
+        // 
+        // SEÇÃO 4: RESUMO E CONCLUSÃO
+        // 
+
+        function updateSummaryStrategies() {
+            const savedResponses = loadData('strategyResponses') || {};
+            summaryStrategiesDiv.innerHTML = '';
+            let hasResponses = false;
+
+            DIMENSOES_RODA_VIDA.forEach(dimensao => {
+                dimensao.estrategias.forEach(estrategia => {
+                    if (savedResponses[estrategia.id] && savedResponses[estrategia.id] !== '') {
+                        hasResponses = true;
+                        const div = document.createElement('div');
+                        div.classList.add('summary-item');
+                        div.style.borderLeftColor = dimensao.cor;
+                        div.innerHTML = `
+                            <strong>${dimensao.icon} ${dimensao.nome}: ${estrategia.nome}</strong>
+                            <p>${savedResponses[estrategia.id]}</p>
+                        `;
+                        summaryStrategiesDiv.appendChild(div);
+                    }
+                });
+            });
+
+            if (!hasResponses) {
+                summaryStrategiesDiv.innerHTML = '<p style="text-align: center; color: var(--color-accent-graygreen);">Nenhuma estratégia registrada ainda.</p>';
+            }
+        }
+
+        completeActivityBtn.addEventListener('click', async () => {
+            const studentData = loadData('studentData');
+            const rodaVidaScores = loadData('rodaVidaScores');
+            const strategyResponses = loadData('strategyResponses');
+
+                showStatusModal('error', 'Dados Incompletos', 'Por favor, preencha seu Nome, RA e Turma na seção "Início" antes de concluir.');
+                return;
+            }
+
+            if (!rodaVidaScores || Object.keys(rodaVidaScores).length === 0 || Object.values(rodaVidaScores).some(score => score === 0)) {
+                showStatusModal('error', 'Roda da Vida Incompleta', 'Por favor, avalie todas as áreas da sua Roda da Vida na seção "Sua Roda da Vida".');
+                return;
+            }
+
+            // Prepare data for Google Sheets
+            const dataToSend = {
+                nome: studentData.name,<br/>
+                ra: studentData.ra,<br/>
+                turma: studentData.class,<br/>
+                timestamp: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+                // Roda da Vida Scores (matching doPost function)
+                saudeAtual: rodaVidaScores.saude || 0,<br/>
+                lazerAtual: rodaVidaScores.lazer || 0,<br/>
+                emocionalAtual: rodaVidaScores.emocional || 0,<br/>
+                financasAtual: rodaVidaScores.financas || 0,<br/>
+                familiaAtual: rodaVidaScores.familia || 0,<br/>
+                intelectualAtual: rodaVidaScores.intelectual || 0,<br/>
+                propositoAtual: rodaVidaScores.proposito || 0,<br/>
+                plenitudeAtual: rodaVidaScores.plenitude || 0,<br/>
+                socialAtual: rodaVidaScores.social || 0,<br/>
+                amorAtual: rodaVidaScores.amor || 0,<br/>
+                contribuicaoAtual: rodaVidaScores.contribuicao || 0,<br/>
+                espiritualAtual: rodaVidaScores.espiritualidade || 0,
+                // Estratégias (adicionar ao objeto principal ou criar um campo JSON)
+                // Para simplificar e manter compatibilidade com o doPost fornecido,
+                // vamos concatenar as estratégias em um campo de texto.
+                // Se precisar de colunas separadas para cada estratégia, o doPost precisará ser ajustado.
+                estrategiasRespondidas: JSON.stringify(strategyResponses || {})
+            };
+
+            try {
+                showStatusModal('info', 'Enviando Dados...', 'Por favor, aguarde enquanto seus dados são salvos.');
+                const response = await fetch(GOOGLE_SHEETS_WEB_APP_URL, {
+                    method: 'POST',<br/>
+                    mode: 'no-cors', // Necessário para evitar erros CORS com Apps Script simples<br/>
+                    headers: {<br/>
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(dataToSend),
+                });
+
+                // Como 'no-cors' não permite ler a resposta, assumimos sucesso se não houver erro de rede.
+                // Em um ambiente de produção, você configuraria CORS no Apps Script para receber a resposta.
+                showStatusModal('success', 'Atividade Concluída!', 'Seus dados foram salvos com sucesso. Parabéns por completar a atividade!');
+                clearAllData(); // Limpa dados locais após envio bem-sucedido
+                setTimeout(() => location.reload(), 3000); // Recarrega a página para um novo início
+            } catch (error) {
+                console.error('Erro ao enviar dados:', error);
+                showStatusModal('error', 'Erro ao Concluir', 'Houve um problema ao salvar seus dados. Por favor, tente novamente ou contate o professor.');
+            }
+        });
+
+        printResultsBtn.addEventListener('click', () => {
+            window.print();
+        });
+
+        function showStatusModal(type, title, message) {
+            statusModal.style.display = 'flex';
+            statusModalTitle.textContent = title;
+            statusModalMessage.textContent = message;
+
+            if (type === 'success') {
+                statusModalIcon.innerHTML = '✅';
+                statusModalIcon.style.color = PALETA_CORES.secondaryGreen;
+            } else if (type === 'error') {
+                statusModalIcon.innerHTML = '❌';
+                statusModalIcon.style.color = '#dc3545'; // Red
+            } else if (type === 'info') {
+                statusModalIcon.innerHTML = 'ℹ️';
+                statusModalIcon.style.color = PALETA_CORES.primaryBlue;
+            }
+        }
+
+        closeStatusModalBtn.addEventListener('click', () => {
+            statusModal.style.display = 'none';
+        });
+        closeStatusModalXBtn.addEventListener('click', () => {
+            statusModal.style.display = 'none';
+        });
+
+        // 
+        // FUNÇÕES GERAIS E INICIALIZAÇÃO
+        // 
+
+        function updateChartColors() {
+            const isDarkMode = body.classList.contains('dark-mode');
+            const textColor = isDarkMode ? PALETA_CORES.chartTextDark : PALETA_CORES.chartText;<br/>
+            const gridColor = isDarkMode ? PALETA_CORES.chartGridDark : PALETA_CORES.chartGrid;<br/>
+            const backdropColor = isDarkMode ? PALETA_CORES.backgroundDark : PALETA_CORES.backgroundLight;
+
+            if (nuvemSonhosChartInstance) {
+                nuvemSonhosChartInstance.options.scales.x.title.color = textColor;
+                nuvemSonhosChartInstance.options.scales.x.ticks.color = textColor;
+                nuvemSonhosChartInstance.options.scales.x.grid.color = gridColor;
+                nuvemSonhosChartInstance.options.scales.y.ticks.color = textColor;
+                nuvemSonhosChartInstance.options.scales.y.grid.color = gridColor;
+                nuvemSonhosChartInstance.options.plugins.legend.labels.color = textColor;
+                nuvemSonhosChartInstance.options.plugins.datalabels.color = textColor;
+                nuvemSonhosChartInstance.update();
+            }
+
+            if (rodaVidaChartInstance) {
+                rodaVidaChartInstance.options.scales.r.angleLines.color = gridColor;
+                rodaVidaChartInstance.options.scales.r.grid.color = gridColor;
+                rodaVidaChartInstance.options.scales.r.pointLabels.color = textColor;
+                rodaVidaChartInstance.options.scales.r.ticks.color = textColor;
+                rodaVidaChartInstance.options.scales.r.ticks.backdropColor = backdropColor;
+                rodaVidaChartInstance.options.plugins.legend.labels.color = textColor;
+                rodaVidaChartInstance.update();
+            }
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            applyAccessibilitySettings(); // Aplica configurações de acessibilidade salvas
+            loadIdentificationData();
+            renderNuvemSonhosChart();
+            renderRodaVidaSliders();
+            loadPersonalScoreAula4();
+            updateRodaVidaChart(); // Renderiza o gráfico da Roda da Vida com dados salvos
+            renderStrategyTabsAndContent();
+            updateSummaryStrategies(); // Atualiza o resumo das estratégias
+            showSection('section1'); // Mostra a primeira seção ao carregar
+        });
+
+        // 
+        // INSTRUÇÕES PARA CONFIGURAÇÃO E DEPLOY
+        // 
+        /*
+        Este é um arquivo HTML completo, com CSS e JavaScript embutidos, pronto para ser usado.
+
+        ---
+
+        ### 1. Configuração do Google Sheets (para salvar os dados)
+
+        1.  **Crie uma nova planilha no Google Sheets.**
+            *   Nomeie as colunas na primeira linha exatamente como no exemplo abaixo (a ordem é importante para o script):
+                `Nome`, `RA`, `Turma`, `SaudeAtual`, `LazerAtual`, `EmocionalAtual`, `FinancasAtual`, `FamiliaAtual`, `IntelectualAtual`, `PropositoAtual`, `PlenitudeAtual`, `SocialAtual`, `AmorAtual`, `ContribuicaoAtual`, `EspiritualAtual`, `EstrategiasRespondidas`, `Timestamp`
+
+        2.  **Abra o Editor de Scripts (Google Apps Script):**
+            *   Na planilha, vá em `Extensões > Apps Script`.
+            *   Cole o código `doPost` que você já tem (e que foi ligeiramente adaptado para incluir todas as dimensões da Roda da Vida e as estratégias em um campo JSON).
+
+            ```javascript
+            function doPost(e) {
+                var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+                var dados = JSON.parse(e.postData.contents);
+
+                // Mapeamento das dimensões da Roda da Vida para a ordem das colunas
+                var rodaVidaKeys = [
+                    'saudeAtual', 'lazerAtual', 'emocionalAtual', 'financasAtual',
+                    'familiaAtual', 'intelectualAtual', 'propositoAtual', 'plenitudeAtual',
+                    'socialAtual', 'amorAtual', 'contribuicaoAtual', 'espiritualAtual'
+                ];
+
+                var linha = [
+                    dados.nome || '',
+                    dados.ra || '',
+                    dados.turma || ''
+                ];
+
+                // Adiciona os scores da Roda da Vida
+                rodaVidaKeys.forEach(key => {
+                    linha.push(dados[key] !== undefined ? dados[key] : '');
+                });
+
+                // Adiciona as estratégias respondidas (como string JSON)
+                linha.push(dados.estrategiasRespondidas || '');
+
+                // Adiciona o timestamp
+                linha.push(dados.timestamp || new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
+
+                sheet.appendRow(linha);
+
+                return ContentService
+                    .createTextOutput(JSON.stringify({ result: 'success', message: 'Dados salvos!' }))
+                    .setMimeType(ContentService.MimeType.JSON);
+            }
+            
+
+        3.  **Implante o script como um aplicativo da web:**
+            *   No editor do Apps Script, clique em `Implantar > Nova implantação`.
+            *   Selecione o tipo `Aplicativo da web`.
+            *   Configure:<br/>
+                *   `Descrição da implantação`: "Projeto de Vida - Aula 5" (ou similar)<br/>
+                *   `Executar como`: "Eu" (seu e-mail)<br/>
+                *   `Quem tem acesso`: "Qualquer pessoa" (para que o HTML possa enviar dados sem autenticação)
+            *   Clique em `Implantar`.
+            *   **Autorize o acesso** (pode ser necessário revisar permissões e permitir).
+            *   **Copie a "URL do aplicativo da web"** que será exibida.
+
+        4.  **Atualize o HTML:**
+            *   No código HTML, localize a linha `const GOOGLE_SHEETS_WEB_APP_URL = "...";`
+            *   Substitua o valor entre as aspas pela URL que você copiou do Apps Script.
+
+        ---
+
+        ### 2. Preparação dos Arquivos e Deploy no GitHub Pages
+
+        1.  **Salve este código:**
+            *   Salve todo o conteúdo deste documento como `index.html` em uma pasta.
+
+        2.  **Adicione as imagens:**
+            *   Coloque sua imagem de logo (da rua/casa) na mesma pasta e nomeie-a como `logo.png`.
+            *   (O ícone de acessibilidade é um emoji, então não precisa de arquivo de imagem para ele, a menos que você queira um ícone personalizado).
+
+        3.  **Estrutura da pasta:**
+            ```
+            seu-projeto-vida/
+            ├── index.html
+            └── logo.png
+            ```
+
+        4.  **Crie um repositório no GitHub:**<br/>
+            *   Vá para [github.com](https://github.com/) e crie um novo repositório público.
+            *   Siga as instruções para fazer o upload dos arquivos `index.html` e `logo.png` para este repositório.
+
+        5.  **Ative o GitHub Pages:**
+            *   No seu repositório do GitHub, vá em `Settings` (Configurações).
+            *   No menu lateral, clique em `Pages`.
+            *   Em `Source` (Origem), selecione `Deploy from a branch` (Implantar de um branch).
+            *   Em `Branch`, selecione `main` (ou `master`, dependendo do seu repositório) e a pasta `/ (root)`.
+            *   Clique em `Save` (Salvar).
+            *   O GitHub Pages levará alguns minutos para construir e publicar seu site. A URL do seu jogo será algo como `https://SEU_USUARIO.github.io/SEU_REPOSITORIO/`.
+
+        ---
+
+        ### 3. Teste Completo
+
+        1.  Abra a URL do GitHub Pages no seu navegador.
+        2.  Teste todas as funcionalidades:<br/>
+            *   **Acessibilidade:** Verifique se os botões de fonte, tema, espaçamento e contraste funcionam.<br/>
+            *   **Navegação:** Clique nas abas para mudar de seção.<br/>
+            *   **Identificação:** Preencha Nome, RA, Turma.<br/>
+            *   **Nuvem de Sonhos:** Verifique o gráfico.<br/>
+            *   **Roda da Vida:** Mova os sliders, preencha a nota da Aula 4 e veja o gráfico radar atualizar.<br/>
+            *   **Estratégias:** Clique em "Vou praticar esta estratégia", preencha e salve. Verifique se o card fica "completo".<br/>
+            *   **Resumo:** Veja se as estratégias respondidas aparecem.<br/>
+            *   **Concluir Atividade:** Clique no botão e verifique se o modal de sucesso aparece.<br/>
+            *   **Google Sheets:** Abra sua planilha e verifique se uma nova linha com os dados foi adicionada.<br/>
+            *   **LocalStorage:** Após o envio bem-sucedido, se você recarregar a página, os campos devem estar limpos. Se você preencher algo e não enviar, e depois recarregar, os dados devem ser recuperados.
+
+        ---
+
+        ### 4. Troubleshooting Comum
+
+        *   **Dados não aparecem no Sheets:**
+            *   Verifique se a URL do Apps Script no seu HTML está correta.
+            *   Confirme se o script do Apps Script foi implantado como "Aplicativo da web" com acesso "Qualquer pessoa".
+            *   Verifique se as colunas na sua planilha do Sheets estão nomeadas *exatamente* como no script `doPost`.
+            *   Verifique os logs de execução do Apps Script (`Extensões > Apps Script > Execuções`) para ver se há erros.
+        *   **CORS Error (no console do navegador):**<br/>
+            *   Certifique-se de que o Apps Script está implantado com acesso "Qualquer pessoa". O `mode: 'no-cors'` no `fetch` do JavaScript tenta contornar isso, mas para uma comunicação mais robusta, o Apps Script precisa permitir o acesso.<br/>
+        *   **Imagens não carregam:**
+            *   Verifique se o nome do arquivo `logo.png` está correto e no mesmo diretório do `index.html` (ou o caminho especificado).
+        *   **Responsividade:**
+            *   Teste em diferentes tamanhos de janela do navegador ou no modo de desenvolvedor (F12) com emulação de dispositivo.
+
+        Boa sorte com o jogo!
+        */
+    
+
+
+```
