@@ -1,531 +1,1114 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto de Vida: Minha Jornada</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Distância ao Futuro Desejado — Projeto de Vida · Aula 5</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=OpenDyslexic:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <style>
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=OpenDyslexic:wght@400;700&display=swap" rel="stylesheet">
+    /* ===== VARIÁVEIS DE COR ===== */
+    :root {
+      --primary: #046c94;
+      --primary-lite: #4da8cc;
+      --accent: #98c847;
+      --accent-dark: #7cac44;
+      --bg: #f8f9fa;
+      --card: #ffffff;
+      --text: #24313a;
+      --muted: #5f6c76;
+      --border: #d9e2e8;
+      --font-h: 'Poppins', sans-serif;
+      --font-b: 'Poppins', sans-serif;
+      --font-dys: 'OpenDyslexic', sans-serif;
+      --current-font-size: 16px;
+    }
     
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
-
-    <style>
-        /* ===== VARIÁVEIS E RESET ===== */
-        :root {
-            --primary-color: #046c94;
-            --primary-lite: #2d7a9a;
-            --secondary-highlight: #98c847;
-            --support-color: #7cac44;
-            --dark-contrast: #044e6e;
-            --light-bg: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-color: #24313a;
-            --muted-text: #5f6c76;
-            --border-color: #d9e2e8;
-            --error-color: #dc3545;
-            --success-color: #1f9;
-            --font-main: 'Poppins', sans-serif;
-        }
-
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: var(--font-main);
-            background-color: var(--light-bg);
-            color: var(--text-color);
-            line-height: 1.6;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        /* Temas de Acessibilidade */
-        body.dark-mode {
-            --light-bg: #121212;
-            --card-bg: #1e1e1e;
-            --text-color: #e0e0e0;
-            --muted-text: #a0a0a0;
-            --border-color: #333;
-        }
-
-        body.high-contrast {
-            --light-bg: #000000;
-            --card-bg: #000000;
-            --text-color: #ffffff;
-            --primary-color: #ffff00;
-            --border-color: #ffffff;
-        }
-
-        body.dyslexic-font {
-            font-family: 'OpenDyslexic', sans-serif !important;
-        }
-
-        /* ===== ACESSIBILIDADE ===== */
-        .btn-acessibilidade {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            z-index: 1000;
-            transition: transform 0.2s;
-        }
-        .btn-acessibilidade img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .btn-acessibilidade:hover { transform: scale(1.1); }
-
-        .painel-acessibilidade {
-            display: none;
-            position: fixed;
-            top: 75px;
-            right: 20px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            z-index: 999;
-        }
-        .painel-acessibilidade.active { display: flex; flex-direction: column; gap: 10px; }
-        .painel-acessibilidade button {
-            padding: 8px 12px;
-            border: 1px solid var(--primary-color);
-            background: transparent;
-            color: var(--text-color);
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: inherit;
-        }
-        .painel-acessibilidade button.active {
-            background: var(--primary-color);
-            color: #fff;
-        }
-
-        /* ===== LAYOUT & COMPONENTES ===== */
-        .container {
-            width: min(100% - 40px, 900px);
-            margin: 40px auto;
-        }
-
-        .section {
-            display: none;
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(4,108,148,0.08);
-            animation: fadeIn 0.4s ease-in-out;
-        }
-        .section.active { display: block; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Tipografia */
-        h1, h2 { color: var(--primary-color); margin-bottom: 20px; }
-        .subtitle { color: var(--muted-text); font-size: 1.1rem; margin-bottom: 30px; }
-        .info-box {
-            background-color: rgba(152, 200, 71, 0.15);
-            border-left: 4px solid var(--secondary-highlight);
-            padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 0 8px 8px 0;
-            color: var(--text-color);
-        }
-
-        /* Formulários */
-        .form-group { margin-bottom: 20px; }
-        label { display: block; font-weight: 600; margin-bottom: 8px; }
-        input[type="text"], input[type="number"], textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-family: inherit;
-            background: var(--light-bg);
-            color: var(--text-color);
-        }
-        textarea { resize: vertical; min-height: 120px; }
-
-        /* Sliders (1 a 10) */
-        .slider-container { margin-bottom: 25px; }
-        .slider-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
-        .slider-value { font-weight: bold; color: var(--primary-color); font-size: 1.2rem; }
-        input[type="range"] { width: 100%; cursor: pointer; }
-
-        /* Botões */
-        .btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 15px;
-        }
-        .btn:hover { background-color: var(--dark-contrast); }
-        .btn-outline {
-            background: transparent;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-        }
-        .btn-outline:hover { background: var(--primary-color); color: white; }
-        .btn-container { display: flex; gap: 15px; justify-content: flex-end; margin-top: 30px; }
-
-        /* Gráfico */
-        .chart-container { position: relative; height: 50vh; width: 100%; margin: 30px 0; }
-
-        /* Contador de Palavras */
-        .word-counter { font-size: 0.85rem; color: var(--muted-text); text-align: right; margin-top: 5px; }
-        .word-counter.error { color: var(--error-color); font-weight: bold; }
-        
-        .loading-msg { text-align: center; font-weight: bold; color: var(--primary-color); display: none; margin-top: 15px; }
-
-    </style>
+    /* ===== DARK MODE ===== */
+    body.dark-mode {
+      --bg: #1a2230;
+      --card: #243040;
+      --text: #dce8f0;
+      --muted: #9ab5c4;
+      --border: #334a5c;
+    }
+    
+    /* ===== HIGH CONTRAST ===== */
+    body.high-contrast {
+      --bg: #0d1117;
+      --card: #161b22;
+      --text: #f0e6d3;
+      --muted: #c9b99a;
+      --border: #2a303c;
+    }
+    
+    /* ===== TDAH MODE ===== */
+    body.tdah-mode {
+      --current-font-size: 17px;
+      line-height: 1.8;
+      letter-spacing: .02em;
+    }
+    body.tdah-mode .card {
+      border-left: 4px solid var(--accent);
+      padding-left: 16px;
+    }
+    
+    /* ===== BODY ===== */
+    body {
+      font-family: var(--font-b);
+      font-size: var(--current-font-size);
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      transition: background-color .3s ease, color .3s ease;
+    }
+    
+    body.font-small { --current-font-size: 14px; }
+    body.font-large { --current-font-size: 18px; }
+    body.font-xlarge { --current-font-size: 21px; }
+    
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-h);
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: .8em;
+    }
+    h1 { font-size: 2.5rem; color: var(--primary); line-height: 1.1; }
+    h1 em { font-style: italic; color: var(--accent-dark); }
+    h2 { font-size: 1.8rem; font-weight: 600; }
+    h3 { font-size: 1.2rem; }
+    p { color: var(--muted); margin-bottom: .6em; }
+    
+    /* ===== APP CONTAINER ===== */
+    .app { max-width: 700px; margin: 0 auto; padding: 20px 16px 100px; }
+    
+    /* ===== PAGES ===== */
+    .page { display: none; }
+    .page.active { display: block; animation: fadeIn .35s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    
+    /* ===== PAGE HEADER ===== */
+    .page-header { margin-bottom: 24px; }
+    .badge {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    
+    /* ===== CARD ===== */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+      transition: all .2s ease;
+    }
+    .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+    
+    /* ===== FORM ===== */
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      font-size: .95rem;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-family: inherit;
+      font-size: 1rem;
+      background: var(--card);
+      color: var(--text);
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(4,108,148,.1);
+      outline: none;
+    }
+    
+    /* ===== BUTTONS ===== */
+    .btn {
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #044e6e; }
+    .btn-outline {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+    }
+    .btn-outline:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+    }
+    .btn-ghost:hover { background: var(--bg); }
+    .btn-accent {
+      background: var(--accent);
+      color: var(--primary);
+    }
+    .btn-accent:hover { background: var(--accent-dark); }
+    .btn-lg { padding: 12px 20px; font-size: 1.1rem; }
+    
+    /* ===== LAYOUT ===== */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 600px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    
+    /* ===== SLIDERS ===== */
+    .slider-wrap {
+      margin-bottom: 16px;
+    }
+    .slider-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .slider-head label {
+      font-weight: 600;
+      color: var(--text);
+      font-size: .95rem;
+    }
+    .slider-head span {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--border);
+      outline: none;
+      -webkit-appearance: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,.2);
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 4px rgba(0,0,0,.2);
+    }
+    
+    /* ===== ESTRATÉGIAS ===== */
+    .strat-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 8px;
+    }
+    .strat-tab {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: 600;
+      border-bottom: 3px solid transparent;
+      transition: all .2s ease;
+    }
+    .strat-tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .strat-tab:hover { color: var(--primary); }
+    .strat-content { display: none; }
+    .strat-content.active { display: block; }
+    .strat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .strat-card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+    .strat-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(4,108,148,.15);
+    }
+    .strat-card.selected {
+      background: linear-gradient(135deg, rgba(152,200,71,.1), rgba(4,108,148,.05));
+      border-color: var(--accent);
+    }
+    .strat-card h4 { margin-bottom: 8px; }
+    .strat-card p { font-size: .9rem; }
+    
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      padding: 20px;
+    }
+    .modal-overlay.open {
+      display: flex;
+    }
+    .modal-box {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 24px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: transparent;
+      border: none;
+      font-size: 2rem;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .modal-close:hover { color: var(--text); }
+    .modal-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    
+    /* ===== SUMMARY ===== */
+    .summary-list {
+      list-style: none;
+    }
+    .summary-item {
+      background: linear-gradient(135deg, rgba(152,200,71,.08), rgba(4,108,148,.04));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 12px;
+    }
+    .summary-item-icon {
+      font-size: 1.5rem;
+      min-width: 30px;
+      text-align: center;
+    }
+    .summary-item-title {
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .summary-item-desc {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    
+    /* ===== ACCESSIBILITY BUTTON ===== */
+    #accToggle {
+      position: fixed;
+      bottom: 84px;
+      right: 20px;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: none;
+      color: #fff;
+      font-size: 1.3rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(4,108,148,.3);
+      z-index: 199;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .2s ease;
+    }
+    #accToggle:hover { background: #044e6e; transform: scale(1.05); }
+    
+    /* ===== ACCESSIBILITY PANEL ===== */
+    .acc-panel {
+      position: fixed;
+      bottom: 150px;
+      right: 20px;
+      width: 280px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.15);
+      z-index: 198;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      transition: all .2s ease;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+    .acc-panel.active {
+      display: flex;
+    }
+    .acc-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .acc-panel-title {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .acc-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .acc-group:last-child { border-bottom: none; }
+    .acc-group span {
+      font-weight: 600;
+      color: var(--text);
+      font-size: .9rem;
+    }
+    .option-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .option-btn {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+    .option-btn:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .option-btn.active {
+      background: var(--accent);
+      color: var(--primary);
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+    
+    /* ===== NAV BAR ===== */
+    .nav-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--primary);
+      color: #fff;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      z-index: 100;
+    }
+    .nav-step-dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      flex: 1;
+    }
+    .nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.4);
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+    .nav-dot.active {
+      background: #fff;
+      width: 24px;
+      border-radius: 4px;
+    }
+    
+    /* ===== FOOTER ===== */
+    footer {
+      margin-top: 100px;
+      padding: 20px 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .9rem;
+      border-top: 1px solid var(--border);
+    }
+    
+    /* ===== CHART WRAPPER ===== */
+    .chart-wrap-tall {
+      height: 400px;
+      position: relative;
+    }
+  </style>
 </head>
 <body>
 
-    <button id="btnAcessibilidade" class="btn-acessibilidade" aria-label="Menu de Acessibilidade">
-        <img src="Acessibilidade.png" alt="Acessibilidade">
-    </button>
-
-    <div id="painelAcessibilidade" class="painel-acessibilidade">
-        <strong>Tema</strong>
-        <button id="themeLight" class="active">Claro</button>
-        <button id="themeDark">Escuro</button>
-        <strong>Contraste</strong>
-        <button id="contrastNormal" class="active">Normal</button>
-        <button id="contrastHigh">Alto Contraste</button>
-        <strong>Fonte</strong>
-        <button id="fontNormal" class="active">Padrão</button>
-        <button id="fontDyslexic">Dislexia</button>
+<div class="app">
+  <!-- ==================== PAGE 0: DADOS ==================== -->
+  <div class="page active" id="page0">
+    <svg style="display:none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#98c847;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#046c94;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#a5ca65;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#e8a030;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect width="100" height="100" fill="url(#g1)" rx="4"/>
+      <circle cx="32" cy="82" r="5" fill="#fff"/>
+      <circle cx="68" cy="82" r="5" fill="#fff"/>
+    </svg>
+    <div class="page-header">
+      <div class="badge">Projeto de Vida · Aula 5</div>
+      <h1>Distância ao<br><em>Futuro Desejado</em></h1>
+      <p style="margin-top:12px; font-size:15px;">Descubra onde você está hoje e traçe o caminho para onde quer chegar.</p>
     </div>
-
-    <div class="container">
-        
-        <div id="sec1" class="section active">
-            <center>
-                <h1>Distância ao Futuro Desejado</h1>
-                <p class="subtitle">Projeto de Vida · Aula 5</p>
-                <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Jornada" style="max-width: 100%; border-radius: 12px; margin-bottom: 20px;">
-                <p>Nesta etapa, vamos analisar como você se encontra hoje nas diferentes áreas da sua vida e traçar um caminho claro para o futuro que você deseja alcançar.</p>
-                <button class="btn" onclick="nextSec('sec2')">Começar Minha Jornada</button>
-            </center>
+    <div class="card">
+      <span style="font-size:1.5rem; margin-right:8px;">📝</span>
+      <h3>Seus Dados</h3>
+      <div class="form-group">
+        <label for="studentName">Nome completo <span class="req" style="color:#dc3545;">*</span></label>
+        <input type="text" id="studentName" placeholder="Digite seu nome completo">
+        <p class="err-msg" id="errName" style="color:#dc3545; font-size:.85rem; display:none;">Campo obrigatório.</p>
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label for="studentRA">RA <span class="req" style="color:#dc3545;">*</span></label>
+          <input type="text" id="studentRA" placeholder="Registro Acadêmico">
+          <p class="err-msg" id="errRA" style="color:#dc3545; font-size:.85rem; display:none;">Campo obrigatório.</p>
         </div>
-
-        <div id="sec2" class="section">
-            <h2>Seus Dados</h2>
-            <div class="form-group">
-                <label for="nome">Nome Completo</label>
-                <input type="text" id="nome" placeholder="Ex: João da Silva" required>
-            </div>
-            <div class="form-group">
-                <label for="ra">RA / Matrícula</label>
-                <input type="text" id="ra" placeholder="Ex: 123456" required>
-            </div>
-            <div class="form-group">
-                <label for="turma">Turma</label>
-                <input type="text" id="turma" placeholder="Ex: 1º Ano A" required>
-            </div>
-            <div class="btn-container">
-                <button class="btn btn-outline" onclick="prevSec('sec1')">Voltar</button>
-                <button class="btn" onclick="validaSec2()">Avançar</button>
-            </div>
+        <div class="form-group">
+          <label for="studentClass">Turma <span class="req" style="color:#dc3545;">*</span></label>
+          <select id="studentClass">
+            <option value="">Selecione sua turma…</option>
+            <option value="2AA">2º AA</option>
+            <option value="2AB">2º AB</option>
+            <option value="2AC">2º AC</option>
+            <option value="2AD">2º AD</option>
+            <option value="2AE">2º AE</option>
+          </select>
+          <p class="err-msg" id="errTurma" style="color:#dc3545; font-size:.85rem; display:none;">Campo obrigatório.</p>
         </div>
-
-        <div id="sec3" class="section">
-            <h2>Como você está hoje?</h2>
-            
-            <div class="info-box">
-                <strong>💡 Dica:</strong> Caso queira comparar sua evolução de forma precisa, sugerimos que resgate a sua atividade anterior para visualizar como você estava nestas mesmas áreas e ver o seu progresso.
-            </div>
-
-            <p class="subtitle">Avalie seu nível de satisfação atual em cada área com uma nota de <strong>1 a 10</strong>.</p>
-
-            <div class="slider-container">
-                <div class="slider-header">
-                    <label>Área 1: Estudos e Aprendizado</label>
-                    <span class="slider-value" id="valArea1">5</span>
-                </div>
-                <input type="range" id="area1" min="1" max="10" step="1" value="5" oninput="updateVal('area1', 'valArea1')">
-            </div>
-
-            <div class="slider-container">
-                <div class="slider-header">
-                    <label>Área 2: Saúde Física e Mental</label>
-                    <span class="slider-value" id="valArea2">5</span>
-                </div>
-                <input type="range" id="area2" min="1" max="10" step="1" value="5" oninput="updateVal('area2', 'valArea2')">
-            </div>
-
-            <div class="slider-container">
-                <div class="slider-header">
-                    <label>Área 3: Relações Familiares</label>
-                    <span class="slider-value" id="valArea3">5</span>
-                </div>
-                <input type="range" id="area3" min="1" max="10" step="1" value="5" oninput="updateVal('area3', 'valArea3')">
-            </div>
-
-            <div class="slider-container">
-                <div class="slider-header">
-                    <label>Área 4: Vida Social e Lazer</label>
-                    <span class="slider-value" id="valArea4">5</span>
-                </div>
-                <input type="range" id="area4" min="1" max="10" step="1" value="5" oninput="updateVal('area4', 'valArea4')">
-            </div>
-
-            <div class="btn-container">
-                <button class="btn btn-outline" onclick="prevSec('sec2')">Voltar</button>
-                <button class="btn" onclick="goToChart()">Gerar Meu Gráfico</button>
-            </div>
-        </div>
-
-        <div id="sec4" class="section">
-            <h2>Seu Retrato Atual</h2>
-            <p>Abaixo está a representação visual de como as áreas da sua vida estão distribuídas hoje.</p>
-            
-            <div class="chart-container">
-                <canvas id="myRadarChart"></canvas>
-            </div>
-
-            <div class="btn-container">
-                <button class="btn btn-outline" onclick="prevSec('sec3')">Voltar e Ajustar</button>
-                <button class="btn" onclick="nextSec('sec5')">Criar Plano de Ação</button>
-            </div>
-        </div>
-
-        <div id="sec5" class="section">
-            <h2>Plano de Ação</h2>
-            <p class="subtitle">Descreva como você pretende melhorar ou manter as áreas avaliadas. <strong>Atenção:</strong> Suas respostas devem conter no mínimo 20 palavras para garantir um bom desenvolvimento da ideia.</p>
-
-            <div class="form-group">
-                <label>1. Qual ação prática você fará esta semana para melhorar a área com a menor nota?</label>
-                <textarea id="acao1" placeholder="Descreva sua ação detalhadamente aqui..." oninput="checkWords('acao1', 'count1')"></textarea>
-                <div id="count1" class="word-counter">Palavras: 0/20</div>
-            </div>
-
-            <div class="form-group">
-                <label>2. Como você pode usar seus pontos fortes (áreas com notas mais altas) para te ajudar no seu Projeto de Vida?</label>
-                <textarea id="acao2" placeholder="Reflita e descreva aqui..." oninput="checkWords('acao2', 'count2')"></textarea>
-                <div id="count2" class="word-counter">Palavras: 0/20</div>
-            </div>
-
-            <div id="loading" class="loading-msg">Enviando suas respostas... Aguarde.</div>
-
-            <div class="btn-container">
-                <button class="btn btn-outline" onclick="prevSec('sec4')" id="btnVoltarFinal">Voltar</button>
-                <button class="btn" onclick="submitData()" id="btnEnviar">Finalizar e Enviar</button>
-            </div>
-        </div>
-
-        <div id="sec6" class="section" style="text-align: center;">
-            <h2>🎉 Parabéns!</h2>
-            <p>Sua atividade foi enviada com sucesso e registrada.</p>
-            <p>Continue firme na construção do seu Projeto de Vida!</p>
-        </div>
-
+      </div>
     </div>
+    <div class="btn-row" style="justify-content:space-between">
+      <button class="btn btn-ghost" style="visibility:hidden;">← Voltar</button>
+      <button class="btn btn-primary btn-lg" onclick="goNext(0)">Próximo →</button>
+    </div>
+  </div>
 
-    <script>
-        // ===========================
-        // NAVEGAÇÃO ENTRE SEÇÕES
-        // ===========================
-        function nextSec(id) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            window.scrollTo(0, 0);
-        }
+  <!-- ==================== PAGE 1: RODA DA VIDA ==================== -->
+  <div class="page" id="page1">
+    <div class="page-header">
+      <div class="badge">Etapa 2 de 4</div>
+      <h2>📊 Roda da Vida</h2>
+      <p style="font-size:14px;">Avalie cada área da sua vida de 1 a 10, sendo 1 muito insatisfeito e 10 totalmente satisfeito. Sua nota geral da Aula 4 aparecerá em tracejado.</p>
+    </div>
+    <div class="card">
+      <div class="form-group">
+        <label for="notaAula4">📌 (Opcional) Sua nota geral da Aula 4</label>
+        <input type="number" id="notaAula4" min="0" max="10" step="0.1" placeholder="Ex: 6.5">
+        <p style="font-size:12px; margin-top:4px; color:var(--muted);">Se preenchido, o gráfico mostrará comparação com o futuro desejado.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Avalie cada área:</h3>
+      <div id="rodaVidaSliders"></div>
+    </div>
+    <div class="card">
+      <h3>Visualização da sua Roda da Vida</h3>
+      <div class="chart-wrap-tall"><canvas id="rodaChart"></canvas></div>
+    </div>
+    <div class="btn-row" style="justify-content:space-between">
+      <button class="btn btn-ghost" onclick="goBack(1)">← Voltar</button>
+      <button class="btn btn-primary" onclick="goNext(1)">Próximo →</button>
+    </div>
+  </div>
 
-        function prevSec(id) {
-            nextSec(id);
-        }
+  <!-- ==================== PAGE 2: ESTRATÉGIAS ==================== -->
+  <div class="page" id="page2">
+    <div class="page-header">
+      <div class="badge">Etapa 3 de 4</div>
+      <h2>💡 Estratégias para o Presente</h2>
+      <p style="font-size:14px;">Escolha e salve <strong>pelo menos uma estratégia</strong> para praticar esta semana. Explore as áreas e clique em "🎯 Vou praticar" para registrar seu plano.</p>
+    </div>
+    <div class="card">
+      <div class="strat-tabs" id="stratTabs"></div>
+      <div id="stratContents"></div>
+    </div>
+    <div class="btn-row" style="justify-content:space-between">
+      <button class="btn btn-ghost" onclick="goBack(2)">← Voltar</button>
+      <button class="btn btn-primary" onclick="goNext(2)">Próximo →</button>
+    </div>
+  </div>
 
-        function validaSec2() {
-            const n = document.getElementById('nome').value.trim();
-            const r = document.getElementById('ra').value.trim();
-            const t = document.getElementById('turma').value.trim();
-            if(!n || !r || !t) {
-                alert("Por favor, preencha todos os dados de identificação.");
-                return;
-            }
-            nextSec('sec3');
-        }
+  <!-- ==================== PAGE 3: CONCLUSÃO ==================== -->
+  <div class="page" id="page3">
+    <div class="page-header">
+      <div class="badge">Etapa 4 de 4</div>
+      <h2>✅ Resumo e Conclusão</h2>
+      <p style="font-size:14px;">Revise suas estratégias e conclua a atividade.</p>
+    </div>
+    <div class="card">
+      <h3>📋 Suas estratégias selecionadas</h3>
+      <ul class="summary-list" id="summaryList">
+        <li style="color:var(--muted); padding:12px; text-align:center;">Nenhuma estratégia registrada ainda.</li>
+      </ul>
+    </div>
+    <div class="card" style="margin-bottom:14px;">
+      <div id="status-msg"></div>
+    </div>
+    <div class="btn-row" style="flex-direction:column; gap:10px;">
+      <button class="btn btn-accent btn-lg" id="completeBtn">🎉 Concluir a Atividade</button>
+      <button class="btn btn-outline btn-lg" onclick="window.print()">🖨️ Imprimir / Baixar PDF</button>
+      <button class="btn btn-ghost" onclick="goBack(3)">← Voltar</button>
+    </div>
+  </div>
+</div>
 
-        function updateVal(inputId, spanId) {
-            document.getElementById(spanId).innerText = document.getElementById(inputId).value;
-        }
+<!-- MODAL: ESTRATÉGIA -->
+<div class="modal-overlay" id="stratModal">
+  <div class="modal-box">
+    <button class="modal-close" id="stratModalClose">×</button>
+    <p class="modal-title" id="stratModalTitle"></p>
+    <div id="stratModalDesc"></div>
+    <div id="stratModalSteps"></div>
+    <div id="stratModalExample" class="modal-example"></div>
+    <div class="form-group" style="margin-top:10px;">
+      <label for="stratResponse">✍️ Seu Plano de Ação:</label>
+      <textarea id="stratResponse" placeholder="Descreva como você vai praticar esta estratégia..."></textarea>
+    </div>
+    <div class="btn-row" style="justify-content:flex-end; gap:10px;">
+      <button class="btn btn-ghost" id="stratCancelBtn">Cancelar</button>
+      <button class="btn btn-primary" id="stratSaveBtn">💾 Salvar Plano</button>
+    </div>
+  </div>
+</div>
 
-        // ===========================
-        // LÓGICA DO GRÁFICO (CHART.JS)
-        // ===========================
-        let radarChart;
-        function goToChart() {
-            nextSec('sec4');
-            const v1 = document.getElementById('area1').value;
-            const v2 = document.getElementById('area2').value;
-            const v3 = document.getElementById('area3').value;
-            const v4 = document.getElementById('area4').value;
+<!-- ACCESSIBILITY BUTTON -->
+<button id="accToggle" aria-label="Abrir painel de acessibilidade">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="25" r="12" fill="#fff"/>
+    <rect x="38" y="42" width="24" height="18" rx="2" fill="#fff"/>
+    <path d="M38 60 L32 82" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M62 60 L68 82" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M45 60 L38 75" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M55 60 L62 75" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <circle cx="32" cy="82" r="5" fill="#fff"/>
+    <circle cx="68" cy="82" r="5" fill="#fff"/>
+  </svg>
+</button>
 
-            const ctx = document.getElementById('myRadarChart').getContext('2d');
-            
-            if(radarChart) radarChart.destroy(); // Destroi o anterior se existir para recriar
+<!-- ACCESSIBILITY PANEL -->
+<div class="acc-panel" id="accPanel">
+  <button class="acc-close" id="accClose">×</button>
+  <p class="acc-panel-title">⚙️ Acessibilidade</p>
+  <div class="acc-group">
+    <span>Tamanho da Fonte</span>
+    <div class="option-btns">
+      <button class="option-btn active" data-font-size="16">Padrão</button>
+      <button class="option-btn" data-font-size="19">Grande</button>
+      <button class="option-btn" data-font-size="22">Maior</button>
+    </div>
+  </div>
+  <div class="acc-group">
+    <span>Estilo da Fonte</span>
+    <div class="option-btns">
+      <button class="option-btn active" id="fontNormal">Normal</button>
+      <button class="option-btn" id="fontDyslexic">Dislexia</button>
+    </div>
+  </div>
+  <div class="acc-group">
+    <span>Tema</span>
+    <div class="option-btns">
+      <button class="option-btn active" id="themeLight">☀️ Claro</button>
+      <button class="option-btn" id="themeDark">🌙 Escuro</button>
+      <button class="option-btn" id="themeContrast">◑ Alto Contraste</button>
+    </div>
+  </div>
+</div>
 
-            radarChart = new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: ['Estudos', 'Saúde', 'Família', 'Vida Social'],
-                    datasets: [{
-                        label: 'Seu Momento Atual',
-                        data: [v1, v2, v3, v4],
-                        backgroundColor: 'rgba(4, 108, 148, 0.4)',
-                        borderColor: 'rgba(4, 108, 148, 1)',
-                        pointBackgroundColor: 'rgba(152, 200, 71, 1)',
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: {
-                            min: 0,
-                            max: 10,
-                            ticks: { stepSize: 2 }
-                        }
-                    }
-                }
-            });
-        }
+<!-- NAV BAR -->
+<div class="nav-bar">
+  <button class="btn btn-ghost" id="prevBtn" onclick="goBack(currentPage)" style="color:#fff;">← Anterior</button>
+  <div class="nav-step-dots" id="navDots"></div>
+  <button class="btn btn-primary" id="nextBtn" onclick="goNext(currentPage)" style="background:rgba(255,255,255,.2); color:#fff;">Próximo →</button>
+</div>
 
-        // ===========================
-        // CONTADOR E VALIDAÇÃO DE PALAVRAS
-        // ===========================
-        function countWords(str) {
-            return str.trim().split(/\s+/).filter(word => word.length > 0).length;
-        }
+<footer>
+  <p>📚 Projeto de Vida · Aula 5 &nbsp;|&nbsp; Fundação Matias Machline</p>
+</footer>
 
-        function checkWords(inputId, countId) {
-            const text = document.getElementById(inputId).value;
-            const words = countWords(text);
-            const counterDiv = document.getElementById(countId);
-            counterDiv.innerText = `Palavras: ${words}/20`;
-            
-            if(words < 20) {
-                counterDiv.classList.add('error');
-            } else {
-                counterDiv.classList.remove('error');
-            }
-        }
+<script>
+// ===========================
+// DATA
+// ===========================
+const PALETA = {
+  saude:'#16a34a', lazer:'#f59e0b', equilibrio:'#3b82f6', financas:'#ec4899',
+  familia:'#8b5cf6', intelectual:'#06b6d4', proposito:'#d97706', plenitude:'#a5ca65',
+  social:'#f97316', amor:'#ef4444', contribuicao:'#6366f1', espiritualidade:'#84cc16'
+};
+const NUVEM = [
+  {area:'Saúde / Corpo',valor:9.02,cor:PALETA.saude},
+  {area:'Lazer',valor:8.77,cor:PALETA.lazer},
+  {area:'Equilíbrio Emocional',valor:8.75,cor:PALETA.equilibrio},
+  {area:'Finanças',valor:8.65,cor:PALETA.financas},
+  {area:'Família',valor:8.64,cor:PALETA.familia},
+  {area:'Dev. Intelectual',valor:8.62,cor:PALETA.intelectual},
+  {area:'Propósito',valor:8.40,cor:PALETA.proposito},
+  {area:'Plenitude',valor:8.38,cor:PALETA.plenitude},
+  {area:'Social',valor:7.96,cor:PALETA.social},
+  {area:'Amor / Relacionamento',valor:7.89,cor:PALETA.amor},
+  {area:'Contribuição',valor:7.66,cor:PALETA.contribuicao},
+  {area:'Espiritualidade',valor:7.63,cor:PALETA.espiritualidade}
+];
+const DIMS = [
+  {id:'saude',nome:'Saúde / Corpo',icon:'💪',media:9.02,cor:PALETA.saude,estrategias:[
+    {nome:'Ancoragem de Hábitos',desc:'Criar um hábito novo do zero é difícil. Mas encaixar esse hábito em algo que você já faz todo dia é muito mais fácil — porque você usa uma rotina existente como "gatilho" automático.',passos:['Escolha uma rotina que já existe no seu dia (ex: chegar da escola)','Decida qual hábito novo vai encaixar depois dela','Pratique a sequência por 5 dias seguidos e observe o efeito'],exemplo:'Logo após chegar da escola (hábito antigo), faça 15 min de caminhada, alongamento ou qualquer movimento que gosto.'},
+    {nome:'Ritual Matinal de 5 Min',desc:'Como você começa o dia defini muita coisa. Se acordar com pressa e estresse, a energia muda. Se acordar com calma, o efeito é outro — e tudo começa com um ritual pequeno e consistente.',passos:['Escolha uma ação simples que te traz calma ou energia (alongamento, meditação, ar fresco)','Execute por 5 minutos assim que acordar, antes de pegar no celular','Observe como o dia se transforma em uma semana'],exemplo:'Pode ser alguns minutos no pátio respirando ar fresco, alongamento, beber água com limão, ou 3 min de respiração diafragmática.'}
+  ]},
+  {id:'lazer',nome:'Lazer',icon:'🎨',media:8.77,cor:PALETA.lazer,estrategias:[
+    {nome:'Tempo Criativo sem Propósito',desc:'Muitas pessoas pararam de fazer coisas porque "não são boas o bastante" ou porque é "improdutivo". Mas criar, desenhar, dançar, cantar, só pelo prazer, sem nota, sem resultado — isso alimenta a alma.',passos:['Escolha algo que você gostava de fazer antes (ou sempre quis tentar)','Separe 30 min na semana só para isso, sem expectativa de resultado','Faça só por prazer, sem julgamento'],exemplo:'Desenhar, dançar, tocar um instrumento, escrever, jogar um videogame que gosta — qualquer coisa que traga alegria sem pressão.'},
+    {nome:'Desconexão Digital Programada',desc:'A gente está 24h conectado, scrollando, vendo histórias dos outros. Uma desconexão intencional não é privilégio — é saúde. E o interessante é que 1 hora sem celular te faz perceber quantas outras coisas existem.',passos:['Escolha um dia da semana (ou um período do dia)','Coloque o celular em outro cômodo ou desligue as notificações','Use o tempo pra ler, caminhar, conversar, ou simplesmente estar presente'],exemplo:'Sábado à noite do 19h às 21h sem redes sociais, ou toda segunda-feira depois das 18h.'}
+  ]},
+  {id:'equilibrio',nome:'Equilíbrio Emocional',icon:'🧘',media:8.75,cor:PALETA.equilibrio,estrategias:[
+    {nome:'Reestruturação Cognitiva',desc:'Nosso pensamento automático geralmente é crítico demais. Aquele "sou um fracasso", "nunca vou conseguir" — costuma vir sozinho. Mas você pode treiná-lo a ser mais realista e compassivo.',passos:['Quando surgir um pensamento crítico, escreva-o','Pergunte: "isso é fato ou interpretação?"','Reformule com mais compaixão (como falaria com um amigo)'],exemplo:'Você tirou uma nota baixa e pensa "sou burro". Pare. Pergunte: "isso é fato?" Provavelmente não. Tente: "não fui bem nessa prova. O que posso fazer diferente da próxima vez?"'},
+    {nome:'Check-in Emocional',desc:'A gente vive no automático e nem sente como está emocionalmente até que explode. Um check-in rápido no dia — uma pausa pra reconhecer o que você tá sentindo — já previne muita coisa.',passos:['3 vezes ao dia, pause por 1 minuto','Pergunte-se: "como eu estou agora?"','Nomeie a emoção (ansiedade, calma, raiva, alegria) sem julgamento'],exemplo:'Manhã: ansiedade sobre a prova. Meio-dia: entediado. Noite: alívio. Só reconhecer já muda a relação com a emoção.'}
+  ]},
+  {id:'financas',nome:'Finanças',icon:'💰',media:8.65,cor:PALETA.financas,estrategias:[
+    {nome:'Regra dos 10%',desc:'Não precisa ter muito dinheiro pra começar a cuidar das suas finanças. O que importa não é o valor — é o hábito. Quem aprende a guardar cedo tem uma vantagem enorme lá na frente.',passos:['Toda vez que receber qualquer dinheiro (mesada, presente, trampo), separe 10% antes de gastar','Guarde em envelope ou conta separada','O objetivo não é ficar rico agora — é treinar o cérebro a pensar antes de gastar'],exemplo:'Recebeu R$50? Guarde R$5 antes de qualquer coisa. Recebeu R$200? Guarde R$20. No fim de um mês, você já vai ter uma reserva pequena — e um novo hábito.'},
+    {nome:'Diário de Gastos',desc:'A maioria das pessoas não sabe pra onde vai o seu dinheiro. Anotar os gastos por uma semana revela padrões que você nem percebia — e abre espaço pra escolhas mais conscientes.',passos:['Durante 7 dias, anote todo gasto no celular ou caderninho (até o chiclete)','No fim da semana, some por categoria: alimentação, lazer, transporte...','Identifique: "em que eu gastei sem realmente querer?"'],exemplo:'Você pode usar o bloco de notas do celular mesmo. No fim da semana, olhe o total. A descoberta mais comum é: "gastei mais com delivery do que percebi."'}
+  ]},
+  {id:'familia',nome:'Família',icon:'👨‍👩‍👧‍👦',media:8.64,cor:PALETA.familia,estrategias:[
+    {nome:'Tempo de Qualidade sem Tela',desc:'Presença de verdade é cada vez mais rara. Quando você tira a tela e foca 100% na pessoa que tá na sua frente, a conexão é outra — e as pessoas sentem isso.',passos:['Escolha um horário fixo na semana pra estar com alguém da família','Coloque os celulares de lado (de verdade)','Conversem, façam uma atividade juntos, ou apenas estejam presentes'],exemplo:'Jantar em silêncio de celulares, assistir um filme junto, ou uma caminhada só vocês dois conversando.'},
+    {nome:'Comunicação Honesta com Família',desc:'A maioria dos conflitos familiares vem de medo de falar a verdade. Mas comunicação clara, mesmo quando incômoda, constrói confiança e reduz ruído.',passos:['Escolha um momento calmo pra conversar','Comece com "preciso te contar uma coisa que tô sentindo"','Fale do sentimento, não blame a pessoa'],exemplo:'Em vez de "você nunca me ouve", tente: "eu me sinto invisível quando estou falando e você fica no celular". A recepção é completamente diferente.'}
+  ]},
+  {id:'intelectual',nome:'Dev. Intelectual',icon:'🧠',media:8.62,cor:PALETA.intelectual,estrategias:[
+    {nome:'Micro-Learning Diário',desc:'Grandes conquistas no futuro começam com pequenas ações hoje. Se você quer crescer no trabalho ou na vida acadêmica, 15 minutos de aprendizado focado por dia já fazem diferença — sem pressão, sem perfeição.',passos:['Escolha um tema que te interessa (idioma, programação, filosofia, culinária...)','Separe 15 minutos por dia só pra isso','Pode ser podcast no ônibus, artigo curto antes de dormir, vídeo enquanto come'],exemplo:'Quer aprender inglês? 15 min por dia num app já coloca você à frente de quem não faz nada. Em 3 meses, a diferença é enorme.'},
+    {nome:'Registro de Aprendizados',desc:'Escrever o que você aprendeu ao longo do dia ajuda a fixar o conhecimento e mostra o quanto você está evoluindo — mesmo quando parece que nada mudou.',passos:['Ao fim do dia, escreva numa nota do celular 1 coisa nova que você aprendeu ou percebeu','Pode ser algo da aula, de uma conversa, de um vídeo','Releia de vez em quando — você vai se surpreender com o quanto evoluiu'],exemplo:'Crie uma nota chamada "o que aprendi hoje" e escreva uma linha por dia. Com o tempo, vira um diário de crescimento — e uma prova do seu desenvolvimento.'}
+  ]},
+  {id:'proposito',nome:'Propósito',icon:'🎯',media:8.40,cor:PALETA.proposito,estrategias:[
+    {nome:'Voluntariado de Proximidade',desc:'Contribuir com o mundo começa perto de casa. Ajudar alguém do seu círculo desenvolve empatia de verdade e dá um senso de propósito que nenhuma conquista individual substitui.',passos:['Identifique uma pessoa ao seu redor que poderia se beneficiar de uma ajuda pequena','Ofereça essa ajuda conscientemente, sem esperar reconhecimento','Observe como você se sente depois'],exemplo:'Ajudar um colega com uma matéria, fazer algo pela família sem ser pedido, apoiar um amigo que está passando por algo difícil — tudo isso conta.'},
+    {nome:'Reflexão de Valores',desc:'Quando você age de forma coerente com o que realmente importa pra você, a sensação é diferente. Mas pra isso, você precisa saber quais são esses valores.',passos:['Escreva 5 valores que são importantes pra você (honestidade, liberdade, familiaridade, criatividade, justiça...)','Escolha um e pense: "em que momento dessa semana eu agi de acordo com esse valor?"','Repita com outro valor'],exemplo:'Se liberdade é importante, você pode se sentir bem quando toma uma decisão por si mesmo. Se justiça importa, você se sente bem quando defende alguém sendo discriminado.'}
+  ]},
+  {id:'plenitude',nome:'Plenitude',icon:'✨',media:8.38,cor:PALETA.plenitude,estrategias:[
+    {nome:'Prática de Gratidão Profunda',desc:'Conectar-se com o que você tem — e não só com o que falta — é uma forma poderosa de bem-estar que vai além do psicológico. Muitas tradições espirituais colocam a gratidão como prática central por um bom motivo.',passos:['Escolha um momento fixo do dia (acordar ou dormir)','Feche os olhos e pense em 3 coisas pelas quais você é genuinamente grato','Não apresse — deixe a sensação estar presente por alguns segundos'],exemplo:'Gratidão pelas pequenas bênçãos — a saúde, as pessoas que te amam, um momento de paz — conecta você com o que realmente importa, especialmente nos dias difíceis.'},
+    {nome:'Contemplação',desc:'Contemplar um pôr do sol, uma árvore, o céu estrelado — são momentos que nos conectam com algo maior que a gente. E esses momentos trazem serenidade que os livros não conseguem dar.',passos:['Escolha um lugar que te traz calma (janela, parque, varanda)','Sente-se lá por 5 a 10 minutos sem fazer nada','Apenas observe, sinta, absorva o momento'],exemplo:'Um pôr do sol vista, a floresta próximo de casa, o mar, ou até mesmo o movimento das nuvens — qualquer coisa que suspenda você do tempo.'}
+  ]},
+  {id:'social',nome:'Social',icon:'👥',media:7.96,cor:PALETA.social,estrategias:[
+    {nome:'Conexão Autêntica',desc:'A gente tem 1000 amigos nas redes mas falta conexão real. Qualidade sempre bate quantidade. Uma amizade baseada em autenticidade — onde você pode ser você mesmo — é rara e valiosa.',passos:['Escolha uma pessoa do seu círculo com quem você quer aprofundar','Convide pra fazer algo junto (café, caminhada, conversa)','Seja autêntico — compartilhe o que tá sentindo de verdade'],exemplo:'Chamar um amigo pra conversar sobre sonhos e medos, em vez de só falar de superfícies. Você vai se surpreender com a resposta.'},
+    {nome:'Escuta Genuína',desc:'Escutar é uma habilidade rara. A maioria das pessoas está esperando sua vez de falar. Mas quando alguém verdadeiramente te escuta, você se sente visto — e isso cura.',passos:['Na próxima conversa, foque em ouvir mais do que falar','Faça perguntas de acompanhamento (não para corrigir, mas para entender)','Não tente consertar ou concordar — apenas ouça'],exemplo:'Se um amigo conta que está ansioso, em vez de dar conselho, pergunte: "como isso tá afetando você?" e deixe falar.'}
+  ]},
+  {id:'amor',nome:'Amor / Relacionamento',icon:'❤️',media:7.89,cor:PALETA.amor,estrategias:[
+    {nome:'Autoaceitação',desc:'Relacionamentos saudáveis começam com uma boa relação consigo mesmo. Quando você se aceita — com qualidades e imperfeições — você para de buscar nos outros o que deveria construir em você.',passos:['Escreva 5 coisas que você gosta em você (não precisa ser aparência — pode ser jeito de ser, habilidades, valores)','Identifique uma crítica que você faz a si mesmo com frequência','Tente reformular essa crítica com mais compaixão, como faria com um amigo'],exemplo:'Se você diria "meu amigo errou, mas tá aprendendo" pra um colega, por que não diria o mesmo pra você? Autoaceitação é isso: aplicar a mesma generosidade que você tem pelos outros a si mesmo.'},
+    {nome:'Comunicação Honesta',desc:'A maioria dos problemas em relacionamentos não é falta de amor — é falta de comunicação. Aprender a falar de forma clara e respeitosa sobre o que você sente é uma habilidade que muda tudo.',passos:['Na próxima vez que algo te incomodar, fale sobre o sentimento, não sobre o erro da outra pessoa','Use "eu me sinto..." em vez de "você fez..."','Ouça a resposta com abertura, mesmo que seja difícil'],exemplo:'"Eu me siento ignorado quando fico esperando resposta por horas" comunica muito mais — e gera menos defesa — do que "você nunca responde minhas mensagens."'}
+  ]},
+  {id:'contribuicao',nome:'Contribuição',icon:'🌍',media:7.66,cor:PALETA.contribuicao,estrategias:[
+    {nome:'Impacto Social Próximo',desc:'Mudar o mundo começa pelo que está ao seu alcance. Antes de pensar em grandes causas, olhe pra volta: existe algo concreto que você pode fazer na sua escola, no seu bairro, no seu círculo?',passos:['Identifique um problema pequeno ao seu redor que você poderia ajudar a resolver','Pense em 1 ação concreta que está no seu alcance hoje','Faça — e observe o que acontece'],exemplo:'Se preocupa com educação? Ajude um colega que está com dificuldade. Se vê lixo no corredor? Reclamação não resolve, mas agir resolve. Pequenas ações mudam a cultura do ambiente.'},
+    {nome:'Cidadania Ativa',desc:'Ser cidadão não é só votar de 4 em 4 anos. É a postura diária de respeitar, questionar, contribuir e inspirar. E começa muito antes dos 18 anos.',passos:['Escolha 1 hábito sustentável ou de respeito que você pode adotar esta semana','Quando vir alguém sendo tratado de forma injusta, pense: o que eu faço?','Inspire as pessoas ao redor pelo exemplo, não pelo sermão'],exemplo:'Reciclar, defender quem é discriminado, respeitar diferentes opiniões e ajudar a construir um ambiente mais seguro e respeitoso para todos.'}
+  ]},
+  {id:'espiritualidade',nome:'Espiritualidade',icon:'🕯️',media:7.63,cor:PALETA.espiritualidade,estrategias:[
+    {nome:'Prática de Conexão Espiritual',desc:'Espiritualidade não é religiosa (pode ser, mas não precisa). É se conectar com algo maior que você — pode ser rezar, meditar, caminhar na natureza, ou praticar um esporte em estado de presença total.',passos:['Escolha um tipo de prática que resuoa com você','Encontre um momento na semana pra fazer isso','Não precisa ser perfeito — apenas apresente-se'],exemplo:'Pode ser rezar, meditar 5 minutos, praticar yoga, sentar em silêncio, caminhar na natureza, ou participar de uma comunidade de fé. O critério é: isso me faz sentir mais inteiro?'},
+    {nome:'Prática de Gratidão Profunda',desc:'Conectar-se com o que você tem — e não só com o que falta — é uma forma poderosa de bem-estar que vai além do psicológico. Muitas tradições espirituais colocam a gratidão como prática central por um bom motivo.',passos:['Escolha um momento fixo do dia (acordar ou dormir)','Feche os olhos e pense em 3 coisas pelas quais você é genuinamente grato','Não apresse — deixe a sensação estar presente por alguns segundos'],exemplo:'Gratidão pelas pequenas bênçãos — a saúde, as pessoas que te amam, um momento de paz — conecta você com o que realmente importa, especialmente nos dias difíceis.'}
+  ]}
+];
 
-        // ===========================
-        // ENVIO PARA O GOOGLE SHEETS
-        // ===========================
-        const SCRIPT_URL = "URL_DO_SEU_WEB_APP_AQUI"; // <<<<<< COLOQUE SUA URL AQUI
+// ===========================
+// STATE
+// ===========================
+let state = {
+  nome:'', ra:'', turma:'',
+  rodaVida:{},
+  estrategias:[],
+  notaAula4: null
+};
+let currentPage = 0;
+const TOTAL_PAGES = 4;
 
-        function submitData() {
-            const a1 = document.getElementById('acao1').value;
-            const a2 = document.getElementById('acao2').value;
+// Load from localStorage
+(function loadState() {
+  const saved = localStorage.getItem('aula5_projetoVida');
+  if (saved) {
+    try {
+      state = {...state, ...JSON.parse(saved)};
+    } catch(e) {}
+  }
+})();
 
-            if(countWords(a1) < 20 || countWords(a2) < 20) {
-                alert("Por favor, desenvolva melhor suas respostas. O mínimo é de 20 palavras por questão.");
-                return;
-            }
+function saveState() {
+  localStorage.setItem('aula5_projetoVida', JSON.stringify(state));
+}
 
-            document.getElementById('btnEnviar').style.display = 'none';
-            document.getElementById('btnVoltarFinal').style.display = 'none';
-            document.getElementById('loading').style.display = 'block';
+// ===========================
+// NAVIGATION
+// ===========================
+function goNext(from) {
+  if (from === 0) {
+    const nome = document.getElementById('studentName').value.trim();
+    const ra   = document.getElementById('studentRA').value.trim();
+    const turma= document.getElementById('studentClass').value.trim();
+    let ok = true;
+    document.getElementById('errName').style.display  = nome  ? 'none' : 'block'; if(!nome)  ok=false;
+    document.getElementById('errRA').style.display    = ra    ? 'none' : 'block'; if(!ra)    ok=false;
+    document.getElementById('errTurma').style.display = turma ? 'none' : 'block'; if(!turma) ok=false;
+    if (!ok) return;
+    state.nome = nome; state.ra = ra; state.turma = turma;
+    saveState();
+  }
+  if (from === 1) {
+    state.notaAula4 = parseFloat(document.getElementById('notaAula4').value) || null;
+    saveState();
+    renderRodaChart();
+  }
+  if (from === 2) {
+    if (state.estrategias.length === 0) {
+      alert('⚠️ Para continuar, escolha e salve pelo menos uma estratégia em qualquer área.');
+      return;
+    }
+    renderSummary();
+  }
+  if (from < TOTAL_PAGES - 1) showPage(from + 1);
+}
 
-            const payload = {
-                nome: document.getElementById('nome').value,
-                ra: document.getElementById('ra').value,
-                turma: document.getElementById('turma').value,
-                areas: {
-                    area1: document.getElementById('area1').value,
-                    area2: document.getElementById('area2').value,
-                    area3: document.getElementById('area3').value,
-                    area4: document.getElementById('area4').value
-                },
-                acoes: {
-                    acao1: a1,
-                    acao2: a2
-                }
-            };
+function goBack(from) {
+  if (from > 0) showPage(from - 1);
+}
 
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors', // Fundamental para não travar no Google Sheets
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            })
-            .then(response => {
-                document.getElementById('loading').style.display = 'none';
-                nextSec('sec6'); // Vai para tela de sucesso
-            })
-            .catch(error => {
-                console.error('Erro!', error.message);
-                alert("Houve um erro ao enviar. Tente novamente.");
-                document.getElementById('btnEnviar').style.display = 'inline-block';
-                document.getElementById('btnVoltarFinal').style.display = 'inline-block';
-                document.getElementById('loading').style.display = 'none';
-            });
-        }
+function showPage(n) {
+  document.querySelectorAll('.page').forEach((p,i) => p.classList.toggle('active', i===n));
+  currentPage = n;
+  updateNavDots();
+}
 
-        // ===========================
-        // LÓGICA DE ACESSIBILIDADE
-        // ===========================
-        const btnAcess = document.getElementById('btnAcessibilidade');
-        const painelAcess = document.getElementById('painelAcessibilidade');
+function updateNavDots() {
+  const dotsEl = document.getElementById('navDots');
+  if (dotsEl.children.length === 0) {
+    for (let i = 0; i < TOTAL_PAGES; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'nav-dot' + (i === currentPage ? ' active' : '');
+      dot.onclick = () => showPage(i);
+      dotsEl.appendChild(dot);
+    }
+  } else {
+    document.querySelectorAll('.nav-dot').forEach((d,i) => d.classList.toggle('active', i===currentPage));
+  }
+}
 
-        btnAcess.onclick = () => {
-            painelAcess.classList.toggle('active');
-        };
+// ===========================
+// RODA DA VIDA
+// ===========================
+function buildSliders() {
+  const container = document.getElementById('rodaVidaSliders');
+  container.innerHTML = '';
+  DIMS.forEach(dim => {
+    const val = state.rodaVida[dim.id] !== undefined ? state.rodaVida[dim.id] : 5;
+    const div = document.createElement('div');
+    div.className = 'slider-wrap';
+    div.innerHTML = `
+      <div class="slider-head">
+        <label>${dim.icon} ${dim.nome}</label>
+        <span>${val}</span>
+      </div>
+      <input type="range" id="slider_${dim.id}" min="1" max="10" value="${val}" style="accent-color:${dim.cor};">
+    `;
+    const slider = div.querySelector('input');
+    slider.oninput = (e) => {
+      state.rodaVida[dim.id] = parseInt(e.target.value);
+      div.querySelector('span').textContent = e.target.value;
+      saveState();
+    };
+    container.appendChild(div);
+  });
+}
 
-        // Fontes
-        document.getElementById('fontNormal').onclick = () => {
-            document.body.classList.remove('dyslexic-font');
-            document.getElementById('fontNormal').classList.add('active');
-            document.getElementById('fontDyslexic').classList.remove('active');
-        };
-        document.getElementById('fontDyslexic').onclick = () => {
-            document.body.classList.add('dyslexic-font');
-            document.getElementById('fontDyslexic').classList.add('active');
-            document.getElementById('fontNormal').classList.remove('active');
-        };
+let rodaChartInst = null;
+function renderRodaChart() {
+  buildSliders();
+  const labels = DIMS.map(d => d.nome);
+  const datasets = [{
+      label: 'Situação Atual',
+      data: DIMS.map(d => state.rodaVida[d.id] || 5),
+      backgroundColor: 'rgba(4,108,148,.15)',
+      borderColor: '#046c94',
+      borderWidth: 2,
+      pointRadius: 4,
+      pointBackgroundColor: '#046c94'
+    }];
+  if (state.notaAula4) {
+    datasets.push({
+      label: `Aula 4 (${state.notaAula4})`,
+      data: DIMS.map(() => state.notaAula4),
+      borderColor: '#046c94', backgroundColor: 'rgba(152,200,71,.1)',
+      borderWidth: 2, borderDash: [5,5], pointRadius: 3
+    });
+  }
+  const ctx = document.getElementById('rodaChart').getContext('2d');
+  if (rodaChartInst) rodaChartInst.destroy();
+  rodaChartInst = new Chart(ctx, {
+    type: 'radar',
+    data: { labels, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position:'bottom', labels:{boxWidth:12, padding:14, font:{size:11}} } },
+      scales: { r: { beginAtZero:true, max:10, ticks:{stepSize:2}, pointLabels:{font:{size:10}} } }
+    }
+  });
+}
 
-        // Temas
-        document.getElementById('themeLight').onclick = () => {
-            document.body.classList.remove('dark-mode');
-            document.getElementById('themeLight').classList.add('active');
-            document.getElementById('themeDark').classList.remove('active');
-        };
-        document.getElementById('themeDark').onclick = () => {
-            document.body.classList.add('dark-mode');
-            document.getElementById('themeDark').classList.add('active');
-            document.getElementById('themeLight').classList.remove('active');
-        };
+// ===========================
+// ESTRATÉGIAS
+// ===========================
+let estrategiaAtual = null;
+function renderStratTabs() {
+  const tabsEl    = document.getElementById('stratTabs');
+  const contsEl   = document.getElementById('stratContents');
+  if (tabsEl.children.length > 0) return;
+  tabsEl.innerHTML = '';
+  contsEl.innerHTML = '';
+  DIMS.forEach((dim, i) => {
+    const tab = document.createElement('button');
+    tab.className = 'strat-tab' + (i===0?' active':'');
+    tab.textContent = dim.icon + ' ' + dim.nome;
+    tab.onclick = () => {
+      document.querySelectorAll('.strat-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.strat-content').forEach(c => c.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('sc-' + dim.id).classList.add('active');
+    };
+    tabsEl.appendChild(tab);
+    const cont = document.createElement('div');
+    cont.className = 'strat-content' + (i===0?' active':'');
+    cont.id = 'sc-' + dim.id;
+    const grid = document.createElement('div');
+    grid.className = 'strat-grid';
+    dim.estrategias.forEach(est => {
+      const alreadySaved = state.estrategias.find(e => e.nome === est.nome);
+      const card = document.createElement('div');
+      card.className = 'strat-card' + (alreadySaved ? ' selected' : '');
+      card.id = 'card-' + est.nome.replace(/\s+/g,'_');
+      card.innerHTML = `
+        <h4>${est.nome}</h4>
+        <p>${est.desc}</p>
+        <button class="btn btn-primary">${alreadySaved ? '✅ Praticando' : '🎯 Vou praticar'}</button>
+      `;
+      card.querySelector('button').onclick = () => openStratModal(dim, est);
+      grid.appendChild(card);
+    });
+    cont.appendChild(grid);
+    contsEl.appendChild(cont);
+  });
+}
 
-        // Contraste
-        document.getElementById('contrastNormal').onclick = () => {
-            document.body.classList.remove('high-contrast');
-            document.getElementById('contrastNormal').classList.add('active');
-            document.getElementById('contrastHigh').classList.remove('active');
-        };
-        document.getElementById('contrastHigh').onclick = () => {
-            document.body.classList.add('high-contrast');
-            document.getElementById('contrastHigh').classList.add('active');
-            document.getElementById('contrastNormal').classList.remove('active');
-        };
-    </script>
-</body>
-</html>
+function openStratModal(dim, est) {
+  estrategiaAtual = { dim, est };
+  document.getElementById('stratModalTitle').textContent = dim.icon + ' ' + est.nome;
+  document.getElementById('stratModalDesc').innerHTML    = `<p style="color:var(--muted); margin-bottom:10px;">${est.desc}</p>`;
+  document.getElementById('stratModalSteps').innerHTML   = `
+    <p style="font-weight:600; margin-top:12px; margin-bottom:6px;">Passos:</p>
+    <ol style="margin-left:18px; color:var(--muted);">
+      ${est.passos.map(p => `<li>${p}</li>`).join('')}
+    </ol>
+  `;
+  document.getElementById('stratModalExample').innerHTML = `
+    <p style="font-weight:600; margin-top:12px; margin-bottom:6px;">Exemplo prático:</p>
+    <p style="color:var(--muted); font-size:.95rem;">${est.exemplo}</p>
+  `;
+  document.getElementById('stratResponse').value = '';
+  document.getElementById('stratModal').classList.add('open');
+}
+
+document.getElementById('stratModalClose').onclick = () => {
+  document.getElementById('stratModal').classList.remove('open');
+};
+document.getElementById('stratCancelBtn').onclick = () => {
+  document.getElementById('stratModal').classList.remove('open');
+};
+document.getElementById('stratSaveBtn').onclick = () => {
+  const resposta = document.getElementById('stratResponse').value.trim();
+  if (!resposta) {
+    alert('⚠️ Digite seu plano de ação.');
+    return;
+  }
+  const existe = state.estrategias.find(e => e.nome === estrategiaAtual.est.nome);
+  if (!existe) {
+    state.estrategias.push({
+      nome: estrategiaAtual.est.nome,
+      area: estrategiaAtual.dim.nome,
+      resposta: resposta,
+      icon: estrategiaAtual.dim.icon
+    });
+  }
+  saveState();
+  const cardEl = document.getElementById('card-' + estrategiaAtual.est.nome.replace(/\s+/g,'_'));
+  if (cardEl) {
+    cardEl.classList.add('selected');
+    cardEl.querySelector('button').textContent = '✅ Praticando';
+  }
+  document.getElementById('stratModal').classList.remove('open');
+};
+
+// ===========================
+// SUMMARY
+// ===========================
+function renderSummary() {
+  const list = document.getElementById('summaryList');
+  if (state.estrategias.length === 0) {
+    list.innerHTML = '<li style="color:var(--muted); padding:14px; text-align:center;">Nenhuma estratégia registrada ainda.</li>';
+    return;
+  }
+  list.innerHTML = state.estrategias.map(e => `
+    <li class="summary-item">
+      <span class="summary-item-icon">${e.icon || '✅'}</span>
+      <div>
+        <div class="summary-item-title">${e.nome}</div>
+        <div class="summary-item-desc"><strong>Área:</strong> ${e.area}</div>
+        <div class="summary-item-desc"><strong>Plano:</strong> ${e.resposta}</div>
+      </div>
+    </li>
+  `).join('');
+}
+
+// ===========================
+// CONCLUSÃO / GOOGLE SHEETS
+// ===========================
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwySsqBwaAOVAMlPKrIWCNN-ABJfDIuovYUK8GMDUbz8wcv6pkdKwMJjIDAw5ED4U99/exec';
+document.getElementById('completeBtn').onclick = () => {
+  if (!state.nome || !state.ra || !state.turma) {
+    showStatus('⚠️', 'Atenção', 'Volte ao início e preencha nome, RA e turma.'); return;
+  }
+  enviarSheets();
+};
+
+async function enviarSheets() {
+  showStatus('⏳', 'Enviando...', 'Aguarde, salvando seus dados...');
+  const payload = {
+    timestamp: new Date().toLocaleString('pt-BR'),
+    nome: state.nome, ra: state.ra, turma: state.turma,
+    notaAula4: state.notaAula4,
+    ...Object.fromEntries(DIMS.map(d => ['nota_'+d.id, state.rodaVida[d.id] || 0])),
+    estrategias: state.estrategias.map(e => e.nome).join(', ')
+  };
+  try {
+    const res = await fetch(SHEETS_URL, {
+      method: 'POST', body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (data.success) {
+      showStatus('🎉', 'Sucesso!', 'Seus dados foram salvos. Parabéns por concluir a atividade!');
+      localStorage.removeItem('aula5_projetoVida');
+    } else {
+      showStatus('❌', 'Erro', 'Houve um erro ao salvar. Tente novamente.');
+    }
+  } catch(e) {
+    showStatus('❌', 'Erro', 'Erro de conexão. Verifique sua internet.');
+  }
+}
+
+function showStatus(emoji, title, msg) {
+  const statusEl = document.getElementById('status-msg');
+  statusEl.innerHTML = `
+    <div style="text-align:center; padding:16px;">
+      <div style="font-size:2.5rem; margin-bottom:8px;">${emoji}</div>
+      <p style="font-weight:700; font-size:1.1rem; color:var(--primary); margin-bottom:6px;">${title}</p>
+      <p style="color:var(--muted);">${msg}</p>
+    </div>
+  `;
+}
+
+// ===========================
+// ACCESSIBILITY
+// ===========================
+const accToggle = document.getElementById('accToggle');
+const accPanel  = document.getElementById('accPanel');
+const accClose  = document.getElementById('accClose');
+
+accToggle.onclick = () => accPanel.classList.toggle('active');
+accClose.onclick  = () => accPanel.classList.remove('active');
+
+document.getElementById('fontNormal').onclick = () => {
+  document.body.style.fontFamily = 'var(--font-b)';
+  document.querySelectorAll('h1,h2,h3,h4,
