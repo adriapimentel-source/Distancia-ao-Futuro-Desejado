@@ -658,8 +658,9 @@
     <div id="stratModalSteps"></div>
     <div id="stratModalExample" class="modal-example"></div>
     <div class="form-group" style="margin-top:10px;">
-      <label for="stratResponse">✍️ Seu Plano de Ação:</label>
-      <textarea id="stratResponse" placeholder="Descreva como você vai praticar esta estratégia..."></textarea>
+      <label for="stratResponse">✍️ Seu Plano de Ação: <span style="font-weight:400; color:var(--muted); font-size:12px;">(mínimo 10 palavras)</span></label>
+      <textarea id="stratResponse" placeholder="Descreva como você vai praticar esta estratégia..." oninput="updateWordCount()"></textarea>
+      <p id="wordCountMsg" style="font-size:12px; margin-top:4px; color:var(--muted);">0 / 10 palavras mínimas</p>
     </div>
     <div class="btn-row" style="justify-content:flex-end; gap:10px;">
       <button class="btn btn-ghost" id="stratCancelBtn">Cancelar</button>
@@ -967,7 +968,6 @@ function renderRodaChart() {
 
   const labels   = displayDims.map(d => d.nome);
   const presente = displayDims.map(d => state.rodaVida[d.id] || 5);
-  const futuro   = displayDims.map(d => d.media);
 
   const datasets = [
     {
@@ -976,13 +976,6 @@ function renderRodaChart() {
       borderColor: '#046c94', backgroundColor: 'rgba(4,108,148,.15)',
       borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7,
       pointBackgroundColor: '#046c94'
-    },
-    {
-      label: 'Futuro Desejado (Turma)',
-      data: futuro,
-      borderColor: '#98c847', backgroundColor: 'rgba(152,200,71,.12)',
-      borderWidth: 2, pointRadius: 4, pointHoverRadius: 6,
-      pointBackgroundColor: '#98c847'
     }
   ];
 
@@ -1059,15 +1052,35 @@ function openStratModal(dim, est) {
 
   const saved = state.estrategias.find(e => e.nome === est.nome);
   document.getElementById('stratResponse').value = saved ? saved.resposta : '';
+  updateWordCount();
   document.getElementById('stratModal').classList.add('open');
 }
 
 document.getElementById('stratModalClose').onclick  = () => document.getElementById('stratModal').classList.remove('open');
 document.getElementById('stratCancelBtn').onclick   = () => document.getElementById('stratModal').classList.remove('open');
+function countWords(str) {
+  return str.trim().split(/\s+/).filter(w => w.length > 0).length;
+}
+
+function updateWordCount() {
+  const resp = document.getElementById('stratResponse').value;
+  const count = countWords(resp);
+  const msg = document.getElementById('wordCountMsg');
+  if (!msg) return;
+  if (count >= 10) {
+    msg.textContent = count + ' palavras ✓';
+    msg.style.color = 'var(--accent-dark)';
+  } else {
+    msg.textContent = count + ' / 10 palavras mínimas';
+    msg.style.color = count > 0 ? 'var(--primary)' : 'var(--muted)';
+  }
+}
+
 document.getElementById('stratSaveBtn').onclick     = () => {
   if (!estrategiaAtual) return;
   const resp = document.getElementById('stratResponse').value.trim();
   if (!resp) { alert('Descreva seu plano de ação antes de salvar.'); return; }
+  if (countWords(resp) < 10) { alert('✍️ Desenvolva mais seu plano de ação: escreva pelo menos 10 palavras.'); return; }
 
   const { dim, est } = estrategiaAtual;
   const idx = state.estrategias.findIndex(e => e.nome === est.nome);
