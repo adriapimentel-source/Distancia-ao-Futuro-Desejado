@@ -1264,7 +1264,7 @@ async function enviarSheets() {
     timestamp: new Date().toLocaleString('pt-BR'),
     nome: state.nome, ra: state.ra, turma: state.turma,
     ...Object.fromEntries(DIMS.map(d => ['nota_'+d.id, state.rodaVida[d.id] || 0])),
-    estrategias: state.estrategias.map(e => e.nome).join(', ')
+    estrategias: state.estrategias.map(e => `${e.nome}: ${e.resposta}`).join(' | ')
   };
   try {
     const res = await fetch(SHEETS_URL, {
