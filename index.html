@@ -189,6 +189,7 @@
       outline: none;
     }
     input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--focus-ring); }
+    .input-error { border-color: var(--danger) !important; box-shadow: 0 0 0 3px rgba(220,53,69,.18) !important; }
     textarea { min-height: 96px; resize: vertical; }
 
     /* ===== SLIDERS ===== */
@@ -559,9 +560,6 @@
       <div class="chart-wrap"><canvas id="nuvemChart"></canvas></div>
     </div>
 
-    <div class="btn-row" style="justify-content:flex-end">
-      <button class="btn btn-primary" onclick="goNext(0)">Próximo →</button>
-    </div>
   </div>
 
   <!-- ==================== PAGE 1: RODA DA VIDA ==================== -->
@@ -596,10 +594,6 @@
       <p style="font-size:13px; margin-top:8px; color:var(--muted); font-style:italic;">Pronto para dar o primeiro passo? Siga em frente. →</p>
     </div>
 
-    <div class="btn-row" style="justify-content:space-between">
-      <button class="btn btn-ghost" onclick="goBack(1)">← Voltar</button>
-      <button class="btn btn-primary" onclick="goNext(1)">Próximo →</button>
-    </div>
   </div>
 
   <!-- ==================== PAGE 2: ESTRATÉGIAS ==================== -->
@@ -615,10 +609,6 @@
       <div id="stratContents"></div>
     </div>
 
-    <div class="btn-row" style="justify-content:space-between">
-      <button class="btn btn-ghost" onclick="goBack(2)">← Voltar</button>
-      <button class="btn btn-primary" onclick="goNext(2)">Próximo →</button>
-    </div>
   </div>
 
   <!-- ==================== PAGE 3: CONCLUSÃO ==================== -->
@@ -636,14 +626,9 @@
       </ul>
     </div>
 
-    <div class="card" style="margin-bottom:14px;">
-      <div id="status-msg"></div>
-    </div>
-
     <div class="btn-row" style="flex-direction:column; gap:10px;">
       <button class="btn btn-accent btn-lg" id="completeBtn">🎉 Concluir a Atividade</button>
       <button class="btn btn-outline btn-lg" onclick="window.print()">🖨️ Imprimir / Baixar PDF</button>
-      <button class="btn btn-ghost" onclick="goBack(3)">← Voltar</button>
     </div>
   </div>
 
@@ -685,10 +670,6 @@
   <div class="nav-step-dots" id="navDots"></div>
   <button class="btn btn-primary" id="nextBtn" onclick="goNext(currentPage)">Próximo →</button>
 </div>
-
-<footer>
-  <p>📚 Projeto de Vida · Aula 5 &nbsp;|&nbsp; Fundação Matias Machline</p>
-</footer>
 
 <script>
 // ===========================
@@ -763,25 +744,15 @@ const DIMS = [
 // ===========================
 let state = {
   nome:'', ra:'', turma:'',
-  rodaVida:{},
+  rodaVida: Object.fromEntries(['saude','lazer','equilibrio','financas','relacoes','intelectual','proposito','plenitude','contribuicao','espiritualidade'].map(k => [k, 5])),
   estrategias:[]
 };
 
 let currentPage = 0;
 const TOTAL_PAGES = 4;
 
-// Load from localStorage
-(function loadState() {
-  const saved = localStorage.getItem('aula5_projetoVida');
-  if (saved) {
-    try {
-      state = {...state, ...JSON.parse(saved)};
-    } catch(e) {}
-  }
-})();
-
 function saveState() {
-  localStorage.setItem('aula5_projetoVida', JSON.stringify(state));
+  // persistência desativada — dados não são mantidos entre reloads
 }
 
 // ===========================
@@ -792,11 +763,56 @@ function goNext(from) {
     const nome = document.getElementById('studentName').value.trim();
     const ra   = document.getElementById('studentRA').value.trim();
     const turma= document.getElementById('studentClass').value.trim();
+    const nomeValido = nome.trim().split(/\s+/).filter(w => w.length > 0).length >= 2;
     let ok = true;
-    document.getElementById('errName').style.display  = nome  ? 'none' : 'block'; if(!nome)  ok=false;
-    document.getElementById('errRA').style.display    = ra    ? 'none' : 'block'; if(!ra)    ok=false;
-    document.getElementById('errTurma').style.display = turma ? 'none' : 'block'; if(!turma) ok=false;
-    if (!ok) return;
+    let firstErrorEl = null;
+
+    const nameInput = document.getElementById('studentName');
+    const errName   = document.getElementById('errName');
+    if (!nome) {
+      errName.textContent = 'Campo obrigatório.';
+      errName.style.display = 'block';
+      nameInput.classList.add('input-error');
+      firstErrorEl = firstErrorEl || nameInput;
+      ok = false;
+    } else if (!nomeValido) {
+      errName.textContent = 'Informe nome e sobrenome.';
+      errName.style.display = 'block';
+      nameInput.classList.add('input-error');
+      firstErrorEl = firstErrorEl || nameInput;
+      ok = false;
+    } else {
+      errName.style.display = 'none';
+      nameInput.classList.remove('input-error');
+    }
+
+    const raInput = document.getElementById('studentRA');
+    if (!ra) {
+      document.getElementById('errRA').style.display = 'block';
+      raInput.classList.add('input-error');
+      firstErrorEl = firstErrorEl || raInput;
+      ok = false;
+    } else {
+      document.getElementById('errRA').style.display = 'none';
+      raInput.classList.remove('input-error');
+    }
+
+    const turmaInput = document.getElementById('studentClass');
+    if (!turma) {
+      document.getElementById('errTurma').style.display = 'block';
+      turmaInput.classList.add('input-error');
+      firstErrorEl = firstErrorEl || turmaInput;
+      ok = false;
+    } else {
+      document.getElementById('errTurma').style.display = 'none';
+      turmaInput.classList.remove('input-error');
+    }
+
+    if (!ok) {
+      firstErrorEl.focus();
+      firstErrorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
     state.nome = nome; state.ra = ra; state.turma = turma;
     saveState();
   }
@@ -1146,7 +1162,6 @@ async function enviarSheets() {
     const data = await res.json();
     if (data.result === 'success' || data.success) {
       showStatus('🎉', 'Atividade Concluída!', 'Seus dados foram salvos com sucesso. Parabéns por completar este jogo!');
-      localStorage.removeItem('aula5_projetoVida');
     } else {
       throw new Error('Erro na resposta');
     }
@@ -1215,13 +1230,8 @@ document.getElementById('contrastHigh').onclick  = () => {
 };
 
 // ===========================
-// RESTORE STATE ON LOAD
+// INIT
 // ===========================
-(function restoreOnLoad() {
-  if (state.nome)  document.getElementById('studentName').value  = state.nome;
-  if (state.ra)    document.getElementById('studentRA').value    = state.ra;
-  if (state.turma) document.getElementById('studentClass').value = state.turma;
-})();
 </script>
 </body>
 </html>
