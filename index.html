@@ -410,8 +410,11 @@
     /* ===== PRINT ===== */
     @media print {
       .acc-btn, .acc-panel, .nav-bar { display: none !important; }
-      .page { display: block !important; page-break-after: always; }
-      body { background: #fff; }
+      .page { display: none !important; }
+      .page.active { display: block !important; }
+      body { background: #fff !important; }
+      .card { box-shadow: none !important; border: 1px solid #d9e2e8 !important; }
+      canvas { max-width: 100% !important; }
     }
   </style>
 </head>
@@ -624,6 +627,12 @@
       <ul class="summary-list" id="summaryList">
         <li style="color:var(--muted); padding:12px; text-align:center;">Nenhuma estratégia registrada ainda.</li>
       </ul>
+    </div>
+
+    <div class="card" style="border-top: 4px solid var(--primary); background: linear-gradient(135deg, rgba(4,108,148,.04), rgba(152,200,71,.06));">
+      <h3 style="margin-bottom:4px;">🌐 Sua Roda da Vida</h3>
+      <p style="font-size:13px; margin-bottom:14px;">Um retrato do seu momento atual — guarde como referência.</p>
+      <div class="chart-wrap-tall"><canvas id="summaryChart"></canvas></div>
     </div>
 
     <div class="btn-row" style="flex-direction:column; gap:10px;">
@@ -850,7 +859,7 @@ function showPage(n) {
     renderRodaChart();
   }
   if (n === 2) renderStratTabs();
-  if (n === 3) renderSummary();
+  if (n === 3) { renderSummary(); renderSummaryChart(); }
 }
 
 function updateNavBar() {
@@ -1000,8 +1009,24 @@ function renderRodaChart() {
     data: { labels, datasets },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { position:'bottom', labels:{boxWidth:12, padding:14, font:{size:11}} } },
-      scales: { r: { min:1, max:10, ticks:{stepSize:1, backdropColor:'transparent'}, pointLabels:{font:{size:10}}, grid:{color:'rgba(4,108,148,.12)'}, angleLines:{color:'rgba(4,108,148,.16)'} } }
+      plugins: { legend: { position:'bottom', labels:{boxWidth:12, padding:14, font:{size:11}, color:'#24313a'} } },
+      scales: {
+        r: {
+          min:1, max:10,
+          ticks:{
+            stepSize:1,
+            backdropColor:'rgba(255,255,255,0.75)',
+            color:'#046c94',
+            font:{size:11, weight:'600'}
+          },
+          pointLabels:{
+            font:{size:11, weight:'600'},
+            color:'#24313a'
+          },
+          grid:{color:'rgba(4,108,148,.30)'},
+          angleLines:{color:'rgba(4,108,148,.35)'}
+        }
+      }
     }
   });
 }
@@ -1132,6 +1157,93 @@ function renderSummary() {
       </div>
     </li>
   `).join('');
+}
+
+// ===========================
+// CHART: RESUMO (colorido)
+// ===========================
+
+// Cores baseadas na psicologia das cores por área:
+// Saúde → verde-vivo (vitalidade, natureza, renovação)
+// Lazer → amarelo-dourado (alegria, leveza, brilho)
+// Equilíbrio Emocional → azul-suave (calma, serenidade, clareza)
+// Finanças → âmbar/ouro (prosperidade, estabilidade, segurança)
+// Relações Afetivas → rosa-quente (amor, afeto, conexão)
+// Dev. Intelectual → violeta (sabedoria, curiosidade, profundidade)
+// Propósito → vermelho-coral (paixão, direção, energia vital)
+// Plenitude → verde-azulado/teal (harmonia, integração, equilíbrio)
+// Contribuição → laranja-caloroso (generosidade, calor humano, comunidade)
+// Espiritualidade → lilás-profundo (transcendência, mistério, elevação)
+const SUMMARY_CORES = {
+  saude:        '#22c55e',
+  lazer:        '#fbbf24',
+  equilibrio:   '#38bdf8',
+  financas:     '#d97706',
+  relacoes:     '#f472b6',
+  intelectual:  '#7c3aed',
+  proposito:    '#ef4444',
+  plenitude:    '#14b8a6',
+  contribuicao: '#fb923c',
+  espiritualidade: '#a855f7'
+};
+
+let summaryChartInst = null;
+function renderSummaryChart() {
+  const ctx = document.getElementById('summaryChart');
+  if (!ctx) return;
+  if (summaryChartInst) { summaryChartInst.destroy(); }
+
+  const labels  = DIMS.map(d => d.nome);
+  const valores = DIMS.map(d => state.rodaVida[d.id] || 5);
+  const cores   = DIMS.map(d => SUMMARY_CORES[d.id] || d.cor);
+
+  summaryChartInst = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Você Agora',
+        data: valores,
+        borderColor: 'rgba(80,80,120,.45)',
+        backgroundColor: 'rgba(120,100,200,.08)',
+        borderWidth: 2,
+        pointRadius: 8,
+        pointHoverRadius: 10,
+        pointBackgroundColor: cores,
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2.5
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ' ' + ctx.parsed.r + ' / 10',
+            title: items => items[0].label
+          }
+        }
+      },
+      scales: {
+        r: {
+          min: 1, max: 10,
+          ticks: {
+            stepSize: 1,
+            backdropColor: 'rgba(255,255,255,0.80)',
+            color: '#5f6c76',
+            font: { size: 11, weight: '600' }
+          },
+          pointLabels: {
+            font: { size: 11, weight: '700' },
+            color: ctx => SUMMARY_CORES[DIMS[ctx.index]?.id] || '#24313a'
+          },
+          grid: { color: 'rgba(100,100,150,.18)' },
+          angleLines: { color: 'rgba(100,100,150,.22)' }
+        }
+      }
+    }
+  });
 }
 
 // ===========================
