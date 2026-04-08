@@ -6,7 +6,7 @@
   <title>Distância ao Futuro Desejado — Projeto de Vida · Aula 5</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=OpenDyslexic:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=OpenDyslexic:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 
   <style>
@@ -14,43 +14,69 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --primary:      #1d4e5f;
-      --primary-lite: #2d7a9a;
-      --accent:       #a5ca65;
-      --accent-dark:  #74a93a;
-      --bg:           #f5f3ee;
+      --primary:      #046c94;
+      --primary-lite: #4da8cc;
+      --accent:       #98c847;
+      --accent-dark:  #7cac44;
+      --bg:           #f8f9fa;
       --card:         #ffffff;
-      --text:         #1a1a2e;
-      --muted:        #6b7280;
-      --border:       #e0ddd8;
-      --danger:       #c0392b;
-      --radius:       12px;
-      --radius-sm:    8px;
-      --shadow:       0 2px 16px rgba(0,0,0,.08);
-      --font-h:       'Fraunces', Georgia, serif;
-      --font-b:       'Plus Jakarta Sans', system-ui, sans-serif;
+      --text:         #24313a;
+      --muted:        #5f6c76;
+      --border:       #d9e2e8;
+      --danger:       #dc3545;
+      --radius:       18px;
+      --radius-sm:    10px;
+      --shadow:       0 10px 28px rgba(4,108,148,.10);
+      --font-h:       'Poppins', sans-serif;
+      --font-b:       'Poppins', sans-serif;
+      --gradient-main: linear-gradient(135deg, #046c94 0%, #044e6e 100%);
+      --gradient-soft: linear-gradient(135deg, rgba(4,108,148,.10), rgba(152,200,71,.12));
+      --focus-ring:   rgba(4,108,148,.35);
     }
 
     /* ===== DARK MODE ===== */
     body.dark-mode {
-      --bg:     #1a1a2e;
-      --card:   #252540;
-      --text:   #f0f0f0;
-      --muted:  #a0a0b0;
-      --border: #3a3a5c;
+      --bg:     #1a2230;
+      --card:   #243040;
+      --text:   #dce8f0;
+      --muted:  #9ab5c4;
+      --border: #334a5c;
+      --primary: #4da8cc;
+      --accent:  #a8d855;
+      --accent-dark: #8ecfea;
+      --focus-ring: rgba(77,168,204,.45);
+    }
+    body.dark-mode {
+      background:
+        radial-gradient(circle at top left, rgba(77,168,204,.10), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(168,216,85,.07), transparent 26%),
+        var(--bg);
     }
     body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
-      background: #1e1e38 !important;
-      color: #f0f0f0 !important;
+      background: #1e2c3c !important;
+      color: #dce8f0 !important;
       border-color: var(--border) !important;
     }
-    body.dark-mode .acc-panel { background: #252540; color: var(--text); }
-    body.dark-mode .option-btn { background: #2e2e50; border-color: #4a4a70; color: var(--text); }
+    body.dark-mode .acc-panel { background: #243040; color: var(--text); }
+    body.dark-mode .option-btn { background: #2e3f52; border-color: #334a5c; color: var(--text); }
     body.dark-mode .nav-bar { background: var(--card); }
 
     /* ===== HIGH CONTRAST ===== */
-    body.high-contrast { --primary: #000; --accent: #000; --text: #000; --bg: #fff; }
-    body.high-contrast.dark-mode { --primary: #ffff00; --accent: #ffff00; --text: #000; --bg: #ffff00; }
+    body.high-contrast {
+      --bg:     #0d1117;
+      --card:   #161b22;
+      --text:   #f0e6d3;
+      --muted:  #c9b99a;
+      --border: #4a6070;
+      --primary: #5bc8ef;
+      --accent:  #c6e95a;
+      --accent-dark: #5bc8ef;
+      --focus-ring: #5bc8ef;
+      background: #0d1117;
+    }
+    body.high-contrast h1, body.high-contrast h2, body.high-contrast h3 { color: var(--accent); }
+    body.high-contrast .btn-primary { background: var(--primary); color: #0d1117; }
+    body.high-contrast.dark-mode { --primary: #5bc8ef; --accent: #c6e95a; --text: #f0e6d3; --bg: #0d1117; }
 
     /* ===== DYSLEXIC FONT ===== */
     body.dyslexic-font, body.dyslexic-font * { font-family: 'OpenDyslexic', sans-serif !important; }
@@ -58,7 +84,10 @@
     /* ===== BASE ===== */
     body {
       font-family: var(--font-b);
-      background: var(--bg);
+      background:
+        radial-gradient(circle at top left, rgba(152,200,71,.16), transparent 26%),
+        radial-gradient(circle at top right, rgba(4,108,148,.12), transparent 24%),
+        var(--bg);
       color: var(--text);
       min-height: 100vh;
       line-height: 1.65;
@@ -80,7 +109,7 @@
       color: var(--primary);
       line-height: 1.12;
     }
-    h1 em { font-style: italic; color: var(--accent-dark); }
+    h1 em { font-style: italic; color: var(--accent-dark); font-weight: 700; }
     h2 {
       font-family: var(--font-h);
       font-size: clamp(1.3rem, 3.5vw, 1.8rem);
@@ -110,7 +139,7 @@
     .progress-bg { flex:1; height:6px; background:var(--border); border-radius:100px; overflow:hidden; }
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
+      background: var(--gradient-main);
       border-radius: 100px;
       transition: width .45s ease;
     }
@@ -127,9 +156,10 @@
       padding: 22px;
       margin-bottom: 14px;
       box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-      transition: background .3s;
+      border: 1px solid rgba(4,108,148,.06);
+      transition: transform .2s ease, box-shadow .2s ease, background .3s;
     }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(4,108,148,.14); }
     .card-icon { font-size: 1.75rem; margin-bottom: 10px; display: block; }
 
     /* ===== FORM ===== */
@@ -158,7 +188,7 @@
       transition: border-color .18s;
       outline: none;
     }
-    input:focus, select:focus, textarea:focus { border-color: var(--primary); }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--focus-ring); }
     textarea { min-height: 96px; resize: vertical; }
 
     /* ===== SLIDERS ===== */
@@ -203,14 +233,14 @@
       font-family: var(--font-b); font-size: 15px; font-weight: 600;
       cursor: pointer; border: none; transition: all .18s; text-decoration: none;
     }
-    .btn-primary { background: var(--primary); color: #fff; }
-    .btn-primary:hover { background: var(--primary-lite); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(29,78,95,.3); }
-    .btn-accent  { background: var(--accent); color: #1a1a2e; }
-    .btn-accent:hover  { background: var(--accent-dark); color: #fff; transform: translateY(-1px); }
-    .btn-outline { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-primary { background: var(--gradient-main); color: #fff; box-shadow: 0 8px 20px rgba(4,108,148,.22); }
+    .btn-primary:hover { background: var(--gradient-main); filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 12px 24px rgba(4,108,148,.28); }
+    .btn-accent  { background: linear-gradient(135deg, var(--accent), #b7dc69); color: #044e6e; box-shadow: 0 8px 20px rgba(152,200,71,.22); }
+    .btn-accent:hover  { filter: brightness(1.05); transform: translateY(-1px); box-shadow: 0 12px 24px rgba(152,200,71,.28); }
+    .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
     .btn-outline:hover { background: var(--primary); color: #fff; }
-    .btn-ghost { background: transparent; color: var(--muted); }
-    .btn-ghost:hover { color: var(--text); }
+    .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+    .btn-ghost:hover { background: rgba(4,108,148,.06); color: var(--text); }
     .btn-lg { padding: 14px 30px; font-size: 16px; width: 100%; }
     .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
 
@@ -307,8 +337,8 @@
     .strat-card p { font-size: 13px; margin-bottom: 12px; }
     .strat-card .btn { font-size: 13px; padding: 8px 14px; width: 100%; border-radius: var(--radius-sm); }
 
-    .strat-card.selected { border-left-color: var(--accent); background: #f0fae8; }
-    body.dark-mode .strat-card.selected { background: #1e3020; }
+    .strat-card.selected { border-left-color: var(--accent); background: rgba(152,200,71,.08); }
+    body.dark-mode .strat-card.selected { background: rgba(152,200,71,.07); }
 
     /* ===== SUMMARY ===== */
     .summary-list { list-style: none; }
@@ -452,12 +482,12 @@
       <svg class="game-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#1d4e5f"/>
-            <stop offset="100%" stop-color="#2d7a9a"/>
+            <stop offset="0%" stop-color="#046c94"/>
+            <stop offset="100%" stop-color="#044e6e"/>
           </linearGradient>
           <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#a5ca65"/>
-            <stop offset="100%" stop-color="#74a93a"/>
+            <stop offset="0%" stop-color="#98c847"/>
+            <stop offset="100%" stop-color="#7cac44"/>
           </linearGradient>
         </defs>
         <!-- Outer circle -->
