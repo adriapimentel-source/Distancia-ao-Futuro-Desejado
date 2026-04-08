@@ -569,15 +569,14 @@
     <div class="page-header">
       <div class="badge">Etapa 2 de 4</div>
       <h2>📊 Sua Roda da Vida</h2>
-      <p style="font-size:14px;">Avalie de <strong>0 a 10</strong> como você se sente em cada área hoje.</p>
+      <p style="font-size:14px;">Avalie de <strong>1 a 10</strong> como você se sente em cada área hoje.</p>
     </div>
 
-    <div class="card">
-      <div class="form-group">
-        <label for="notaAula4">📌 (Opcional) Sua nota geral da Aula 4</label>
-        <input type="number" id="notaAula4" min="0" max="10" step="0.1" placeholder="Ex: 6.5">
-        <p style="font-size:12px; margin-top:4px; color:var(--muted);">Se preenchido, o gráfico mostrará comparação com o futuro desejado.</p>
-      </div>
+    <div class="card" style="border-left: 4px solid var(--accent); background: var(--gradient-soft);">
+      <span style="font-size:1.4rem; display:block; margin-bottom:8px;">🔍</span>
+      <h3 style="margin-bottom:6px;">Antes de começar: relembre sua aula anterior</h3>
+      <p style="font-size:14px; color:var(--text);">Você já refletiu sobre como imagina seu futuro em diferentes áreas da vida. Agora é hora de olhar para o <strong>presente</strong>: como você está de verdade, hoje, em cada uma dessas áreas?</p>
+      <p style="font-size:13px; margin-top:8px;">Resgate o que você registrou antes e use como referência para comparar suas <em>expectativas sobre o futuro</em> com a sua <em>realidade atual</em>. Seja honesto — não há resposta certa ou errada.</p>
     </div>
 
     <div class="card">
@@ -588,6 +587,13 @@
     <div class="card">
       <h3>Visualização da sua Roda da Vida</h3>
       <div class="chart-wrap-tall"><canvas id="rodaChart"></canvas></div>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--primary); text-align:center; padding: 24px 22px;">
+      <span style="font-size:2rem; display:block; margin-bottom:10px;">🤔</span>
+      <h3 style="color:var(--primary); margin-bottom:8px;">O que esse mapa revela sobre você?</h3>
+      <p style="font-size:14px; color:var(--text);">Observe as áreas com notas mais baixas. Elas indicam onde há mais espaço para crescer. Na próxima etapa, você vai escolher <strong>estratégias concretas</strong> para começar a transformar essas áreas — uma prática de cada vez.</p>
+      <p style="font-size:13px; margin-top:8px; color:var(--muted); font-style:italic;">Pronto para dar o primeiro passo? Siga em frente. →</p>
     </div>
 
     <div class="btn-row" style="justify-content:space-between">
@@ -689,8 +695,8 @@
 // ===========================
 const PALETA = {
   saude:'#16a34a', lazer:'#f59e0b', equilibrio:'#3b82f6', financas:'#ec4899',
-  familia:'#8b5cf6', intelectual:'#06b6d4', proposito:'#d97706', plenitude:'#a5ca65',
-  social:'#f97316', amor:'#ef4444', contribuicao:'#6366f1', espiritualidade:'#84cc16'
+  relacoes:'#8b5cf6', intelectual:'#06b6d4', proposito:'#d97706', plenitude:'#a5ca65',
+  contribuicao:'#6366f1', espiritualidade:'#84cc16'
 };
 
 const NUVEM = [
@@ -698,12 +704,10 @@ const NUVEM = [
   {area:'Lazer',valor:8.77,cor:PALETA.lazer},
   {area:'Equilíbrio Emocional',valor:8.75,cor:PALETA.equilibrio},
   {area:'Finanças',valor:8.65,cor:PALETA.financas},
-  {area:'Família',valor:8.64,cor:PALETA.familia},
+  {area:'Relações Afetivas',valor:8.39,cor:PALETA.relacoes},
   {area:'Dev. Intelectual',valor:8.62,cor:PALETA.intelectual},
   {area:'Propósito',valor:8.40,cor:PALETA.proposito},
   {area:'Plenitude',valor:8.38,cor:PALETA.plenitude},
-  {area:'Social',valor:7.96,cor:PALETA.social},
-  {area:'Amor / Relacionamento',valor:7.89,cor:PALETA.amor},
   {area:'Contribuição',valor:7.66,cor:PALETA.contribuicao},
   {area:'Espiritualidade',valor:7.63,cor:PALETA.espiritualidade}
 ];
@@ -725,9 +729,11 @@ const DIMS = [
     {nome:'Regra dos 10%',desc:'Não precisa ter muito dinheiro pra começar a cuidar das suas finanças. O que importa não é o valor — é o hábito. Quem aprende a guardar cedo tem uma vantagem enorme lá na frente.',passos:['Toda vez que receber qualquer dinheiro (mesada, presente, trampo), separe 10% antes de gastar','Guarde em envelope ou conta separada','O objetivo não é ficar rico agora — é treinar o cérebro a pensar antes de gastar'],exemplo:'Recebeu R$50? Guarde R$5 antes de qualquer coisa. Recebeu R$200? Guarde R$20. No fim de um mês, você já vai ter uma reserva pequena — e um novo hábito.'},
     {nome:'Diário de Gastos',desc:'A maioria das pessoas não sabe pra onde vai o seu dinheiro. Anotar os gastos por uma semana revela padrões que você nem percebia — e abre espaço pra escolhas mais conscientes.',passos:['Durante 7 dias, anote todo gasto no celular ou caderninho (até o chiclete)','No fim da semana, some por categoria: alimentação, lazer, transporte...','Identifique: "em que eu gastei sem realmente querer?"'],exemplo:'Você pode usar o bloco de notas do celular mesmo. No fim da semana, olhe o total. A descoberta mais comum é: "gastei mais com delivery do que percebi."'}
   ]},
-  {id:'familia',nome:'Família',icon:'👨‍👩‍👧‍👦',media:8.64,cor:PALETA.familia,estrategias:[
-    {nome:'Tempo de Qualidade sem Tela',desc:'Presença de verdade é rara. Estar com a família enquanto os dois ficam no celular não conta como conexão. Um momento de atenção real — por menor que seja — fortalece o vínculo mais do que horas de convivência distraída.',passos:['Escolha uma refeição ou momento por semana pra ficar sem celular','Faça uma pergunta genuína: "como foi seu dia?" e ouça de verdade','Proponha uma atividade simples juntos: cozinhar, assistir algo, passear'],exemplo:'Jante com a família 3x por semana sem celular. Ou jogue um jogo, ou assista a um filme juntos — o que importa é estar presente, não a atividade em si.'},
-    {nome:'Conversa Honesta',desc:'Muitos jovens guardam coisas pra si por medo de julgamento ou de preocupar a família. Mas falar com honestidade sobre o que você sente — com respeito — cria vínculos mais fortes e abre portas pra apoio real.',passos:['Escolha um momento calmo, sem pressa, pra conversar','Comece com algo concreto: "quero te contar uma coisa que tô sentindo..."','Ouça o que a outra pessoa tem a dizer sem interromper'],exemplo:'Conte sobre uma preocupação real — o futuro, a escola, um relacionamento. Não precisa ter resposta; às vezes só ser ouvido já ajuda muito.'}
+  {id:'relacoes',nome:'Relações Afetivas',icon:'🤝',media:8.39,cor:PALETA.relacoes,estrategias:[
+    {nome:'Tempo de Qualidade sem Tela',desc:'Presença de verdade é rara. Estar com quem você gosta enquanto os dois ficam no celular não conta como conexão. Um momento de atenção real — por menor que seja — fortalece qualquer vínculo muito mais do que horas de convivência distraída.',passos:['Escolha uma refeição ou momento por semana pra ficar sem celular com alguém importante','Faça uma pergunta genuína: "como você está de verdade?" e ouça com atenção','Proponha uma atividade simples juntos: cozinhar, passear, assistir algo'],exemplo:'Jante com a família 3x por semana sem celular. Ou reserve um tempo com um amigo sem distrações — o que importa é estar presente, não a atividade em si.'},
+    {nome:'Escuta Ativa',desc:'Conexões de verdade não se medem em quantidade — mas em qualidade. E a qualidade começa com presença real: ouvir sem estar pensando na resposta ou olhando pro celular.',passos:['Escolha uma conversa hoje e fique sem mexer no celular durante ela','Ouça sem interromper e sem já preparar o que vai falar','No final, repita com suas palavras o que a pessoa disse'],exemplo:'Experimente por 5 minutos: celular virado pra baixo, olhos na pessoa, atenção total. Você vai notar como isso muda o clima da conversa.'},
+    {nome:'Check-in com Alguém Importante',desc:'Muitas vezes deixamos as pessoas que importam pra depois — e o tempo passa. Um gesto simples de atenção genuína fortalece vínculos e cria uma rede de apoio real.',passos:['Pense em alguém que você não fala há um tempo','Mande uma mensagem real, não um meme ou sticker aleatório','Diga algo genuíno: "lembrei de você", "como você está de verdade?"'],exemplo:'Não precisa ser longo — precisa ser verdadeiro. Uma mensagem de 2 linhas com atenção real vale mais do que uma hora de conversa rasa.'},
+    {nome:'Comunicação Não-Violenta',desc:'A maioria dos conflitos nas relações não é falta de carinho — é falta de comunicação clara. Aprender a expressar o que você sente de forma respeitosa é uma habilidade que transforma qualquer tipo de relação.',passos:['Na próxima vez que algo te incomodar, fale sobre o sentimento, não sobre o erro da outra pessoa','Use "eu me sinto..." em vez de "você fez..."','Ouça a resposta com abertura, mesmo que seja difícil'],exemplo:'"Eu me sinto ignorado quando fico esperando resposta" comunica muito mais — e gera menos defesa — do que "você nunca responde minhas mensagens."'}
   ]},
   {id:'intelectual',nome:'Dev. Intelectual',icon:'🧠',media:8.62,cor:PALETA.intelectual,estrategias:[
     {nome:'Micro-Learning Diário',desc:'Grandes conquistas no futuro começam com pequenas ações hoje. Se você quer crescer no trabalho ou na vida acadêmica, 15 minutos de aprendizado focado por dia já fazem diferença — sem pressão, sem perfeição.',passos:['Escolha um tema que te interessa (idioma, programação, filosofia, culinária...)','Separe 15 minutos por dia só pra isso','Pode ser podcast no ônibus, artigo curto antes de dormir, vídeo enquanto come'],exemplo:'Quer aprender inglês? 15 min por dia num app já coloca você à frente de quem não faz nada. Em 3 meses, a diferença é enorme.'},
@@ -740,14 +746,6 @@ const DIMS = [
   {id:'plenitude',nome:'Plenitude',icon:'✨',media:8.38,cor:PALETA.plenitude,estrategias:[
     {nome:'Gratidão Diária',desc:'Treinar a mente pra enxergar o que existe — e não só o que falta — muda o estado emocional do dia. Gratidão não é fingir que está tudo bem; é ampliar o foco pra além dos problemas.',passos:['Ao acordar ou antes de dormir, pense em 3 coisas pelas quais você é grato','Podem ser coisas simples: o sol, uma risada, uma comida boa','Se quiser, escreva num caderninho ou no celular'],exemplo:'Com o tempo, você começa a notar mais coisas boas no seu dia sem precisar forçar. O cérebro aprende a buscar o que você treina ele a buscar.'},
     {nome:'Autocuidado Intencional',desc:'Cuidar de si mesmo não é egoísmo — é condição pra cuidar do resto. E não precisa ser nada grandioso: pequenos rituais diários de atenção a si mesmo já fazem diferença.',passos:['Identifique 1 coisa pequena que te faz bem e que você tem deixado de lado','Reserve 20-30 minutos por dia só pra isso','Proteja esse momento como se fosse um compromisso importante'],exemplo:'Pode ser ouvir música enquanto toma banho, ler antes de dormir, dar uma caminhada curta, ou simplesmente ficar em silêncio por alguns minutos. O que importa é que seja intencional.'}
-  ]},
-  {id:'social',nome:'Social (Amizades)',icon:'👥',media:7.96,cor:PALETA.social,estrategias:[
-    {nome:'Escuta Ativa',desc:'Ter amizades de verdade não é sobre quantidade — é sobre qualidade da conexão. E a conexão começa com presença real: ouvir de verdade, sem estar pensando na resposta ou olhando pro celular.',passos:['Escolha uma conversa hoje e fique sem mexer no celular durante ela','Ouça sem interromper e sem já preparar o que vai falar','No final, repita com suas palavras o que a pessoa disse'],exemplo:'Experimente por 5 minutos: celular na mesa virado pra baixo, olhos na pessoa, atenção total. Você vai notar como isso muda o clima da conversa.'},
-    {nome:'Check-in com Alguém Importante',desc:'Muitas vezes deixamos as pessoas que importam pra depois — e o tempo passa. Um gesto simples de atenção genuína fortalece vínculos e cria uma rede de apoio que vai fazer diferença nos momentos difíceis.',passos:['Pense em alguém que você não fala há um tempo','Mande uma mensagem real, não um meme ou sticker aleatório','Diga algo genuíno: "lembrei de você", "como você está de verdade?"'],exemplo:'Não precisa ser longo — precisa ser verdadeiro. Uma mensagem de 2 linhas com atenção real vale mais do que uma hora de conversa rasa.'}
-  ]},
-  {id:'amor',nome:'Amor / Relacionamento',icon:'❤️',media:7.89,cor:PALETA.amor,estrategias:[
-    {nome:'Autoaceitação',desc:'Relacionamentos saudáveis começam com uma boa relação consigo mesmo. Quando você se aceita — com qualidades e imperfeições — você para de buscar nos outros o que deveria construir em você.',passos:['Escreva 5 coisas que você gosta em você (não precisa ser aparência — pode ser jeito de ser, habilidades, valores)','Identifique uma crítica que você faz a si mesmo com frequência','Tente reformular essa crítica com mais compaixão, como faria com um amigo'],exemplo:'Se você diria "meu amigo errou, mas tá aprendendo" pra um colega, por que não diria o mesmo pra você? Autoaceitação é isso: aplicar a mesma generosidade que você tem pelos outros a si mesmo.'},
-    {nome:'Comunicação Honesta',desc:'A maioria dos problemas em relacionamentos não é falta de amor — é falta de comunicação. Aprender a falar de forma clara e respeitosa sobre o que você sente é uma habilidade que muda tudo.',passos:['Na próxima vez que algo te incomodar, fale sobre o sentimento, não sobre o erro da outra pessoa','Use "eu me sinto..." em vez de "você fez..."','Ouça a resposta com abertura, mesmo que seja difícil'],exemplo:'"Eu me sinto ignorado quando fico esperando resposta por horas" comunica muito mais — e gera menos defesa — do que "você nunca responde minhas mensagens."'}
   ]},
   {id:'contribuicao',nome:'Contribuição',icon:'🌍',media:7.66,cor:PALETA.contribuicao,estrategias:[
     {nome:'Impacto Social Próximo',desc:'Mudar o mundo começa pelo que está ao seu alcance. Antes de pensar em grandes causas, olhe pra volta: existe algo concreto que você pode fazer na sua escola, no seu bairro, no seu círculo?',passos:['Identifique um problema pequeno ao seu redor que você poderia ajudar a resolver','Pense em 1 ação concreta que está no seu alcance hoje','Faça — e observe o que acontece'],exemplo:'Se preocupa com educação? Ajude um colega que está com dificuldade. Se vê lixo no corredor? Reclamação não resolve, mas agir resolve. Pequenas ações mudam a cultura do ambiente.'},
@@ -765,8 +763,7 @@ const DIMS = [
 let state = {
   nome:'', ra:'', turma:'',
   rodaVida:{},
-  estrategias:[],
-  notaAula4: null
+  estrategias:[]
 };
 
 let currentPage = 0;
@@ -803,7 +800,6 @@ function goNext(from) {
     saveState();
   }
   if (from === 1) {
-    state.notaAula4 = parseFloat(document.getElementById('notaAula4').value) || null;
     saveState();
     renderRodaChart();
   }
@@ -833,7 +829,6 @@ function showPage(n) {
     document.getElementById('studentClass').value= state.turma|| '';
   }
   if (n === 1) {
-    document.getElementById('notaAula4').value = state.notaAula4 || '';
     restoreSliders();
     renderRodaChart();
   }
@@ -890,6 +885,20 @@ updateNavBar();
 // ===========================
 // RODA DA VIDA: SLIDERS
 // ===========================
+function getSliderColor(val) {
+  // Gradient: 1=red, 5=yellow, 10=green
+  const v = Math.max(1, Math.min(10, val));
+  if (v <= 5) {
+    const t = (v - 1) / 4;
+    const r = 220, g = Math.round(72 + (195 - 72) * t), b = 72;
+    return `rgb(${r},${g},${b})`;
+  } else {
+    const t = (v - 5) / 5;
+    const r = Math.round(220 - (220 - 22) * t), g = Math.round(195 - (195 - 163) * t), b = Math.round(72 - 72 * t);
+    return `rgb(${r},${g},${b})`;
+  }
+}
+
 function buildSliders() {
   const container = document.getElementById('rodaVidaSliders');
   container.innerHTML = '';
@@ -900,18 +909,21 @@ function buildSliders() {
     div.innerHTML = `
       <div class="slider-head">
         <span class="slider-lbl">${dim.icon} ${dim.nome}</span>
-        <span class="slider-val" id="sv-${dim.id}">${parseFloat(val).toFixed(1)}</span>
+        <span class="slider-val" id="sv-${dim.id}" style="color:${getSliderColor(val)}">${Math.round(val)}</span>
       </div>
-      <input type="range" id="sl-${dim.id}" min="0" max="10" step="0.1" value="${val}">
-      <div class="slider-hints"><span>Ruim</span><span>Excelente</span></div>
+      <input type="range" id="sl-${dim.id}" min="1" max="10" step="1" value="${Math.round(val)}">
+      <div class="slider-hints"><span>1 — Muito baixo</span><span>10 — Excelente</span></div>
     `;
     container.appendChild(div);
     const input = div.querySelector('input');
     updateSliderFill(input);
     input.addEventListener('input', () => {
-      document.getElementById(`sv-${dim.id}`).textContent = parseFloat(input.value).toFixed(1);
+      const v = parseInt(input.value);
+      const sv = document.getElementById(`sv-${dim.id}`);
+      sv.textContent = v;
+      sv.style.color = getSliderColor(v);
       updateSliderFill(input);
-      state.rodaVida[dim.id] = parseFloat(input.value);
+      state.rodaVida[dim.id] = v;
       saveState();
       renderRodaChart();
     });
@@ -928,9 +940,12 @@ function restoreSliders() {
     const input = document.getElementById(`sl-${dim.id}`);
     if (!input) return;
     const val = state.rodaVida[dim.id] !== undefined ? state.rodaVida[dim.id] : 5;
-    input.value = val;
+    input.value = Math.round(val);
     const sv = document.getElementById(`sv-${dim.id}`);
-    if (sv) sv.textContent = parseFloat(val).toFixed(1);
+    if (sv) {
+      sv.textContent = Math.round(val);
+      sv.style.color = getSliderColor(Math.round(val));
+    }
     updateSliderFill(input);
   });
 }
@@ -946,33 +961,30 @@ function renderRodaChart() {
   if (!ctx) return;
   if (rodaChartInst) { rodaChartInst.destroy(); }
 
-  const labels   = DIMS.map(d => d.nome);
-  const presente = DIMS.map(d => state.rodaVida[d.id] || 0);
-  const futuro   = DIMS.map(d => d.media);
+  // Show only areas the user has interacted with (value exists in state)
+  const activeDims = DIMS.filter(d => state.rodaVida[d.id] !== undefined);
+  const displayDims = activeDims.length > 0 ? activeDims : DIMS;
+
+  const labels   = displayDims.map(d => d.nome);
+  const presente = displayDims.map(d => state.rodaVida[d.id] || 5);
+  const futuro   = displayDims.map(d => d.media);
+
   const datasets = [
     {
       label: 'Você Agora',
       data: presente,
-      borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,.12)',
-      borderWidth: 2, pointRadius: 4, pointHoverRadius: 6
+      borderColor: '#046c94', backgroundColor: 'rgba(4,108,148,.15)',
+      borderWidth: 2.5, pointRadius: 5, pointHoverRadius: 7,
+      pointBackgroundColor: '#046c94'
     },
     {
       label: 'Futuro Desejado (Turma)',
       data: futuro,
-      borderColor: '#a5ca65', backgroundColor: 'rgba(165,202,101,.12)',
-      borderWidth: 2, pointRadius: 4, pointHoverRadius: 6
+      borderColor: '#98c847', backgroundColor: 'rgba(152,200,71,.12)',
+      borderWidth: 2, pointRadius: 4, pointHoverRadius: 6,
+      pointBackgroundColor: '#98c847'
     }
   ];
-
-  const nota = parseFloat(document.getElementById('notaAula4')?.value) || state.notaAula4;
-  if (nota) {
-    datasets.push({
-      label: `Nota Aula 4 (${nota})`,
-      data: DIMS.map(() => nota),
-      borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,.08)',
-      borderWidth: 2, borderDash: [5,5], pointRadius: 3
-    });
-  }
 
   rodaChartInst = new Chart(ctx, {
     type: 'radar',
@@ -980,7 +992,7 @@ function renderRodaChart() {
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { position:'bottom', labels:{boxWidth:12, padding:14, font:{size:11}} } },
-      scales: { r: { beginAtZero:true, max:10, ticks:{stepSize:2}, pointLabels:{font:{size:10}} } }
+      scales: { r: { min:1, max:10, ticks:{stepSize:1, backdropColor:'transparent'}, pointLabels:{font:{size:10}}, grid:{color:'rgba(4,108,148,.12)'}, angleLines:{color:'rgba(4,108,148,.16)'} } }
     }
   });
 }
@@ -1110,7 +1122,6 @@ async function enviarSheets() {
   const payload = {
     timestamp: new Date().toLocaleString('pt-BR'),
     nome: state.nome, ra: state.ra, turma: state.turma,
-    notaAula4: state.notaAula4,
     ...Object.fromEntries(DIMS.map(d => ['nota_'+d.id, state.rodaVida[d.id] || 0])),
     estrategias: state.estrategias.map(e => e.nome).join(', ')
   };
